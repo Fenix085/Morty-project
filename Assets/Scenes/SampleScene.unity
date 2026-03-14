@@ -1388,7 +1388,7 @@ Transform:
   m_GameObject: {fileID: 257622442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 54.2, z: 0}
+  m_LocalPosition: {x: 0, y: 47.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4807,7 +4807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26af33ed5d4d5524ab82a69839c6700a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
-  trashLevel: 3
+  trashLevel: 2
 --- !u!65 &890320745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9309,7 +9309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26af33ed5d4d5524ab82a69839c6700a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
-  trashLevel: 1
+  trashLevel: 3
 --- !u!65 &1715798048
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9797,7 +9797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26af33ed5d4d5524ab82a69839c6700a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
-  trashLevel: 2
+  trashLevel: 3
 --- !u!65 &1827434986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10251,7 +10251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26af33ed5d4d5524ab82a69839c6700a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
-  trashLevel: 2
+  trashLevel: 3
 --- !u!4 &1945389960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2361016116858414894, guid: acab743723ed9fb499a7d4ec7c4578bd, type: 3}
