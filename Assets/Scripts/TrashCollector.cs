@@ -4,11 +4,17 @@ public class TrashCollector : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        // Проверяем, что объект с тегом Trash
-        if (other.CompareTag("Trash"))
+        if (other == null || !other.CompareTag("Trash"))
+            return;
+
+        try
         {
-            Debug.Log("Trash collected, good job!");
-            Destroy(other.gameObject); // Удаляем объект
+            TrashCounterUI.GetOrCreate()?.RegisterCollectedTrash(other.gameObject);
         }
+        catch
+        {
+        }
+
+        Destroy(other.gameObject);
     }
 }
