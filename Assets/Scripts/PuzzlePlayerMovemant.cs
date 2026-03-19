@@ -3,11 +3,17 @@ using UnityEngine.InputSystem;
 
 public class PuzzlePlayerMovement : MonoBehaviour
 {
+    public GameObject mesh;
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
 
     private bool isMoving = false;
     private Vector3 targetPosition;
+
+    void Awake()
+    {
+        mesh = GetComponentInChildren<Transform>().gameObject;
+    }
 
     void Update()
     {
@@ -32,6 +38,10 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
     void TryMove(Vector3 direction)
     {
+        Quaternion targetRotation = Quaternion.LookRotation(direction, transform.up);
+
+        mesh.transform.rotation = targetRotation;
+
         Vector3 newPos = transform.position + direction * moveDistance;
 
         Collider[] hits = Physics.OverlapSphere(newPos, 0.2f);

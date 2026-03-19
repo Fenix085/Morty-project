@@ -1,3 +1,5 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform playerPivot;
     [SerializeField] private InputActionAsset inputActions;
+    private Rigidbody rb;
 
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -17,13 +20,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float friction = 7f;
     [SerializeField] private float stopSpeed = 0.1f;
     [SerializeField] private float jumpStrength = 10f;
+    [SerializeField] private GameObject mesh;
 
     private Vector3 playerVelocity = Vector3.zero;
 
-    private void Awake()
+    public static PlayerMovement Instance { get; private set; }
+
+    
+    void Awake()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        rb = GetComponent<Rigidbody>();
+        if(Instance == null)
+            Instance = this;
 
         var playerMap = inputActions.FindActionMap("Player");
         moveAction = playerMap.FindAction("Move");
@@ -43,31 +51,34 @@ public class PlayerMovement : MonoBehaviour
     {
         AirMove();
         MoveOnSphere();
+        //rb.AddForce((Vector3.zero - transform.position).normalized * 10);
+
+        Vector3 gravityDir = -(transform.position - Vector3.zero).normalized;
+        Vector3 bodyUp = transform.up;
+        // apply gravity to objects rigidbody
+        rb.AddForce(gravityDir * 9);
+        // update the objects rotation in relation to the planet
+        // Lock rotation around player's up axis: align up vector, preserve forward projected onto up plane
+        Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, -gravityDir).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(forwardProjected, -gravityDir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 100 * Time.deltaTime);
+        Quaternion targetRotation2;
+        if(playerVelocity != Vector3.zero)
+            targetRotation2 = Quaternion.LookRotation(playerVelocity, -gravityDir);
+        else
+            targetRotation2 = Quaternion.LookRotation(forwardProjected, -gravityDir);
+        mesh.transform.rotation = targetRotation2;
+    }
+    void FixedUpdate()
+    {
+        if (playerVelocity.magnitude < 0.001f)
+            return;
+        rb.MovePosition(rb.position + transform.TransformDirection(playerVelocity * Time.deltaTime));
     }
 
     private void MoveOnSphere()
     {
-        if (playerVelocity.magnitude < 0.001f)
-            return;
-
-        // Up direction is from sphere center (origin) to player
-        Vector3 up = transform.position.normalized;
-
-        // Project velocity onto the sphere's tangent plane
-        Vector3 tangentVelocity = Vector3.ProjectOnPlane(playerVelocity, up);
-
-        if (tangentVelocity.magnitude < 0.001f)
-            return;
-
-        // Rotation axis is perpendicular to both up and movement direction
-        Vector3 rotationAxis = Vector3.Cross(up, tangentVelocity.normalized);
-
-        // Angular speed = linear speed / radius
-        float radius = transform.position.magnitude;
-        float angularSpeed = tangentVelocity.magnitude / radius * Mathf.Rad2Deg;
-
-        // Rotate player around sphere center
-        transform.RotateAround(Vector3.zero, rotationAxis, angularSpeed * Time.deltaTime);
+        
     }
     private void AirMove()
     {
@@ -84,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
         float fmove = moveInput.x;
-        float smove = moveInput.y;
+        float smove = -moveInput.y;
 
         Vector3.Normalize(forward);
         Vector3.Normalize(right);
@@ -94,34 +105,72 @@ public class PlayerMovement : MonoBehaviour
 
         wishdir = wishvel;
         wishspeed = wishdir.magnitude * speed;
-        Vector3.Normalize(wishdir);
+        wishdir = wishdir.normalized;
 
         if (wishspeed > MAX_SPEED)
         {
             VectorScale(wishvel, MAX_SPEED / wishspeed, wishvel);
             wishspeed = MAX_SPEED;
         }
-
+        Friction();
         Accelerate(wishdir, wishspeed);
     }
 
     private void Accelerate(Vector3 wishDir, float wishSpeed)
     {
-        float currentSpeed, addSpeed, accelSpeed;
+        
+        float wishSpd = wishSpeed;
 
-        currentSpeed = Vector3.Dot(playerVelocity, wishDir);
-        addSpeed = wishSpeed - currentSpeed;
+        if (wishSpd > airMaxSpeed)
+            wishSpd = airMaxSpeed;
 
-        if (addSpeed <= 0)
+        Vector3 currentHorizontalVel = new Vector3(playerVelocity[0], 0, playerVelocity[2]);
+        float currentSpeed = currentHorizontalVel.magnitude;
+
+        float targetSpeed = wishSpd;
+
+        if(currentSpeed > targetSpeed)
+            targetSpeed = currentSpeed;
+
+        if (targetSpeed > airMaxSpeed)
+        {
+            targetSpeed = Mathf.Lerp(currentSpeed, airMaxSpeed, Time.deltaTime * 2f);
+        }
+
+        if(wishSpd > 0)
+        {
+            playerVelocity[0] = Mathf.Lerp(playerVelocity[0], (wishDir * targetSpeed)[0], airMaxSpeed * Time.deltaTime);
+            playerVelocity[2] = Mathf.Lerp(playerVelocity[2], (wishDir * targetSpeed)[2], airMaxSpeed * Time.deltaTime);
+        }
+    }
+
+    private void Friction()
+    {
+        //ref float vel;
+        float control, drop, newspeed;
+
+        float speed = playerVelocity.magnitude;
+
+        if (speed < 0.01)
+        {
+            playerVelocity = Vector3.zero;
             return;
+        }
 
-        accelSpeed = accel * Time.deltaTime * wishSpeed;
+        drop = 0;
 
-        if (accelSpeed > addSpeed)
-            accelSpeed = addSpeed;
+        control = speed < stopSpeed ? stopSpeed : speed;
+        drop += control * friction * Time.deltaTime;
+        
 
-        for (int i = 0; i < 3; i++)
-            playerVelocity[i] += wishDir[i] * accelSpeed;
+        newspeed = speed - drop;
+        if (newspeed < 0)
+            newspeed = 0;
+        newspeed /= speed;
+
+
+        playerVelocity[0] *= newspeed;
+        playerVelocity[2] *= newspeed;
     }
 
 
