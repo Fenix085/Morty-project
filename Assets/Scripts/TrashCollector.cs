@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class TrashCollector : MonoBehaviour
 {
+    private PlayerLevel playerLevel;
+
+    void Start()
+    {
+        playerLevel = GetComponent<PlayerLevel>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other == null || !other.CompareTag("Trash"))
-            return;
+        TrashLevel trash = other.GetComponent<TrashLevel>();
 
-        try
+        if (trash != null && playerLevel.level >= trash.trashLevel)
         {
-            TrashCounterUI.GetOrCreate()?.RegisterCollectedTrash(other.gameObject);
+            Debug.Log("Trash collected, good job!");
+            Destroy(other.gameObject);
         }
-        catch
-        {
-        }
-
-        Destroy(other.gameObject);
     }
 }
