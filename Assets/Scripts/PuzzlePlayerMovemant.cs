@@ -9,13 +9,24 @@ public class PuzzlePlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private Vector3 targetPosition;
 
+    private Transform movingBox;
+    private Vector3 boxTargetPosition;
+    private bool isBoxMoving = false;
+
     void Update()
     {
+        if (isBoxMoving)
+        {
+            MoveBox();
+        }
+
         if (isMoving)
         {
             MovePlayer();
             return;
         }
+
+        if (isBoxMoving) return;
 
         if (Keyboard.current.wKey.wasPressedThisFrame)
             TryMove(Vector3.forward);
@@ -38,8 +49,26 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
         foreach (Collider hit in hits)
         {
-            if (hit.CompareTag("Wall") || hit.CompareTag("Box"))
+            if (hit.CompareTag("Wall"))
                 return;
+
+            if (hit.CompareTag("Box"))
+            {
+                Vector3 boxTarget = hit.transform.position + direction * moveDistance;
+
+                Collider[] boxHits = Physics.OverlapSphere(boxTarget, 0.2f);
+
+                foreach (Collider boxHit in boxHits)
+                {
+                    if (boxHit.CompareTag("Wall") || boxHit.CompareTag("Box"))
+                        return;
+                }
+
+                
+                movingBox = hit.transform;
+                boxTargetPosition = boxTarget;
+                isBoxMoving = true;
+            }
         }
 
         targetPosition = newPos;
@@ -58,6 +87,24 @@ public class PuzzlePlayerMovement : MonoBehaviour
         {
             transform.position = targetPosition;
             isMoving = false;
+        }
+    }
+
+    void MoveBox()
+    {
+        if (movingBox == null) return;
+
+        movingBox.position = Vector3.MoveTowards(
+            movingBox.position,
+            boxTargetPosition,
+            moveSpeed * Time.deltaTime
+        );
+
+        if (Vector3.Distance(movingBox.position, boxTargetPosition) < 0.01f)
+        {
+            movingBox.position = boxTargetPosition;
+            isBoxMoving = false;
+            movingBox = null;
         }
     }
 }
