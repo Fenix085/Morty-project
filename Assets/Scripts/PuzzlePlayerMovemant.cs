@@ -14,6 +14,13 @@ public class PuzzlePlayerMovement : MonoBehaviour
     private Vector3 boxTargetPosition;
     private bool isBoxMoving = false;
 
+    private LevelGenerator levelGenerator;
+
+    void Start()
+    {
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+    }
+
     void Update()
     {
         if (isBoxMoving)
@@ -40,6 +47,11 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
         if (Keyboard.current.dKey.wasPressedThisFrame)
             TryMove(Vector3.right);
+    }
+
+    public bool IsMoving()
+    {
+        return isMoving || isBoxMoving;
     }
 
     void TryMove(Vector3 direction)
@@ -69,7 +81,6 @@ public class PuzzlePlayerMovement : MonoBehaviour
                         return;
                 }
 
-                
                 movingBox = hit.transform;
                 boxTargetPosition = boxTarget;
                 isBoxMoving = true;
@@ -92,6 +103,9 @@ public class PuzzlePlayerMovement : MonoBehaviour
         {
             transform.position = targetPosition;
             isMoving = false;
+
+            if (levelGenerator != null)
+                levelGenerator.CheckTeleport(transform.position);
         }
     }
 

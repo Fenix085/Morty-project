@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -6,21 +8,49 @@ public class LevelGenerator : MonoBehaviour
     public GameObject floorPrefab;
     public GameObject playerPrefab;
     public GameObject boxPrefab;
+    public GameObject teleportPrefab;
+    public GameObject wallTeleportPrefab;
+
+    public float wallHeight = 1f;
+    public float teleportOffsetY = 0.5f;
+    public float deathY = -5f;
 
     string[] level =
     {
-        "#######",
-        "#     #",
-        "# $ $ #",
-        "#  @  #",
-        "#     #",
-        "# $   #",
-        "#######"
+        " ### ",
+        " .T.#",
+        "#$$$#",
+        "#.@.#",
+        "#U ##"
     };
+
+    private Vector2Int? teleportSource = null;
+    private Vector2Int? teleportDestination = null;
+
+    private GameObject playerInstance;
+    private Transform playerTransform;
+
+    private PuzzlePlayerMovement playerMovement;
+
+    private bool hasTeleported = false;
 
     void Start()
     {
         GenerateLevel();
+        FindPlayer();
+    }
+
+    void Update()
+    {
+        if (playerTransform == null) return;
+
+        HandleHeight();
+
+        if (playerTransform.position.y < deathY || !IsPlayerOnValidSurface(playerTransform.position))
+        {
+            Die();
+            return;
+        }
     }
 
     void GenerateLevel()
@@ -30,25 +60,175 @@ public class LevelGenerator : MonoBehaviour
             for (int x = 0; x < level[y].Length; x++)
             {
                 char tile = level[y][x];
-
                 Vector3 pos = new Vector3(x, 0, -y);
+                Vector2Int gridPos = new Vector2Int(x, y);
 
-                // создаём пол
-                Instantiate(floorPrefab, pos, Quaternion.identity);
+                if (tile == '.' || tile == '@')
+                {
+                    Instantiate(floorPrefab, pos, Quaternion.identity);
+                }
+
+                if (tile == 'T')
+                {
+                    if (teleportPrefab != null)
+                        Instantiate(teleportPrefab, pos, Quaternion.identity);
+                    else
+                        Instantiate(floorPrefab, pos, Quaternion.identity);
+
+                    teleportSource = gridPos;
+                }
+
+                if (tile == '$')
+                {
+                    Instantiate(floorPrefab, pos, Quaternion.identity);
+                    Instantiate(boxPrefab, pos, Quaternion.identity);
+                }
 
                 if (tile == '#')
                 {
                     Instantiate(wallPrefab, pos, Quaternion.identity);
                 }
-                else if (tile == '@')
+
+                if (tile == 'U')
                 {
-                    Instantiate(playerPrefab, pos, Quaternion.identity);
+                    if (wallTeleportPrefab != null)
+                        Instantiate(wallTeleportPrefab, pos, Quaternion.identity);
+                    else
+                        Instantiate(wallPrefab, pos, Quaternion.identity);
+
+                    teleportDestination = gridPos;
                 }
-                else if (tile == '$')
+
+                if (tile == '@')
                 {
-                    Instantiate(boxPrefab, pos, Quaternion.identity);
+                    playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
+                    playerTransform = playerInstance.transform;
                 }
             }
         }
+    }
+
+    void FindPlayer()
+    {
+        if (playerInstance == null)
+        {
+            playerInstance = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        if (playerInstance != null)
+        {
+            playerTransform = playerInstance.transform;
+            playerMovement = playerInstance.GetComponent<PuzzlePlayerMovement>();
+        }
+    }
+
+    void HandleHeight()
+    {
+        if (playerTransform == null || playerMovement == null) return;
+
+        // не трогаем во время движения
+        if (playerMovement.IsMoving()) return;
+
+        Vector2Int gridPos = WorldToGrid(playerTransform.position);
+
+        if (gridPos.x < 0 || gridPos.x >= level[0].Length || gridPos.y < 0 || gridPos.y >= level.Length)
+            return;
+
+        char tile = level[gridPos.y][gridPos.x];
+
+        float currentY = playerTransform.position.y;
+
+        bool isOnWallTile = (tile == '#' || tile == 'U');
+
+        // ✅ ПРОВЕРКА КОРОБКИ ПОД НОГАМИ (ФИКС БАГА)
+        bool isOnBox = false;
+        Vector3 checkPos = playerTransform.position + Vector3.down * 0.6f;
+
+        Collider[] hits = Physics.OverlapSphere(checkPos, 0.2f);
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("Box"))
+            {
+                isOnBox = true;
+                break;
+            }
+        }
+
+        bool isHighSurface = isOnWallTile || isOnBox;
+
+        // ПАДЕНИЕ
+        if (currentY > 0.6f && !isHighSurface)
+        {
+            Vector3 pos = playerTransform.position;
+            pos.y = 0f;
+            playerTransform.position = pos;
+        }
+
+        // ПОДЪЕМ
+        if (currentY < 0.4f && isHighSurface)
+        {
+            Vector3 pos = playerTransform.position;
+            pos.y = wallHeight;
+            playerTransform.position = pos;
+        }
+    }
+
+    public void CheckTeleport(Vector3 playerPosition)
+    {
+        if (hasTeleported) return;
+        if (!teleportSource.HasValue || !teleportDestination.HasValue) return;
+
+        Vector2Int gridPos = WorldToGrid(playerPosition);
+
+        if (playerPosition.y < 0.5f && gridPos == teleportSource.Value)
+        {
+            hasTeleported = true;
+
+            Vector3 wallPos = new Vector3(teleportDestination.Value.x, 0, -teleportDestination.Value.y);
+            Vector3 teleportPos = new Vector3(
+                wallPos.x,
+                wallHeight + teleportOffsetY,
+                wallPos.z
+            );
+
+            playerTransform.position = teleportPos;
+
+            Invoke(nameof(ResetTeleport), 0.5f);
+        }
+    }
+
+    void ResetTeleport()
+    {
+        hasTeleported = false;
+    }
+
+    public bool IsPlayerOnValidSurface(Vector3 playerPosition)
+    {
+        Vector2Int gridPos = WorldToGrid(playerPosition);
+
+        if (gridPos.x < 0 || gridPos.x >= level[0].Length || gridPos.y < 0 || gridPos.y >= level.Length)
+        {
+            return false;
+        }
+
+        char tile = level[gridPos.y][gridPos.x];
+
+        if (tile == '.' || tile == 'T' || tile == '#' || tile == 'U' || tile == '@' || tile == '$')
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    void Die()
+    {
+        Debug.Log("Игрок умер! Перезапуск уровня...");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    Vector2Int WorldToGrid(Vector3 worldPos)
+    {
+        return new Vector2Int(Mathf.RoundToInt(worldPos.x), Mathf.RoundToInt(-worldPos.z));
     }
 }
