@@ -7,6 +7,11 @@ public class MusicManager : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
 
+    [Header("Ambient")]
+    public AudioSource ambientSource;
+    public AudioClip ambientClip;
+    public float ambientVolume = 0.2f;
+
     [Header("Tracks")]
     public List<AudioClip> musicTracks = new List<AudioClip>();
 
@@ -24,6 +29,7 @@ public class MusicManager : MonoBehaviour
 
     void Start()
     {
+        StartAmbient();
         StartMusicLoop();
     }
 
@@ -33,6 +39,16 @@ public class MusicManager : MonoBehaviour
         {
             StartCoroutine(MusicLoop());
         }
+    }
+    private void StartAmbient()
+    {
+        if (ambientSource == null || ambientClip == null)
+            return;
+
+        ambientSource.clip = ambientClip;
+        ambientSource.loop = true;
+        ambientSource.volume = ambientVolume;
+        ambientSource.Play();
     }
     private AudioClip GetRandomTrack()
     {
