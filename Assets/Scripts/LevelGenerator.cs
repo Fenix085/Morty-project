@@ -21,7 +21,7 @@ public class LevelGenerator : MonoBehaviour
         " .T.#",
         "#$$$#",
         "#.@.#",
-        "#U ##"
+        "#U F#"
     };
 
     private Vector2Int? teleportSource = null;
@@ -33,6 +33,7 @@ public class LevelGenerator : MonoBehaviour
     private PuzzlePlayerMovement playerMovement;
 
     private bool hasTeleported = false;
+    private bool levelCompleted = false;
 
     void Start()
     {
@@ -45,6 +46,8 @@ public class LevelGenerator : MonoBehaviour
         if (playerTransform == null) return;
 
         HandleHeight();
+
+        CheckFinish();
 
         if (playerTransform.position.y < deathY || !IsPlayerOnValidSurface(playerTransform.position))
         {
@@ -63,11 +66,13 @@ public class LevelGenerator : MonoBehaviour
                 Vector3 pos = new Vector3(x, 0, -y);
                 Vector2Int gridPos = new Vector2Int(x, y);
 
+                // ПОЛ
                 if (tile == '.' || tile == '@')
                 {
                     Instantiate(floorPrefab, pos, Quaternion.identity);
                 }
 
+                // ТЕЛЕПОРТ ПОЛ
                 if (tile == 'T')
                 {
                     if (teleportPrefab != null)
@@ -78,17 +83,20 @@ public class LevelGenerator : MonoBehaviour
                     teleportSource = gridPos;
                 }
 
+                // КОРОБКИ
                 if (tile == '$')
                 {
                     Instantiate(floorPrefab, pos, Quaternion.identity);
                     Instantiate(boxPrefab, pos, Quaternion.identity);
                 }
 
+                // СТЕНЫ
                 if (tile == '#')
                 {
                     Instantiate(wallPrefab, pos, Quaternion.identity);
                 }
 
+                // СТЕНА-ТЕЛЕПОРТ
                 if (tile == 'U')
                 {
                     if (wallTeleportPrefab != null)
@@ -99,6 +107,13 @@ public class LevelGenerator : MonoBehaviour
                     teleportDestination = gridPos;
                 }
 
+                // 🔥 ФИНИШ (КАК СТЕНА)
+                if (tile == 'F')
+                {
+                    Instantiate(wallPrefab, pos, Quaternion.identity);
+                }
+
+                // ИГРОК
                 if (tile == '@')
                 {
                     playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
@@ -126,7 +141,6 @@ public class LevelGenerator : MonoBehaviour
     {
         if (playerTransform == null || playerMovement == null) return;
 
-        // не трогаем во время движения
         if (playerMovement.IsMoving()) return;
 
         Vector2Int gridPos = WorldToGrid(playerTransform.position);
@@ -138,9 +152,8 @@ public class LevelGenerator : MonoBehaviour
 
         float currentY = playerTransform.position.y;
 
-        bool isOnWallTile = (tile == '#' || tile == 'U');
+        bool isOnWallTile = (tile == '#' || tile == 'U' || tile == 'F');
 
-        // ✅ ПРОВЕРКА КОРОБКИ ПОД НОГАМИ (ФИКС БАГА)
         bool isOnBox = false;
         Vector3 checkPos = playerTransform.position + Vector3.down * 0.6f;
 
@@ -156,7 +169,6 @@ public class LevelGenerator : MonoBehaviour
 
         bool isHighSurface = isOnWallTile || isOnBox;
 
-        // ПАДЕНИЕ
         if (currentY > 0.6f && !isHighSurface)
         {
             Vector3 pos = playerTransform.position;
@@ -164,12 +176,32 @@ public class LevelGenerator : MonoBehaviour
             playerTransform.position = pos;
         }
 
-        // ПОДЪЕМ
         if (currentY < 0.4f && isHighSurface)
         {
             Vector3 pos = playerTransform.position;
             pos.y = wallHeight;
             playerTransform.position = pos;
+        }
+    }
+
+    // 🔥 ФИНИШ
+    void CheckFinish()
+    {
+        if (levelCompleted) return;
+        if (playerMovement != null && playerMovement.IsMoving()) return;
+
+        Vector2Int gridPos = WorldToGrid(playerTransform.position);
+
+        if (gridPos.x < 0 || gridPos.x >= level[0].Length || gridPos.y < 0 || gridPos.y >= level.Length)
+            return;
+
+        char tile = level[gridPos.y][gridPos.x];
+
+        // Срабатывает ТОЛЬКО если на высоте
+        if (tile == 'F' && playerTransform.position.y > 0.5f)
+        {
+            levelCompleted = true;
+            Debug.Log("🎉 Пазл пройден! Молодец!");
         }
     }
 
@@ -213,7 +245,7 @@ public class LevelGenerator : MonoBehaviour
 
         char tile = level[gridPos.y][gridPos.x];
 
-        if (tile == '.' || tile == 'T' || tile == '#' || tile == 'U' || tile == '@' || tile == '$')
+        if (tile == '.' || tile == 'T' || tile == '#' || tile == 'U' || tile == '@' || tile == '$' || tile == 'F')
         {
             return true;
         }
