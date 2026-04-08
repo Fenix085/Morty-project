@@ -38,6 +38,15 @@ public class PlayerController_RB : MonoBehaviour {
     private bool _landed = false;
     private float _worldDistance = 0;
 
+    public static PlayerController_RB Instance { get; private set; }
+
+    
+    void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+    }
+
     // Use this for initialization
     private void Start()
     {
@@ -65,16 +74,16 @@ public class PlayerController_RB : MonoBehaviour {
         _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 
         // world transfer
-        if (Input.GetKeyDown("e"))
-        {
-            WorldTransfer();
-        }
-
-        // jump
-        if (Input.GetKeyDown("space"))
-        {
-            Jump();
-        }
+        //if (Input.GetKeyDown("e"))
+        //{
+        //    WorldTransfer();
+        //}
+//
+        //// jump
+        //if (Input.GetKeyDown("space"))
+        //{
+        //    Jump();
+        //}
 
         // rotate player to face the right direction
         RotateForward();
