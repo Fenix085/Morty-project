@@ -20,7 +20,7 @@ public class Facility : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Vector3.Distance(PlayerMovement.Instance.transform.position, transform.position) < 6)
+        if(Vector3.Distance(PlayerController_RB.Instance.transform.position, transform.position) < 6)
         {
             canvas.gameObject.SetActive(true);
         }
