@@ -14,11 +14,40 @@ public class PuzzlePlayerMovement : MonoBehaviour
     private Vector3 boxTargetPosition;
     private bool isBoxMoving = false;
 
-    private LevelGenerator levelGenerator;
+    public GameObject currentLevelGenerator;
 
     void Start()
     {
-        levelGenerator = FindObjectOfType<LevelGenerator>();
+        // Ищем ЛЮБОЙ генератор на сцене
+        if (currentLevelGenerator == null)
+        {
+            // Ищем LevelGenerator2
+            LevelGenerator2 gen2 = FindObjectOfType<LevelGenerator2>();
+            if (gen2 != null) currentLevelGenerator = gen2.gameObject;
+            
+            // Ищем LevelGenerator3
+            LevelGenerator3 gen3 = FindObjectOfType<LevelGenerator3>();
+            if (gen3 != null) currentLevelGenerator = gen3.gameObject;
+
+            LevelGenerator4 gen4 = FindObjectOfType<LevelGenerator4>();
+            if (gen4 != null) currentLevelGenerator = gen4.gameObject;
+
+            LevelGenerator5 gen5 = FindObjectOfType<LevelGenerator5>();
+            if (gen5 != null) currentLevelGenerator = gen5.gameObject;
+            
+            // Ищем LevelGenerator (без цифр)
+            LevelGenerator gen = FindObjectOfType<LevelGenerator>();
+            if (gen != null) currentLevelGenerator = gen.gameObject;
+            
+            if (currentLevelGenerator != null)
+            {
+                Debug.Log($"Найден генератор: {currentLevelGenerator.name}");
+            }
+            else
+            {
+                Debug.LogError("НЕ НАЙДЕН НИ ОДИН ГЕНЕРАТОР! (LevelGenerator, LevelGenerator2, LevelGenerator3)");
+            }
+        }
     }
 
     void Update()
@@ -57,7 +86,6 @@ public class PuzzlePlayerMovement : MonoBehaviour
     void TryMove(Vector3 direction)
     {
         Quaternion targetRotation = Quaternion.LookRotation(direction, transform.up);
-
         mesh.transform.rotation = targetRotation;
 
         Vector3 newPos = transform.position + direction * moveDistance;
@@ -104,8 +132,10 @@ public class PuzzlePlayerMovement : MonoBehaviour
             transform.position = targetPosition;
             isMoving = false;
 
-            if (levelGenerator != null)
-                levelGenerator.CheckTeleport(transform.position);
+            if (currentLevelGenerator != null)
+            {
+                currentLevelGenerator.SendMessage("CheckTeleport", transform.position, SendMessageOptions.DontRequireReceiver);
+            }
         }
     }
 
