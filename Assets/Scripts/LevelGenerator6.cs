@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement; // ДОБАВЛЕНО для перезагрузки сцены
 
-public class LevelGenerator5 : MonoBehaviour
+public class LevelGenerator6 : MonoBehaviour
 {
     public GameObject floorPrefab;
     public GameObject wallPrefab;
@@ -17,10 +17,12 @@ public class LevelGenerator5 : MonoBehaviour
 
     private string[] level =
     {
-        " ... ",
-        " .$. ",
-        "F.*.U",
-        " @.T "
+        "U##   ",
+        "....T ",
+        "..*.. ",
+        ".$.*.#",
+        "@.$..#",
+        "F#..*#"
     };
 
     private Vector2Int? teleportSource = null;

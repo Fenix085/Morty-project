@@ -34,7 +34,10 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
             LevelGenerator5 gen5 = FindObjectOfType<LevelGenerator5>();
             if (gen5 != null) currentLevelGenerator = gen5.gameObject;
-            
+
+            LevelGenerator6 gen6 = FindObjectOfType<LevelGenerator6>();
+            if (gen6 != null) currentLevelGenerator = gen6.gameObject;
+
             // Ищем LevelGenerator (без цифр)
             LevelGenerator gen = FindObjectOfType<LevelGenerator>();
             if (gen != null) currentLevelGenerator = gen.gameObject;

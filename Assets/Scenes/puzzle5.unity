@@ -493,11 +493,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28c0241c458c9e7459ce09f944b21b1e, type: 3}
---- !u!1 &993537416 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3147372878229332789, guid: 393a3bc6583b49643ace074e568bcd5f, type: 3}
-  m_PrefabInstance: {fileID: 112900005}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1035922191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 831875030890886614, guid: c5fa6f65da531df4e8ca73d85a4e3869, type: 3}
@@ -721,7 +716,7 @@ MonoBehaviour:
   boxPrefab: {fileID: 1035922191}
   playerPrefab: {fileID: 812761564}
   teleportPrefab: {fileID: 1288192022}
-  wallTeleportPrefab: {fileID: 993537416}
+  wallTeleportPrefab: {fileID: 3147372878229332789, guid: 393a3bc6583b49643ace074e568bcd5f, type: 3}
   wallHeight: 1
   fallSpeed: 5
   deathY: -5
