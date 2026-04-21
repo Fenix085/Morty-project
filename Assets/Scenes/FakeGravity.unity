@@ -10383,6 +10383,9 @@ GameObject:
   - component: {fileID: 1939881903}
   - component: {fileID: 1939881905}
   - component: {fileID: 1939881904}
+  - component: {fileID: 1939881908}
+  - component: {fileID: 1939881907}
+  - component: {fileID: 1939881906}
   m_Layer: 0
   m_Name: Cinder_Block_1 (1)
   m_TagString: Untagged
@@ -10462,6 +10465,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939881902}
   m_Mesh: {fileID: 5453743009215551833, guid: de605ccbd5939cd42aa9a9ddffcef77b, type: 3}
+--- !u!114 &1939881906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939881902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ddf38bd77b0c14eac280f7b1a2f922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
+  trashLevel: 1
+--- !u!65 &1939881907
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939881902}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6743905, y: 1.1763107, z: 0.48753446}
+  m_Center: {x: 0.00000041991726, y: 0.5941577, z: 0.021095565}
+--- !u!114 &1939881908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939881902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6af06479b5b204db69b07d03bb5325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
+  attractDistance: 3
+  moveSpeed: 5
 --- !u!1 &1970422049
 GameObject:
   m_ObjectHideFlags: 0
@@ -18205,6 +18256,9 @@ GameObject:
   - component: {fileID: 5960708899268825119}
   - component: {fileID: 7927323431652766105}
   - component: {fileID: 9200774722876652595}
+  - component: {fileID: 9200774722876652598}
+  - component: {fileID: 9200774722876652597}
+  - component: {fileID: 9200774722876652596}
   m_Layer: 0
   m_Name: Cinder_Block_1
   m_TagString: Untagged
@@ -19605,6 +19659,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2474577018999105261, guid: f21d97dd2dfd4f149803ee39594929ba, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4357247650521183117, guid: f21d97dd2dfd4f149803ee39594929ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.87
@@ -20118,6 +20176,9 @@ GameObject:
   - component: {fileID: 4614906419095292852}
   - component: {fileID: 5634634845371623028}
   - component: {fileID: 7447906310673981809}
+  - component: {fileID: 8989785166530611152}
+  - component: {fileID: 8989785166530611151}
+  - component: {fileID: 8989785166530611150}
   m_Layer: 0
   m_Name: Cardboard_Cutout_1
   m_TagString: Untagged
@@ -20125,6 +20186,54 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &8989785166530611150
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989785166530611149}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.022844851, z: 1.1248225}
+  m_Center: {x: 0.0000004171273, y: 0.009297684, z: 0.021095514}
+--- !u!114 &8989785166530611151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989785166530611149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ddf38bd77b0c14eac280f7b1a2f922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
+  trashLevel: 1
+--- !u!114 &8989785166530611152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989785166530611149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6af06479b5b204db69b07d03bb5325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
+  attractDistance: 3
+  moveSpeed: 5
 --- !u!1 &9072103243855322815
 GameObject:
   m_ObjectHideFlags: 0
@@ -20280,6 +20389,54 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9200774722876652596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7216353757233628912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ddf38bd77b0c14eac280f7b1a2f922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
+  trashLevel: 1
+--- !u!65 &9200774722876652597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7216353757233628912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6743907, y: 1.1763109, z: 0.48753467}
+  m_Center: {x: -0.0000008189845, y: 0.59415734, z: 0.021091769}
+--- !u!114 &9200774722876652598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7216353757233628912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6af06479b5b204db69b07d03bb5325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
+  attractDistance: 3
+  moveSpeed: 5
 --- !u!23 &9210524358432671144
 MeshRenderer:
   m_ObjectHideFlags: 0
