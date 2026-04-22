@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEditor;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(FakeGravityBody))]
 public class PlayerController_RB : MonoBehaviour {
 
     // inspector variables
@@ -54,11 +55,50 @@ public class PlayerController_RB : MonoBehaviour {
         _playerRB = GetComponent<Rigidbody>();
         _playerMesh = transform.GetChild(0).transform;
         _worldGravity = GetComponent<FakeGravityBody>();
-        // find worlds in scene
-        _worlds.AddRange(GameObject.FindGameObjectsWithTag("World"));
+
+        if (_worldGravity == null)
+        {
+            Debug.LogError("PlayerController_RB: Missing FakeGravityBody on player.", gameObject);
+            enabled = false;
+            return;
+        }
+
+        // find worlds in scene from FakeGravity scripts instead of tag-only lookup
+        RefreshWorlds();
+
+        if (_worldGravity.Attractor == null && _worlds.Count > 0)
+        {
+            _worldGravity.Attractor = _worlds[0].GetComponent<FakeGravity>();
+        }
+
+        if (_worldGravity.Attractor != null && !_worlds.Contains(_worldGravity.Attractor.gameObject))
+        {
+            _worlds.Add(_worldGravity.Attractor.gameObject);
+        }
+
+        if (_worlds.Count == 0 || _worldGravity.Attractor == null)
+        {
+            Debug.LogWarning("PlayerController_RB: No valid FakeGravity world found in scene.", gameObject);
+            return;
+        }
+
         _currentWorld = CurrentWorldIndex();
         // update player speed
         speed = SpeedUpdate();
+    }
+
+    /// <summary>
+    /// Rebuild world list using actual gravity sources in scene.
+    /// </summary>
+    private void RefreshWorlds()
+    {
+        _worlds.Clear();
+        FakeGravity[] gravitySources = FindObjectsByType<FakeGravity>(FindObjectsSortMode.None);
+        int count = gravitySources.Length;
+        for (int i = 0; i < count; i++)
+        {
+            _worlds.Add(gravitySources[i].gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -301,7 +341,7 @@ public class PlayerController_RB : MonoBehaviour {
     {
         float newSpeed = speed;
         // update speed value
-        if (_worldGravity.Attractor.gameObject.name == "PlaneWorld")
+        if (_worldGravity != null && _worldGravity.Attractor != null && _worldGravity.Attractor.gameObject.name == "PlaneWorld")
         {
             newSpeed = speed / 2;
         }
@@ -314,6 +354,16 @@ public class PlayerController_RB : MonoBehaviour {
     /// </summary>
     private int CurrentWorldIndex()
     {
+        if (_worlds == null || _worlds.Count == 0)
+        {
+            return 0;
+        }
+
+        if (_worldGravity == null || _worldGravity.Attractor == null)
+        {
+            return 0;
+        }
+
         int worldIndex = 0;
         // get name of current world player is attracted to
         string worldName = _worldGravity.Attractor.gameObject.name;
@@ -325,6 +375,7 @@ public class PlayerController_RB : MonoBehaviour {
             if (worldName == _worlds[i].name)
             {
                 worldIndex = i;
+                break;
             }
         }
         // return result
@@ -346,8 +397,14 @@ public class PlayerController_RB : MonoBehaviour {
     /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
+        if (!_transfering)
+        {
+            return;
+        }
+
+        bool hitWorld = collision.transform.CompareTag("World") || collision.transform.GetComponentInParent<FakeGravity>() != null;
         // if player transfering between worlds and has collided with a world
-        if(_transfering && collision.transform.tag == "World")
+        if(hitWorld)
         {
             // player landed on world
             _landed = true;

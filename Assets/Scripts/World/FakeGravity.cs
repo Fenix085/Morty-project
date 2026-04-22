@@ -25,6 +25,50 @@ public class FakeGravity : MonoBehaviour {
     private void Awake()
     {
         gameObject.tag = _worldObjectTag;
+        EnsureCollisionSurface();
+    }
+
+    /// <summary>
+    /// Ensure this world has at least one non-trigger collider so objects can land.
+    /// </summary>
+    private void EnsureCollisionSurface()
+    {
+        Collider[] colliders = GetComponentsInChildren<Collider>(true);
+        if (colliders.Length > 0)
+        {
+            return;
+        }
+
+        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>(true);
+        int count = meshFilters.Length;
+        int added = 0;
+        for (int i = 0; i < count; i++)
+        {
+            MeshFilter meshFilter = meshFilters[i];
+            if (meshFilter.sharedMesh == null)
+            {
+                continue;
+            }
+
+            if (meshFilter.GetComponent<Collider>() != null)
+            {
+                continue;
+            }
+
+            MeshCollider meshCollider = meshFilter.gameObject.AddComponent<MeshCollider>();
+            meshCollider.sharedMesh = meshFilter.sharedMesh;
+            added++;
+        }
+
+        if (added > 0)
+        {
+            Debug.LogWarning("FakeGravity: Added mesh colliders to world model at runtime because no colliders were found.", gameObject);
+            return;
+        }
+
+        SphereCollider fallbackCollider = gameObject.AddComponent<SphereCollider>();
+        fallbackCollider.radius = Mathf.Max(0.5f, size);
+        Debug.LogWarning("FakeGravity: Added fallback sphere collider at runtime because no mesh colliders could be created.", gameObject);
     }
 
     /// <summary>
