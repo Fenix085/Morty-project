@@ -1,8 +1,7 @@
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class LevelGenerator : MonoBehaviour
+public class LevelGenerator2 : MonoBehaviour
 {
     public GameObject wallPrefab;
     public GameObject floorPrefab;
@@ -17,11 +16,10 @@ public class LevelGenerator : MonoBehaviour
 
     string[] level =
     {
-        " ### ",
-        " .T.#",
-        "#$$$#",
-        "#.@.#",
-        "#U ##"
+        "$$$#",
+        "$@$.",
+        "$$$.",
+        "F.TU",
     };
 
     private Vector2Int? teleportSource = null;
@@ -29,10 +27,10 @@ public class LevelGenerator : MonoBehaviour
 
     private GameObject playerInstance;
     private Transform playerTransform;
-
     private PuzzlePlayerMovement playerMovement;
 
     private bool hasTeleported = false;
+    private bool levelCompleted = false;
 
     void Start()
     {
@@ -45,11 +43,11 @@ public class LevelGenerator : MonoBehaviour
         if (playerTransform == null) return;
 
         HandleHeight();
+        CheckFinish();
 
         if (playerTransform.position.y < deathY || !IsPlayerOnValidSurface(playerTransform.position))
         {
             Die();
-            return;
         }
     }
 
@@ -99,6 +97,11 @@ public class LevelGenerator : MonoBehaviour
                     teleportDestination = gridPos;
                 }
 
+                if (tile == 'F')
+                {
+                    Instantiate(wallPrefab, pos, Quaternion.identity);
+                }
+
                 if (tile == '@')
                 {
                     playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
@@ -125,25 +128,19 @@ public class LevelGenerator : MonoBehaviour
     void HandleHeight()
     {
         if (playerTransform == null || playerMovement == null) return;
-
-        // не трогаем во время движения
         if (playerMovement.IsMoving()) return;
 
         Vector2Int gridPos = WorldToGrid(playerTransform.position);
-
         if (gridPos.x < 0 || gridPos.x >= level[0].Length || gridPos.y < 0 || gridPos.y >= level.Length)
             return;
 
         char tile = level[gridPos.y][gridPos.x];
-
         float currentY = playerTransform.position.y;
 
-        bool isOnWallTile = (tile == '#' || tile == 'U');
+        bool isOnWallTile = (tile == '#' || tile == 'U' || tile == 'F');
 
-        // ✅ ПРОВЕРКА КОРОБКИ ПОД НОГАМИ (ФИКС БАГА)
         bool isOnBox = false;
         Vector3 checkPos = playerTransform.position + Vector3.down * 0.6f;
-
         Collider[] hits = Physics.OverlapSphere(checkPos, 0.2f);
         foreach (Collider hit in hits)
         {
@@ -156,7 +153,6 @@ public class LevelGenerator : MonoBehaviour
 
         bool isHighSurface = isOnWallTile || isOnBox;
 
-        // ПАДЕНИЕ
         if (currentY > 0.6f && !isHighSurface)
         {
             Vector3 pos = playerTransform.position;
@@ -164,12 +160,28 @@ public class LevelGenerator : MonoBehaviour
             playerTransform.position = pos;
         }
 
-        // ПОДЪЕМ
         if (currentY < 0.4f && isHighSurface)
         {
             Vector3 pos = playerTransform.position;
             pos.y = wallHeight;
             playerTransform.position = pos;
+        }
+    }
+
+    void CheckFinish()
+    {
+        if (levelCompleted) return;
+        if (playerMovement != null && playerMovement.IsMoving()) return;
+
+        Vector2Int gridPos = WorldToGrid(playerTransform.position);
+        if (gridPos.x < 0 || gridPos.x >= level[0].Length || gridPos.y < 0 || gridPos.y >= level.Length)
+            return;
+
+        char tile = level[gridPos.y][gridPos.x];
+        if (tile == 'F' && playerTransform.position.y > 0.5f)
+        {
+            levelCompleted = true;
+            Debug.Log("Пазл пройден!");
         }
     }
 
@@ -180,19 +192,14 @@ public class LevelGenerator : MonoBehaviour
 
         Vector2Int gridPos = WorldToGrid(playerPosition);
 
-        if (playerPosition.y < 0.5f && gridPos == teleportSource.Value)
+        if (gridPos == teleportSource.Value)
         {
             hasTeleported = true;
 
             Vector3 wallPos = new Vector3(teleportDestination.Value.x, 0, -teleportDestination.Value.y);
-            Vector3 teleportPos = new Vector3(
-                wallPos.x,
-                wallHeight + teleportOffsetY,
-                wallPos.z
-            );
+            Vector3 teleportPos = new Vector3(wallPos.x, wallHeight + teleportOffsetY, wallPos.z);
 
             playerTransform.position = teleportPos;
-
             Invoke(nameof(ResetTeleport), 0.5f);
         }
     }
@@ -205,25 +212,16 @@ public class LevelGenerator : MonoBehaviour
     public bool IsPlayerOnValidSurface(Vector3 playerPosition)
     {
         Vector2Int gridPos = WorldToGrid(playerPosition);
-
         if (gridPos.x < 0 || gridPos.x >= level[0].Length || gridPos.y < 0 || gridPos.y >= level.Length)
-        {
             return false;
-        }
 
         char tile = level[gridPos.y][gridPos.x];
-
-        if (tile == '.' || tile == 'T' || tile == '#' || tile == 'U' || tile == '@' || tile == '$')
-        {
-            return true;
-        }
-
-        return false;
+        return (tile == '.' || tile == 'T' || tile == '#' || tile == 'U' || tile == '@' || tile == '$' || tile == 'F');
     }
 
     void Die()
     {
-        Debug.Log("Игрок умер! Перезапуск уровня...");
+        Debug.Log("Игрок умер! Перезапуск...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
