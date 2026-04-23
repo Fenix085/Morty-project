@@ -36,5 +36,11 @@ public class TrashMagnet : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
         }
+
+        if(distance < 0.1)
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }

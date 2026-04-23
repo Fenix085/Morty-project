@@ -18,37 +18,17 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // Ищем ЛЮБОЙ генератор на сцене
         if (currentLevelGenerator == null)
         {
-            // Ищем LevelGenerator2
-            LevelGenerator2 gen2 = FindObjectOfType<LevelGenerator2>();
-            if (gen2 != null) currentLevelGenerator = gen2.gameObject;
-            
-            // Ищем LevelGenerator3
-            LevelGenerator3 gen3 = FindObjectOfType<LevelGenerator3>();
-            if (gen3 != null) currentLevelGenerator = gen3.gameObject;
-
-            LevelGenerator4 gen4 = FindObjectOfType<LevelGenerator4>();
-            if (gen4 != null) currentLevelGenerator = gen4.gameObject;
-
-            LevelGenerator5 gen5 = FindObjectOfType<LevelGenerator5>();
-            if (gen5 != null) currentLevelGenerator = gen5.gameObject;
-
-            LevelGenerator6 gen6 = FindObjectOfType<LevelGenerator6>();
-            if (gen6 != null) currentLevelGenerator = gen6.gameObject;
-
-            // Ищем LevelGenerator (без цифр)
-            LevelGenerator gen = FindObjectOfType<LevelGenerator>();
-            if (gen != null) currentLevelGenerator = gen.gameObject;
-            
-            if (currentLevelGenerator != null)
+            LevelGeneratorBase generator = FindObjectOfType<LevelGeneratorBase>();
+            if (generator != null)
             {
+                currentLevelGenerator = generator.gameObject;
                 Debug.Log($"Найден генератор: {currentLevelGenerator.name}");
             }
             else
             {
-                Debug.LogError("НЕ НАЙДЕН НИ ОДИН ГЕНЕРАТОР! (LevelGenerator, LevelGenerator2, LevelGenerator3)");
+                Debug.LogError("НЕ НАЙДЕН ГЕНЕРАТОР УРОВНЯ!");
             }
         }
     }

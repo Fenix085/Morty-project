@@ -38,6 +38,7 @@ public class InfoNotes : MonoBehaviour
         if (interactionDistance > 0f && !IsPlayerCloseEnough())
             return;
 
+        Debug.Log("InfoPanel Active");
         ApplyNoteTextToInfoPanel();
         infoPanel.SetActive(true);
     }
@@ -53,6 +54,7 @@ public class InfoNotes : MonoBehaviour
             if (sceneTransform.name == infoPanelName)
             {
                 infoPanel = sceneTransform.gameObject;
+                Debug.Log("InfoPanel: " + infoPanel);
                 return;
             }
         }
@@ -82,6 +84,8 @@ public class InfoNotes : MonoBehaviour
 
         if (infoPanelText != null)
             infoPanelText.text = noteText;
+        else
+            Debug.Log("No InfoPanel");
     }
 
     private void ResolveInfoPanelText()

@@ -14,6 +14,7 @@ public class Facility : MonoBehaviour
 
     public void ChangeScene()
     {
+        
         SceneManager.LoadScene(puzzleScene);
     }
 

@@ -33,6 +33,8 @@ public class PlayerController_RB : MonoBehaviour {
     private Rigidbody _playerRB;
     private Transform _playerMesh;
     private FakeGravityBody _worldGravity;
+
+    private Animator animator;
  
     // transfer
     private bool _transfering = false;
@@ -51,6 +53,7 @@ public class PlayerController_RB : MonoBehaviour {
     // Use this for initialization
     private void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         // set player details
         _playerRB = GetComponent<Rigidbody>();
         _playerMesh = transform.GetChild(0).transform;
@@ -136,6 +139,14 @@ public class PlayerController_RB : MonoBehaviour {
         if (_transfering)
         {
             return;
+        }
+        if(_moveDirection.magnitude > 0)
+        {
+            animator.Play("Walk");
+        }
+        else
+        {
+            animator.Play("Idle");
         }
         // update movement
         _playerRB.MovePosition(_playerRB.position + transform.TransformDirection(_moveDirection * speed * Time.deltaTime));

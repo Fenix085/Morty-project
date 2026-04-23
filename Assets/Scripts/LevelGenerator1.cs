@@ -201,6 +201,7 @@ public class LevelGenerator : MonoBehaviour
         if (tile == 'F' && playerTransform.position.y > 0.5f)
         {
             levelCompleted = true;
+            SceneManager.LoadScene("FakeGravity");
             Debug.Log("🎉 Пазл пройден! Молодец!");
         }
     }
