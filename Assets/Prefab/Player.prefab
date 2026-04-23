@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2876767404208511405}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 28.27239, y: 1.05002, z: 2.3426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -72,6 +72,7 @@ MonoBehaviour:
   mesh: {fileID: 2876767404208511405}
   moveDistance: 1
   moveSpeed: 5
+  currentLevelGenerator: {fileID: 0}
 --- !u!1001 &1881393763909601845
 PrefabInstance:
   m_ObjectHideFlags: 0

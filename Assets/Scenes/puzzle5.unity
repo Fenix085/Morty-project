@@ -708,7 +708,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1274692662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 936b9fcc738ab544dab4a6f662490f01, type: 3}
+  m_Script: {fileID: 11500000, guid: fe9b34abf6773e14ca9a417060d00598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator5
   floorPrefab: {fileID: 1719525272}
@@ -716,10 +716,12 @@ MonoBehaviour:
   boxPrefab: {fileID: 1035922191}
   playerPrefab: {fileID: 812761564}
   teleportPrefab: {fileID: 1288192022}
-  wallTeleportPrefab: {fileID: 3147372878229332789, guid: 393a3bc6583b49643ace074e568bcd5f, type: 3}
+  wallTeleportPrefab: {fileID: 1756371779}
   wallHeight: 1
   fallSpeed: 5
   deathY: -5
+  currentLevel: 5
+  autoLoadNextLevel: 0
 --- !u!4 &1274692664
 Transform:
   m_ObjectHideFlags: 0
@@ -744,6 +746,11 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7261772559587828408, guid: a232172b93d2ab447a0454e4d9e0e042, type: 3}
   m_PrefabInstance: {fileID: 1098794163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1756371779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3147372878229332789, guid: 393a3bc6583b49643ace074e568bcd5f, type: 3}
+  m_PrefabInstance: {fileID: 112900005}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1939104480
 PrefabInstance:
