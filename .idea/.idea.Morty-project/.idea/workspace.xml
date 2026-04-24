@@ -30,7 +30,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "sprint2",
+    "git-widget-placeholder": "vvv",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,6 +97,7 @@
       <workItem from="1773915463245" duration="52000" />
       <workItem from="1775248822330" duration="48000" />
       <workItem from="1776534178980" duration="13000" />
+      <workItem from="1777050928281" duration="622000" />
     </task>
     <servers />
   </component>

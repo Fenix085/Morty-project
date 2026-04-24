@@ -279,6 +279,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 54.89293, y: 24.583195, z: 23.848898}
   m_Center: {x: -0.000091552734, y: -0.0004892349, z: -0.00048828125}
+--- !u!114 &144789931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144789922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ddf38bd77b0c14eac280f7b1a2f922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashLevel
+  trashLevel: 1
 --- !u!114 &156986819 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
@@ -1664,6 +1677,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2392700761836555510, guid: e7b5e60a23882874c889cc458c3e5f85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 144789926}
+    - targetCorrespondingSourceObject: {fileID: 2392700761836555510, guid: e7b5e60a23882874c889cc458c3e5f85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 144789931}
     - targetCorrespondingSourceObject: {fileID: -5303846373965813194, guid: e7b5e60a23882874c889cc458c3e5f85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1132631961}
