@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class DraggableItem : MonoBehaviour
 {
     private Vector3 offset;
@@ -8,7 +8,7 @@ public class DraggableItem : MonoBehaviour
     public int rotation;
     public bool isPowered;
     private SpriteRenderer sr;
-
+    private Vector2Int currentGridPos = new Vector2Int(-1, -1);
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -18,6 +18,43 @@ public class DraggableItem : MonoBehaviour
     {
         isPowered = value;
         sr.color = value ? Color.yellow : Color.white;
+    }
+
+    public List<Direction> GetConnections()
+    {
+        List<Direction> dirs = new List<Direction>();
+
+        switch (type)
+        {
+            case ChannelType.Straight:
+                dirs.Add(Direction.Up);
+                dirs.Add(Direction.Down);
+                break;
+
+            case ChannelType.Corner:
+                dirs.Add(Direction.Up);
+                dirs.Add(Direction.Right);
+                break;
+
+            case ChannelType.TShape:
+                dirs.Add(Direction.Up);
+                dirs.Add(Direction.Left);
+                dirs.Add(Direction.Right);
+                break;
+        }
+
+        
+        for (int i = 0; i < dirs.Count; i++)
+        {
+            dirs[i] = RotateDirection(dirs[i], rotation);
+        }
+
+        return dirs;
+    }
+
+    Direction RotateDirection(Direction dir, int rotation)
+    {
+        return (Direction)(((int)dir - rotation + 4) % 4);
     }
 
     void OnMouseDown()
@@ -37,7 +74,15 @@ public class DraggableItem : MonoBehaviour
         {
             rotation = (rotation + 1) % 4;
             transform.rotation = Quaternion.Euler(0, 0, -90 * rotation);
+
+            GridManager gm = FindObjectOfType<GridManager>();
+            if (gm != null)
+            {
+                gm.UpdatePower(gm.sourcePosition);
+            }
         }
+
+        DebugConnections();
     }
     void Update()
     {
@@ -59,22 +104,20 @@ public class DraggableItem : MonoBehaviour
         GridManager gm = FindObjectOfType<GridManager>();
         if (gm == null) return;
 
-        for (int x = 0; x < gm.width; x++)
+        if (currentGridPos.x >= 0)
         {
-            for (int y = 0; y < gm.height; y++)
-            {
-                if (gm.placedItems[x, y] == this)
-                    gm.placedItems[x, y] = null;
-            }
+            gm.placedItems[currentGridPos.x, currentGridPos.y] = null;
         }
     }
+
     void SnapToGrid()
     {
+        
         int x = Mathf.RoundToInt(transform.position.x);
         int y = Mathf.RoundToInt(transform.position.y);
 
         GridManager gm = FindObjectOfType<GridManager>();
-
+        
         if (gm == null) return;
 
         if (x >= 0 && x < gm.width && y >= 0 && y < gm.height)
@@ -82,12 +125,32 @@ public class DraggableItem : MonoBehaviour
             transform.position = new Vector3(x, y, 0);
             RegisterToGrid(x, y);
         }
+        gm.UpdatePower(gm.sourcePosition);
     }
     void RegisterToGrid(int x, int y)
     {
         GridManager gm = FindObjectOfType<GridManager>();
-        if (gm == null) return;
+        if (gm == null)
+        {
+            Debug.LogError("GridManager NOT FOUND");
+            return;
+        }
+        if (currentGridPos.x >= 0)
+        {
+            gm.placedItems[currentGridPos.x, currentGridPos.y] = null;
+        }
 
         gm.placedItems[x, y] = this;
+        currentGridPos = new Vector2Int(x, y);
+    }
+    void DebugConnections()
+    {
+        var dirs = GetConnections();
+        string s = "Connections: ";
+
+        foreach (var d in dirs)
+            s += d + " ";
+
+        Debug.Log(s);
     }
 }
