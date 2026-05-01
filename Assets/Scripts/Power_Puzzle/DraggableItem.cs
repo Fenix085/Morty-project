@@ -9,6 +9,13 @@ public class DraggableItem : MonoBehaviour
     public bool isPowered;
     private SpriteRenderer sr;
     private Vector2Int currentGridPos = new Vector2Int(-1, -1);
+    public bool isLocked = false;
+    private Vector3 startPosition;
+
+    void Start()
+    {
+        startPosition = transform.position;
+    }
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -17,7 +24,7 @@ public class DraggableItem : MonoBehaviour
     public void SetPowered(bool value)
     {
         isPowered = value;
-        sr.color = value ? Color.yellow : Color.white;
+        sr.color = value ? Color.yellow : Color.black;
     }
 
     public List<Direction> GetConnections()
@@ -52,13 +59,15 @@ public class DraggableItem : MonoBehaviour
         return dirs;
     }
 
-    Direction RotateDirection(Direction dir, int rotation)
+    Direction RotateDirection(Direction dir, int rotationCount)
     {
-        return (Direction)(((int)dir - rotation + 4) % 4);
+        // rotationCount — ??? ??????? ??? ?? ????????? ?? 90 ???????? (0, 1, 2, 3)
+        return (Direction)(((int)dir + rotationCount) % 4);
     }
 
     void OnMouseDown()
     {
+        if (isLocked) return;
         offset = transform.position - GetMouseWorldPos();
         dragging = true;
     }
@@ -112,18 +121,19 @@ public class DraggableItem : MonoBehaviour
 
     void SnapToGrid()
     {
-        
         int x = Mathf.RoundToInt(transform.position.x);
         int y = Mathf.RoundToInt(transform.position.y);
-
         GridManager gm = FindObjectOfType<GridManager>();
-        
-        if (gm == null) return;
 
-        if (x >= 0 && x < gm.width && y >= 0 && y < gm.height)
+        if (gm != null && x >= 0 && x < gm.width && y >= 0 && y < gm.height)
         {
             transform.position = new Vector3(x, y, 0);
             RegisterToGrid(x, y);
+        }
+        else
+        {
+            ClearOldPosition();
+            transform.position = startPosition;
         }
         gm.UpdatePower(gm.sourcePosition);
     }

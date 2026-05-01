@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 public class GridManager : MonoBehaviour
 {
@@ -9,7 +9,9 @@ public class GridManager : MonoBehaviour
     public DraggableItem[,] placedItems;
     public Vector2Int sourcePosition;
     public Direction sourceDirection;
-    
+    public Vector2Int targetPosition;
+    public Direction targetDirection;
+
     public Vector2Int DirectionToVector(Direction dir)
     {
         switch (dir)
@@ -94,22 +96,26 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        DebugGrid();
-    }
-    void DebugGrid()
-    {
-        Debug.Log("=== GRID ===");
+        Vector2Int neighborToTarget = targetPosition + DirectionToVector(targetDirection);
 
-        for (int y = height - 1; y >= 0; y--)
+        if (IsInside(neighborToTarget))
         {
-            string row = "";
+            DraggableItem lastItem = placedItems[neighborToTarget.x, neighborToTarget.y];
 
-            for (int x = 0; x < width; x++)
+            if (lastItem != null && lastItem.isPowered)
             {
-                row += placedItems[x, y] != null ? "X " : ". ";
+                
+                if (lastItem.GetConnections().Contains(Opposite(targetDirection)))
+                {
+                    Debug.Log("Victory!");
+                    
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+                }
             }
-
-            Debug.Log(row);
         }
     }
     bool IsInside(Vector2Int pos)
@@ -130,7 +136,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 pos = new Vector3(x, y, 0);
+                Vector3 pos = new Vector3(x, y, 1);
                 GameObject obj = Instantiate(tilePrefab, pos, Quaternion.identity, transform);
 
                 Tile tile = obj.GetComponent<Tile>();
