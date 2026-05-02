@@ -11,10 +11,17 @@ public class DraggableItem : MonoBehaviour
     private Vector2Int currentGridPos = new Vector2Int(-1, -1);
     public bool isLocked = false;
     private Vector3 startPosition;
+    public Sprite unpoweredSprite;
+    public Sprite poweredSprite;
 
     void Start()
     {
         startPosition = transform.position;
+        UpdateVisuals();
+        if (isLocked)
+        {
+            SnapToGrid();
+        }
     }
     void Awake()
     {
@@ -24,7 +31,18 @@ public class DraggableItem : MonoBehaviour
     public void SetPowered(bool value)
     {
         isPowered = value;
-        sr.color = value ? Color.yellow : Color.black;
+        UpdateVisuals();
+    }
+
+    private void UpdateVisuals()
+    {
+        if (sr == null) return;
+
+        sr.sprite = isPowered ? poweredSprite : unpoweredSprite;
+        
+        sr.color = Color.white;
+
+        transform.rotation = Quaternion.Euler(0, 0, -90f * rotation);
     }
 
     public List<Direction> GetConnections()
@@ -34,19 +52,21 @@ public class DraggableItem : MonoBehaviour
         switch (type)
         {
             case ChannelType.Straight:
-                dirs.Add(Direction.Up);
-                dirs.Add(Direction.Down);
+                dirs.Add(Direction.Left);
+                dirs.Add(Direction.Right);
                 break;
 
             case ChannelType.Corner:
-                dirs.Add(Direction.Up);
-                dirs.Add(Direction.Right);
+                dirs.Add(Direction.Left);
+                dirs.Add(Direction.Down);
                 break;
 
             case ChannelType.TShape:
-                dirs.Add(Direction.Up);
                 dirs.Add(Direction.Left);
+                dirs.Add(Direction.Down);
                 dirs.Add(Direction.Right);
+                break;
+            case ChannelType.Wall:
                 break;
         }
 
@@ -61,7 +81,6 @@ public class DraggableItem : MonoBehaviour
 
     Direction RotateDirection(Direction dir, int rotationCount)
     {
-        // rotationCount — ??? ??????? ??? ?? ????????? ?? 90 ???????? (0, 1, 2, 3)
         return (Direction)(((int)dir + rotationCount) % 4);
     }
 
@@ -82,7 +101,7 @@ public class DraggableItem : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             rotation = (rotation + 1) % 4;
-            transform.rotation = Quaternion.Euler(0, 0, -90 * rotation);
+            UpdateVisuals();
 
             GridManager gm = FindObjectOfType<GridManager>();
             if (gm != null)
@@ -123,19 +142,47 @@ public class DraggableItem : MonoBehaviour
     {
         int x = Mathf.RoundToInt(transform.position.x);
         int y = Mathf.RoundToInt(transform.position.y);
-        GridManager gm = FindObjectOfType<GridManager>();
+        Vector2Int newPos = new Vector2Int(x, y);
 
-        if (gm != null && x >= 0 && x < gm.width && y >= 0 && y < gm.height)
+        GridManager gm = FindObjectOfType<GridManager>();
+        if (gm == null) return;
+
+        
+        if (x >= 0 && x < gm.width && y >= 0 && y < gm.height)
         {
+            
+            if (newPos == gm.sourcePosition || newPos == gm.targetPosition)
+            {
+                BackToTray();
+                return;
+            }
+
+            
+            if (gm.placedItems[x, y] != null && gm.placedItems[x, y] != this)
+            {
+                BackToTray();
+                return;
+            }
+
+            
             transform.position = new Vector3(x, y, 0);
             RegisterToGrid(x, y);
         }
         else
         {
-            ClearOldPosition();
-            transform.position = startPosition;
+            
+            BackToTray();
         }
+
         gm.UpdatePower(gm.sourcePosition);
+        UpdateVisuals();
+    }
+
+    void BackToTray()
+    {
+        ClearOldPosition();
+        transform.position = startPosition;
+        SetPowered(false);
     }
     void RegisterToGrid(int x, int y)
     {
