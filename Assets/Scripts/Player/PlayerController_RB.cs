@@ -135,11 +135,11 @@ public class PlayerController_RB : MonoBehaviour {
     // FixedUpdate is called every fixed framerate frame
     private void FixedUpdate()
     {
-        // if changing worlds
         if (_transfering)
         {
             return;
         }
+
         if(_moveDirection.magnitude > 0)
         {
             animator.Play("Walk");
@@ -148,8 +148,14 @@ public class PlayerController_RB : MonoBehaviour {
         {
             animator.Play("Idle");
         }
-        // update movement
-        _playerRB.MovePosition(_playerRB.position + transform.TransformDirection(_moveDirection * speed * Time.deltaTime));
+
+        _playerRB.MovePosition(
+            _playerRB.position + transform.TransformDirection(_moveDirection * speed * Time.deltaTime)
+        );
+
+        // 🔥 ВОТ ЭТО УБИРАЕТ СКОЛЬЖЕНИЕ
+        _playerRB.linearVelocity = Vector3.zero;
+        _playerRB.angularVelocity = Vector3.zero;
     }
 
     /// <summary>
