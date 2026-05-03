@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundEffectsManager : MonoBehaviour
 {
+    public static SoundEffectsManager Instance;
     [Header("Audio Source")]
     public AudioSource sfxSource;
 
@@ -16,6 +17,19 @@ public class SoundEffectsManager : MonoBehaviour
     public float minPitch = 0.9f;
     public float maxPitch = 1.1f;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     //Play sound effect by name
     public void PlayRandom()
     {

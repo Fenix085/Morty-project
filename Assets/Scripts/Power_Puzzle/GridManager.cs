@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 public class GridManager : MonoBehaviour
 {
-    public int width = 6;
+    public int width = 7;
     public int height = 6;
     public GameObject tilePrefab;
     public Tile[,] grid;

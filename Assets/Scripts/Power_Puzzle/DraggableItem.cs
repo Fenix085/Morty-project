@@ -14,6 +14,9 @@ public class DraggableItem : MonoBehaviour
     public Sprite unpoweredSprite;
     public Sprite poweredSprite;
 
+    public AudioClip snapSound;
+    public AudioClip rotateSound;
+    public AudioClip powerUpSound;
     void Start()
     {
         startPosition = transform.position;
@@ -30,6 +33,14 @@ public class DraggableItem : MonoBehaviour
 
     public void SetPowered(bool value)
     {
+        if (value && !isPowered)
+        {
+            if (SoundEffectsManager.Instance != null && powerUpSound != null)
+            {
+                SoundEffectsManager.Instance.Play(powerUpSound);
+            }
+        }
+        
         isPowered = value;
         UpdateVisuals();
     }
@@ -108,6 +119,11 @@ public class DraggableItem : MonoBehaviour
             {
                 gm.UpdatePower(gm.sourcePosition);
             }
+
+            if (SoundEffectsManager.Instance != null && rotateSound != null)
+            {
+                SoundEffectsManager.Instance.Play(rotateSound);
+            }
         }
 
         DebugConnections();
@@ -173,7 +189,12 @@ public class DraggableItem : MonoBehaviour
             
             BackToTray();
         }
-
+        
+        if (SoundEffectsManager.Instance != null && snapSound != null)
+        {
+            SoundEffectsManager.Instance.Play(snapSound);
+        }
+        
         gm.UpdatePower(gm.sourcePosition);
         UpdateVisuals();
     }
