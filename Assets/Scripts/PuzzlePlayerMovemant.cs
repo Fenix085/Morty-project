@@ -14,27 +14,11 @@ public class PuzzlePlayerMovement : MonoBehaviour
     private Vector3 boxTargetPosition;
     private bool isBoxMoving = false;
 
-    public GameObject currentLevelGenerator;
+    private LevelGenerator levelGenerator;
 
     void Start()
     {
-        // Ищем ЛЮБОЙ генератор на сцене
-        if (currentLevelGenerator == null)
-        {
-
-            // Ищем LevelGenerator (без цифр)
-            LevelGenerator gen = FindObjectOfType<LevelGenerator>();
-            if (gen != null) currentLevelGenerator = gen.gameObject;
-            
-            if (currentLevelGenerator != null)
-            {
-                Debug.Log($"Найден генератор: {currentLevelGenerator.name}");
-            }
-            else
-            {
-                Debug.LogError("НЕ НАЙДЕН НИ ОДИН ГЕНЕРАТОР! (LevelGenerator, LevelGenerator2, LevelGenerator3)");
-            }
-        }
+        levelGenerator = FindObjectOfType<LevelGenerator>();
     }
 
     void Update()
@@ -73,6 +57,7 @@ public class PuzzlePlayerMovement : MonoBehaviour
     void TryMove(Vector3 direction)
     {
         Quaternion targetRotation = Quaternion.LookRotation(direction, transform.up);
+
         mesh.transform.rotation = targetRotation;
 
         Vector3 newPos = transform.position + direction * moveDistance;
@@ -119,10 +104,8 @@ public class PuzzlePlayerMovement : MonoBehaviour
             transform.position = targetPosition;
             isMoving = false;
 
-            if (currentLevelGenerator != null)
-            {
-                currentLevelGenerator.SendMessage("CheckTeleport", transform.position, SendMessageOptions.DontRequireReceiver);
-            }
+            if (levelGenerator != null)
+                levelGenerator.CheckTeleport(transform.position);
         }
     }
 
