@@ -13,11 +13,22 @@ public class PressureButton : MonoBehaviour
             boxCount++;
             UpdateLasers();
         }
-    }
+
+        if (other.CompareTag("Player"))
+        {
+            boxCount++;
+            UpdateLasers();
+        }
+}
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Box"))
+        {
+            boxCount--;
+            UpdateLasers();
+        }
+        if (other.CompareTag("Player"))
         {
             boxCount--;
             UpdateLasers();

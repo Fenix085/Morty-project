@@ -2119,7 +2119,7 @@ GameObject:
   - component: {fileID: 1921882507}
   - component: {fileID: 1921882506}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraRotation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2138,8 +2138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   player: {fileID: 8371079213458671944}
-  mouseSensitivity: 200
-  height: 4
+  mouseSensitivity: 400
+  height: 5
   distance: 6
 --- !u!114 &1921882507
 MonoBehaviour:
@@ -2252,13 +2252,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921882505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 31.9, z: 0}
+  m_LocalRotation: {x: 0.33790362, y: -0, z: -0, w: 0.9411807}
+  m_LocalPosition: {x: 0, y: 37.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 39.498, y: 0, z: 0}
 --- !u!1 &1951306068 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8935552351399432707, guid: e7b5e60a23882874c889cc458c3e5f85, type: 3}
@@ -7980,6 +7980,10 @@ PrefabInstance:
       propertyPath: speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6152514176725050587, guid: f21d97dd2dfd4f149803ee39594929ba, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1921882510}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1960026720313370904, guid: f21d97dd2dfd4f149803ee39594929ba, type: 3}
@@ -8060,6 +8064,7 @@ SceneRoots:
   - {fileID: 6973301640464671267}
   - {fileID: 1816652518}
   - {fileID: 8371079213458671943}
+  - {fileID: 1921882510}
   - {fileID: 920966073}
   - {fileID: 2029465130}
   - {fileID: 4973267718435081506}
@@ -8073,4 +8078,3 @@ SceneRoots:
   - {fileID: 1120762575368690358}
   - {fileID: 1394203282}
   - {fileID: 885823410}
-  - {fileID: 1921882510}
