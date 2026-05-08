@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CreativePuzzle.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CreativePuzzle.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/FakeGravity.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FakeGravity.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/PreassureButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/PreassureButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Laser.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Laser.mat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +20,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CPScriprs/ControllerForLevel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CPScriprs/LeverSwitch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TrashLevel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@37e0d4fc2503/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -114,6 +112,7 @@
       <workItem from="1777757299289" duration="471000" />
       <workItem from="1778250938727" duration="8718000" />
       <workItem from="1778267104052" duration="6994000" />
+      <workItem from="1778274643176" duration="878000" />
     </task>
     <servers />
   </component>
