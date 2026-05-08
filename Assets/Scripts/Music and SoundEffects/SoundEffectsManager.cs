@@ -17,6 +17,7 @@ public class SoundEffectsManager : MonoBehaviour
     public float minPitch = 0.9f;
     public float maxPitch = 1.1f;
 
+    public AudioClip vacuumSound;
     private void Awake()
     {
         if (Instance == null)
@@ -30,6 +31,7 @@ public class SoundEffectsManager : MonoBehaviour
         }
     }
     
+    
     //Play sound effect by name
     public void PlayRandom()
     {
@@ -37,6 +39,22 @@ public class SoundEffectsManager : MonoBehaviour
 
         AudioClip clip = soundEffects[Random.Range(0, soundEffects.Count)];
         Play(clip);
+    }
+
+    public AudioSource PlayLoopingSound(AudioClip clip, float volume)
+    {
+        if (clip == null) return null;
+
+        
+        GameObject sndObj = new GameObject("TempAudio_" + clip.name);
+        AudioSource source = sndObj.AddComponent<AudioSource>();
+
+        source.clip = clip;
+        source.volume = volume;
+        source.loop = true;
+        source.Play();
+
+        return source;
     }
 
     //Play specific sound effect

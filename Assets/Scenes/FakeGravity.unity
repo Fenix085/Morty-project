@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &2444388
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -178,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &82991879
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -218,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &91557991
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -258,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &144789927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -309,6 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &323576202
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -450,6 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &534696904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -490,6 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &601238311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -530,6 +537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &606892904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -614,6 +622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &860418114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -781,6 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &912238309
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -821,6 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &920089042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1155,6 +1166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 8300000, guid: 09679994302cfeb4fba3bec827052454, type: 3}
 --- !u!1001 &1071973703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1231,6 +1243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1130458428
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1271,6 +1284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1132631961
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1311,6 +1325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1142979156
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1351,6 +1366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1175326509
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1418,6 +1434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1329942897
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1458,6 +1475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1336354612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1792,6 +1810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1408433139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1922,6 +1941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1505770952
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2121,10 +2141,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectsManager
   sfxSource: {fileID: 1897775276}
   soundEffects: []
-  volume: 1
+  volume: 0.5
   randomPitch: 1
   minPitch: 0.9
   maxPitch: 1.1
+  vacuumSound: {fileID: 8300000, guid: bff02c1058365214e88daed908e67244, type: 3}
 --- !u!82 &1897775276
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2138,7 +2159,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2256,6 +2277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &1951306073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2399,6 +2421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &2019571590
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2516,6 +2539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrashMagnet
   attractDistance: 3
   moveSpeed: 5
+  attractSound: {fileID: 0}
 --- !u!65 &2046099915
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7972,6 +7996,10 @@ PrefabInstance:
       propertyPath: speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6152514176725050587, guid: f21d97dd2dfd4f149803ee39594929ba, type: 3}
+      propertyPath: stepSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 11b2e0423ecf1a64897f11430cad133e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1960026720313370904, guid: f21d97dd2dfd4f149803ee39594929ba, type: 3}

@@ -1,5 +1,7 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+
 public class GridManager : MonoBehaviour
 {
     public int width = 7;
@@ -9,8 +11,22 @@ public class GridManager : MonoBehaviour
     public DraggableItem[,] placedItems;
     public Vector2Int sourcePosition;
     public Direction sourceDirection;
-    public Vector2Int targetPosition;
-    public Direction targetDirection;
+    public Vector2 gridOffset;
+
+    [System.Serializable]
+    public struct TargetData
+    {
+        public Vector2Int position;
+        public Direction direction;
+    }
+
+    
+    public List<TargetData> targets = new List<TargetData>();
+
+    public void RegisterTarget(Vector2Int pos, Direction dir)
+    {
+        targets.Add(new TargetData { position = pos, direction = dir });
+    }
 
     public Vector2Int DirectionToVector(Direction dir)
     {
@@ -31,99 +47,108 @@ public class GridManager : MonoBehaviour
 
     public void UpdatePower(Vector2Int sourcePos)
     {
-        Debug.Log("UpdatePower called");
+        HashSet<DraggableItem> itemsThatShouldBePowered = new HashSet<DraggableItem>();
+        Queue<Vector2Int> checkQueue = new Queue<Vector2Int>();
+        HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
 
-        foreach (var item in placedItems)
-        {
-            if (item != null)
-                item.SetPowered(false);
-        }
-        
         Vector2Int startPos = sourcePosition + DirectionToVector(sourceDirection);
-        Debug.Log("StartPos: " + startPos);
 
-        if (!IsInside(startPos)) return;
-
-        DraggableItem startItem = placedItems[startPos.x, startPos.y];
-        if (startItem == null)
+        if (IsInside(startPos))
         {
-            Debug.Log("No channel at start position");
-            return;
+            DraggableItem firstItem = placedItems[startPos.x, startPos.y];
+            if (firstItem != null && firstItem.GetConnections().Contains(Opposite(sourceDirection)))
+            {
+                checkQueue.Enqueue(startPos);
+            }
         }
 
-        Debug.Log("Start item found");
-
-        if (!startItem.GetConnections().Contains(Opposite(sourceDirection)))
-        {
-            Debug.Log("Channel NOT connected to source");
-            return;
-        }
-
-        Debug.Log("Channel CONNECTED to source");
         
-        Queue<Vector2Int> queue = new Queue<Vector2Int>();
-        queue.Enqueue(startPos);
-        startItem.SetPowered(true);
-
-        while (queue.Count > 0)
+        while (checkQueue.Count > 0)
         {
-            Vector2Int current = queue.Dequeue();
-            DraggableItem currentItem = placedItems[current.x, current.y];
+            Vector2Int current = checkQueue.Dequeue();
+            if (visited.Contains(current)) continue;
+            visited.Add(current);
 
+            DraggableItem currentItem = placedItems[current.x, current.y];
             if (currentItem == null) continue;
 
-            currentItem.SetPowered(true);
+            itemsThatShouldBePowered.Add(currentItem);
 
             foreach (var dir in currentItem.GetConnections())
             {
                 Vector2Int nextPos = current + DirectionToVector(dir);
-
                 if (!IsInside(nextPos)) continue;
 
                 DraggableItem nextItem = placedItems[nextPos.x, nextPos.y];
+                if (nextItem == null || visited.Contains(nextPos)) continue;
 
-                if (nextItem == null) continue;
-
-                
-                if (currentItem.GetConnections().Contains(dir) &&
-                    nextItem.GetConnections().Contains(Opposite(dir)))
+                if (nextItem.GetConnections().Contains(Opposite(dir)))
                 {
-                    if (!nextItem.isPowered)
+                    checkQueue.Enqueue(nextPos);
+                }
+            }
+        }
+
+        
+        foreach (var item in placedItems)
+        {
+            if (item != null)
+            {
+                bool powerStatus = itemsThatShouldBePowered.Contains(item);
+                item.SetPowered(powerStatus);
+            }
+        }
+
+        CheckVictory(itemsThatShouldBePowered);
+    }
+
+    private void CheckVictory(HashSet<DraggableItem> poweredItems)
+    {
+        if (targets.Count == 0) return;
+
+        int poweredTargetsCount = 0;
+
+        foreach (var target in targets)
+        {
+            
+            Vector2Int neighborToTarget = target.position + DirectionToVector(target.direction);
+
+            if (IsInside(neighborToTarget))
+            {
+                DraggableItem lastItem = placedItems[neighborToTarget.x, neighborToTarget.y];
+
+                if (lastItem != null && poweredItems.Contains(lastItem))
+                {
+                    if (lastItem.GetConnections().Contains(Opposite(target.direction)))
                     {
-                        nextItem.SetPowered(true);
-                        queue.Enqueue(nextPos);
+                        poweredTargetsCount++;
                     }
                 }
             }
         }
-        Vector2Int neighborToTarget = targetPosition + DirectionToVector(targetDirection);
 
-        if (IsInside(neighborToTarget))
+
+        if (poweredTargetsCount == targets.Count)
         {
-            DraggableItem lastItem = placedItems[neighborToTarget.x, neighborToTarget.y];
+            Debug.Log("Victory! All " + targets.Count + " targets are powered!");
 
-            if (lastItem != null && lastItem.isPowered)
-            {
-                
-                if (lastItem.GetConnections().Contains(Opposite(targetDirection)))
-                {
-                    Debug.Log("Victory!");
-                    
+            
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
-                }
-            }
         }
     }
+
     bool IsInside(Vector2Int pos)
     {
         return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
-    void Start()
+
+    void Awake()
     {
+        targets.Clear();
         GenerateGrid();
     }
 
@@ -136,15 +161,13 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 pos = new Vector3(x, y, 1);
+                Vector3 pos = new Vector3(x + gridOffset.x, y + gridOffset.y, 1);
                 GameObject obj = Instantiate(tilePrefab, pos, Quaternion.identity, transform);
 
                 Tile tile = obj.GetComponent<Tile>();
                 tile.gridPos = new Vector2Int(x, y);
-
                 grid[x, y] = tile;
             }
         }
     }
-
 }

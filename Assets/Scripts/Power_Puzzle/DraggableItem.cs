@@ -33,14 +33,14 @@ public class DraggableItem : MonoBehaviour
 
     public void SetPowered(bool value)
     {
+        if (isPowered == value) return;
+
         if (value && !isPowered)
         {
             if (SoundEffectsManager.Instance != null && powerUpSound != null)
-            {
                 SoundEffectsManager.Instance.Play(powerUpSound);
-            }
         }
-        
+
         isPowered = value;
         UpdateVisuals();
     }
@@ -125,8 +125,6 @@ public class DraggableItem : MonoBehaviour
                 SoundEffectsManager.Instance.Play(rotateSound);
             }
         }
-
-        DebugConnections();
     }
     void Update()
     {
@@ -156,18 +154,16 @@ public class DraggableItem : MonoBehaviour
 
     void SnapToGrid()
     {
-        int x = Mathf.RoundToInt(transform.position.x);
-        int y = Mathf.RoundToInt(transform.position.y);
-        Vector2Int newPos = new Vector2Int(x, y);
-
         GridManager gm = FindObjectOfType<GridManager>();
         if (gm == null) return;
 
-        
+        int x = Mathf.RoundToInt(transform.position.x - gm.gridOffset.x);
+        int y = Mathf.RoundToInt(transform.position.y - gm.gridOffset.y);
+
         if (x >= 0 && x < gm.width && y >= 0 && y < gm.height)
         {
             
-            if (newPos == gm.sourcePosition || newPos == gm.targetPosition)
+            if (new Vector2Int(x, y) == gm.sourcePosition)
             {
                 BackToTray();
                 return;
@@ -180,8 +176,7 @@ public class DraggableItem : MonoBehaviour
                 return;
             }
 
-            
-            transform.position = new Vector3(x, y, 0);
+            transform.position = new Vector3(x + gm.gridOffset.x, y + gm.gridOffset.y, 0);
             RegisterToGrid(x, y);
         }
         else
@@ -220,15 +215,5 @@ public class DraggableItem : MonoBehaviour
 
         gm.placedItems[x, y] = this;
         currentGridPos = new Vector2Int(x, y);
-    }
-    void DebugConnections()
-    {
-        var dirs = GetConnections();
-        string s = "Connections: ";
-
-        foreach (var d in dirs)
-            s += d + " ";
-
-        Debug.Log(s);
     }
 }

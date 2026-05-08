@@ -10,11 +10,14 @@ public class TargetMarker : MonoBehaviour
         GridManager gm = FindObjectOfType<GridManager>();
         if (gm != null)
         {
-            gm.targetPosition = new Vector2Int(
-                Mathf.RoundToInt(transform.position.x),
-                Mathf.RoundToInt(transform.position.y)
+            
+            Vector2Int pos = new Vector2Int(
+                Mathf.RoundToInt(transform.position.x - gm.gridOffset.x),
+                Mathf.RoundToInt(transform.position.y - gm.gridOffset.y)
             );
-            gm.targetDirection = inputDirection;
+
+            
+            gm.RegisterTarget(pos, inputDirection);
         }
     }
 }

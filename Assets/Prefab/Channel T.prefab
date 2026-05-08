@@ -130,8 +130,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.4628571, y: 1.4628571}
+    pivot: {x: 0.5, y: 0.53510046}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -157,3 +157,6 @@ MonoBehaviour:
   isLocked: 0
   unpoweredSprite: {fileID: 0}
   poweredSprite: {fileID: 0}
+  snapSound: {fileID: 8300000, guid: 85222ece2d1a1754abfb61e53f1f4e01, type: 3}
+  rotateSound: {fileID: 8300000, guid: 9ca4b9d366d41f24597a15331c41cdf5, type: 3}
+  powerUpSound: {fileID: 8300000, guid: 80d87c1acba703641943709d8a5b6249, type: 3}

@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: d379b8bb6ac534543a5500419d30d900
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - mesh: {instanceID: 0}
+  - currentLevelGenerator: {instanceID: 0}
+  - stepSound: {fileID: 8300000, guid: 11b2e0423ecf1a64897f11430cad133e, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
