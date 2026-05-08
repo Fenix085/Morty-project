@@ -35,6 +35,7 @@ public class PlayerController_RB : MonoBehaviour {
     private FakeGravityBody _worldGravity;
 
     private Animator animator;
+    [SerializeField] private Transform cameraTransform;
  
     // transfer
     private bool _transfering = false;
@@ -114,7 +115,20 @@ public class PlayerController_RB : MonoBehaviour {
         }
 
         // update move direction
-        _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+
+        // убираем наклон камеры
+        camForward.y = 0;
+        camRight.y = 0;
+
+        camForward.Normalize();
+        camRight.Normalize();
+
+        _moveDirection = (camForward * v + camRight * h).normalized;
 
         // world transfer
         //if (Input.GetKeyDown("e"))
@@ -341,13 +355,19 @@ public class PlayerController_RB : MonoBehaviour {
     private void RotateForward()
     {
         Vector3 dir = _moveDirection;
-        // calculate angle and rotation
-        float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
-        // only update rotation if direction greater than zero
-        if (Vector3.Magnitude(dir) > 0.0f)
+
+        if (dir.magnitude > 0.1f)
         {
-            _playerMesh.localRotation = targetRotation;
+            float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+
+            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
+
+            // плавный поворот
+            _playerMesh.localRotation = Quaternion.Slerp(
+                _playerMesh.localRotation,
+                targetRotation,
+                10f * Time.deltaTime
+            );
         }
     }
 
