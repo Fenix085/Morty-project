@@ -9,10 +9,9 @@ public class CameraFollow : MonoBehaviour
     public float mouseSensitivity = 200f;
 
     [Header("Position")]
-    public float height = 4f;     // высота камеры
-    public float distance = 6f;   // дистанция от игрока
+    public float height = 4f;
+    public float distance = 6f;
 
-    private float xRotation = 20f;
     private float yRotation = 0f;
 
     void Start()
@@ -24,20 +23,14 @@ public class CameraFollow : MonoBehaviour
     {
         if (player == null) return;
 
-        // вращение мышкой
+        // только горизонтальное вращение
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
         yRotation += mouseX;
-        xRotation -= mouseY;
 
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-
-        Quaternion rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        Quaternion rotation = Quaternion.Euler(0f, yRotation, 0f);
 
         // позиция камеры
         Vector3 offset = rotation * new Vector3(0f, height, -distance);
-
         transform.position = player.position + offset;
 
         // камера смотрит на игрока

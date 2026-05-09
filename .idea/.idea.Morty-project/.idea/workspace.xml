@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Laser.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Laser.mat" afterDir="false" />
-    </list>
+    <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,7 +110,7 @@
       <workItem from="1777757299289" duration="471000" />
       <workItem from="1778250938727" duration="8718000" />
       <workItem from="1778267104052" duration="6994000" />
-      <workItem from="1778274643176" duration="878000" />
+      <workItem from="1778274643176" duration="1500000" />
     </task>
     <servers />
   </component>
