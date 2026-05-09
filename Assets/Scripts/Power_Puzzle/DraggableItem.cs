@@ -97,6 +97,8 @@ public class DraggableItem : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
+            return;
         if (isLocked) return;
         offset = transform.position - GetMouseWorldPos();
         dragging = true;
@@ -104,11 +106,15 @@ public class DraggableItem : MonoBehaviour
 
     void OnMouseUp()
     {
+        if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
+            return;
         dragging = false;
         SnapToGrid();
     }
     void OnMouseOver()
     {
+        if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
+            return;
         if (Input.GetMouseButtonDown(1))
         {
             rotation = (rotation + 1) % 4;
