@@ -94,6 +94,11 @@ public class PlayerMovement : MonoBehaviour
         right = playerPivot.right;
 
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
+        Vector2 mobileInput = MobileJoystick.Instance != null ? MobileJoystick.Instance.Value : Vector2.zero;
+
+        if (mobileInput.sqrMagnitude > moveInput.sqrMagnitude)
+            moveInput = mobileInput;
+
         float fmove = moveInput.x;
         float smove = -moveInput.y;
 
