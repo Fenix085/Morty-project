@@ -5,24 +5,38 @@ public class ButtonSpriteSwitch : MonoBehaviour
     [SerializeField, Tooltip("Default button object")]
     private GameObject defaultButton;
 
-    [SerializeField, Tooltip("Active button object")]
-    private GameObject activeButton;
+    [SerializeField, Tooltip("Tags that can trigger the button (e.g. Player, Platform)")]
+    private string[] triggerTags = { "Player" };
+
+    private int _overlapCount = 0;
 
     private void Start()
     {
         if (defaultButton != null) defaultButton.SetActive(true);
-        if (activeButton != null) activeButton.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!IsValidTag(other)) return;
+        _overlapCount++;
         if (defaultButton != null) defaultButton.SetActive(false);
-        if (activeButton != null) activeButton.SetActive(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (defaultButton != null) defaultButton.SetActive(true);
-        if (activeButton != null) activeButton.SetActive(false);
+        if (!IsValidTag(other)) return;
+        _overlapCount--;
+        if (_overlapCount <= 0)
+        {
+            _overlapCount = 0;
+            if (defaultButton != null) defaultButton.SetActive(true);
+        }
+    }
+
+    private bool IsValidTag(Collider other)
+    {
+        foreach (var tag in triggerTags)
+            if (other.CompareTag(tag)) return true;
+        return false;
     }
 }
