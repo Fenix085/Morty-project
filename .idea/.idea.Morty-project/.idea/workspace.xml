@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/VeryCreativePuzzle.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/VeryCreativePuzzle.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/ButtonSpiteSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/ButtonSpiteSwitch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-    </list>
+    <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,7 +111,7 @@
       <workItem from="1778250938727" duration="8718000" />
       <workItem from="1778267104052" duration="6994000" />
       <workItem from="1778274643176" duration="1500000" />
-      <workItem from="1778428834210" duration="1379000" />
+      <workItem from="1778428834210" duration="1972000" />
     </task>
     <servers />
   </component>
