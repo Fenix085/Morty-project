@@ -97,6 +97,8 @@ public class DraggableItem : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+            return;
         if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
             return;
         if (isLocked) return;
@@ -106,6 +108,8 @@ public class DraggableItem : MonoBehaviour
 
     void OnMouseUp()
     {
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+            return;
         if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
             return;
         dragging = false;
@@ -113,6 +117,8 @@ public class DraggableItem : MonoBehaviour
     }
     void OnMouseOver()
     {
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+            return;
         if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
             return;
         if (Input.GetMouseButtonDown(1))
