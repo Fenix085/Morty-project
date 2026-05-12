@@ -119,6 +119,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &101650383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4222189821726261577, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+  m_PrefabInstance: {fileID: 975240095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &101650385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101650383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02812c71b56f87845beee4abbce0812c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
+  gravity: -10
+  size: 10
 --- !u!1 &153584979 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -131,7 +150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153584979}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02812c71b56f87845beee4abbce0812c, type: 3}
   m_Name: 
@@ -206,6 +225,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53d81399fb496574f8ff9c8f1086bf6c, type: 3}
+--- !u!1 &613437696 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2822477677757180451, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+  m_PrefabInstance: {fileID: 975240095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &613437698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613437696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02812c71b56f87845beee4abbce0812c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
+  gravity: -10
+  size: 10
+--- !u!1 &739770697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6433795963395200455, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+  m_PrefabInstance: {fileID: 975240095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &739770699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739770697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02812c71b56f87845beee4abbce0812c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
+  gravity: -10
+  size: 10
 --- !u!1 &885823405
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,10 +711,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5240502242840059074, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e061e20738665e8479b2f3f838ef82a6, type: 2}
     - target: {fileID: 919132149155446097, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       propertyPath: m_Name
       value: world_new_green
       objectReference: {fileID: 0}
+    - target: {fileID: 7636245591872024974, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e061e20738665e8479b2f3f838ef82a6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -665,6 +730,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 153584980}
+    - targetCorrespondingSourceObject: {fileID: 4222189821726261577, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 101650385}
+    - targetCorrespondingSourceObject: {fileID: 3494273536095650892, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1100684068}
+    - targetCorrespondingSourceObject: {fileID: 2688698076763500582, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1727315367}
+    - targetCorrespondingSourceObject: {fileID: 2822477677757180451, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613437698}
+    - targetCorrespondingSourceObject: {fileID: -6433795963395200455, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 739770699}
   m_SourcePrefab: {fileID: 100100000, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
 --- !u!1001 &1071973703
 PrefabInstance:
@@ -723,6 +803,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53d81399fb496574f8ff9c8f1086bf6c, type: 3}
+--- !u!1 &1100684066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3494273536095650892, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+  m_PrefabInstance: {fileID: 975240095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1100684068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100684066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02812c71b56f87845beee4abbce0812c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
+  gravity: -10
+  size: 10
+--- !u!1 &1727315365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2688698076763500582, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+  m_PrefabInstance: {fileID: 975240095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1727315367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727315365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02812c71b56f87845beee4abbce0812c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
+  gravity: -10
+  size: 10
 --- !u!1 &1816652515
 GameObject:
   m_ObjectHideFlags: 0
