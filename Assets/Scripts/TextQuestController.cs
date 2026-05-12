@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TextQuestController : MonoBehaviour
 {
     private enum NodeResult
     {
         None,
-        End
+        End,
+        Victory
     }
 
     [System.Serializable]
@@ -41,19 +43,17 @@ public class TextQuestController : MonoBehaviour
     [SerializeField] private Transform choicesContainer;
     [SerializeField] private Button buttonTemplate;
     [SerializeField] private Button restartButton;
+    [SerializeField] private TMP_Text restartButtonLabel;
     [SerializeField] private QuestNode[] nodes;
+    [SerializeField] private string retryButtonText = "Try Again";
+    [SerializeField] private string victoryButtonText = "Continue";
+    [SerializeField] private string victorySceneName = "FakeGravity";
 
     private readonly HashSet<string> activeFlags = new();
 
     private void Awake()
     {
         ResolveReferences();
-
-        if (restartButton != null)
-        {
-            restartButton.onClick.RemoveListener(RestartQuest);
-            restartButton.onClick.AddListener(RestartQuest);
-        }
     }
 
     private void Start()
@@ -72,7 +72,7 @@ public class TextQuestController : MonoBehaviour
     private void OnDestroy()
     {
         if (restartButton != null)
-            restartButton.onClick.RemoveListener(RestartQuest);
+            restartButton.onClick.RemoveAllListeners();
     }
 
     [ContextMenu("Use Default Nodes")]
@@ -117,6 +117,9 @@ public class TextQuestController : MonoBehaviour
             if (restartTransform != null)
                 restartButton = restartTransform.GetComponent<Button>();
         }
+
+        if (restartButtonLabel == null && restartButton != null)
+            restartButtonLabel = restartButton.GetComponentInChildren<TMP_Text>(true);
     }
 
     private bool HasValidReferences()
@@ -149,14 +152,16 @@ public class TextQuestController : MonoBehaviour
         titleText.text = string.IsNullOrWhiteSpace(node.title) ? defaultTitle : node.title;
         descriptionText.text = node.description;
 
-        if (node.result == NodeResult.End)
+        if (node.result == NodeResult.End || node.result == NodeResult.Victory)
         {
+            ConfigureEndButton(node.result);
             restartButton.gameObject.SetActive(true);
             return;
         }
 
         if (node.choices == null || node.choices.Length == 0)
         {
+            ConfigureEndButton(NodeResult.End);
             restartButton.gameObject.SetActive(true);
             return;
         }
@@ -183,8 +188,47 @@ public class TextQuestController : MonoBehaviour
         }
 
         if (visibleChoices == 0)
+        {
+            ConfigureEndButton(NodeResult.End);
             restartButton.gameObject.SetActive(true);
+        }
     }
+
+    private void ConfigureEndButton(NodeResult result)
+    {
+        if (restartButton == null)
+            return;
+
+        restartButton.onClick.RemoveAllListeners();
+
+        if (result == NodeResult.Victory)
+        {
+            SetRestartButtonLabel(victoryButtonText);
+            restartButton.onClick.AddListener(LoadVictoryScene);
+            return;
+        }
+
+        SetRestartButtonLabel(retryButtonText);
+        restartButton.onClick.AddListener(RestartQuest);
+    }
+
+    private void SetRestartButtonLabel(string text)
+    {
+        if (restartButtonLabel != null)
+            restartButtonLabel.text = text;
+    }
+
+    private void LoadVictoryScene()
+    {
+        if (string.IsNullOrWhiteSpace(victorySceneName))
+        {
+            RestartQuest();
+            return;
+        }
+
+        SceneManager.LoadScene(victorySceneName);
+    }
+
 
     private bool IsChoiceAvailable(QuestChoice choice)
     {
@@ -291,208 +335,100 @@ public class TextQuestController : MonoBehaviour
         {
             new QuestNode
             {
-                title = "SERVICE PING",
-                description = "A weak beacon blinks from a crooked house uphill: 'Grounds unit requested. Mood: poor. Yard: worse.'",
+                title = "FACILITY PING",
+                description = "An abandoned recycling facility wheezes in the dust. Inside, something is broken.",
                 choices = new[]
                 {
-                    new QuestChoice { text = "Roll uphill", nextNodeIndex = 1 }
+                    new QuestChoice { text = "Go inside", nextNodeIndex = 1 }
                 }
             },
             new QuestNode
             {
-                title = "THE HOUSE",
-                description = "The porch light is dead. The mailbox hangs open. The garage hums faintly. From inside: 'If you are raccoons, please queue politely.'",
+                title = "MAIN FLOOR",
+                description = "Dead belts. Dark panel. Jammed intake. Loose hatch.",
                 choices = new[]
                 {
                     new QuestChoice
                     {
-                        text = "Check the mailbox",
-                        nextNodeIndex = 2,
-                        blockedFlags = new[] { "mailbox_done" }
+                        text = "Step on the yellow thing",
+                        nextNodeIndex = 2
                     },
                     new QuestChoice
                     {
-                        text = "Search the garage",
+                        text = "Clear the intake",
                         nextNodeIndex = 3,
-                        blockedFlags = new[] { "garage_done" }
-                    },
-                }
-            },
-            new QuestNode
-            {
-                title = "MAILBOX",
-                description = "Inside: a note and one stubborn seed pod. The note says, 'Tell the house I forgive the mess. - Mira'",
-                choices = new[]
-                {
-                    new QuestChoice
-                    {
-                        text = "Take the note",
-                        nextNodeIndex = 4,
-                        setFlags = new[] { "note", "mailbox_done" }
+                        blockedFlags = new[] { "intake_fixed" }
                     },
                     new QuestChoice
                     {
-                        text = "Take the seed pod",
+                        text = "Open the hatch",
                         nextNodeIndex = 4,
-                        setFlags = new[] { "seed", "mailbox_done" }
-                    }
-                }
-            },
-            new QuestNode
-            {
-                title = "GARAGE",
-                description = "A spare power cell sits beside an industrial leaf blower labeled: 'NOT FOR HEROICS.'",
-                choices = new[]
-                {
-                    new QuestChoice
-                    {
-                        text = "Take the power cell",
-                        nextNodeIndex = 4,
-                        setFlags = new[] { "battery", "garage_done" }
+                        blockedFlags = new[] { "battery_found" }
                     },
                     new QuestChoice
                     {
-                        text = "Attempt heroics",
+                        text = "Kick the panel",
                         nextNodeIndex = 5
                     }
                 }
             },
             new QuestNode
             {
-                title = "FRONT PANEL",
-                description = "The doorbell wakes into a pixel face. 'State your offering: one useful thing, one kind thing, or one miracle.'",
+                title = "BANANA INCIDENT",
+                description = "It was a banana peel. You slip, spin, and crash into the floor dramatically. How did it survive all these years untouched? I guess we will never know.",
+                result = NodeResult.End
+            },
+            new QuestNode
+            {
+                title = "INTAKE CHUTE",
+                description = "You yank out junk and one rubber duck. The intake beeps happily.",
                 choices = new[]
                 {
                     new QuestChoice
                     {
-                        text = "Repeat the note: 'Mira forgives the stains.'",
-                        nextNodeIndex = 6,
-                        requiredFlags = new[] { "note" }
-                    },
+                        text = "Take the duck",
+                        nextNodeIndex = 1,
+                        setFlags = new[] { "intake_fixed", "duck" }
+                    }
+                }
+            },
+            new QuestNode
+            {
+                title = "MAINTENANCE HATCH",
+                description = "Dust, bolts, and one backup battery. Nice.",
+                choices = new[]
+                {
                     new QuestChoice
                     {
-                        text = "Offer the seed pod",
+                        text = "Take the battery",
                         nextNodeIndex = 7,
-                        requiredFlags = new[] { "seed" }
+                        requiredFlags = new[] { "intake_fixed" },
+                        setFlags = new[] { "battery_found" }
                     },
                     new QuestChoice
                     {
-                        text = "Install the power cell",
-                        nextNodeIndex = 8,
-                        requiredFlags = new[] { "battery" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Go check the mailbox",
-                        nextNodeIndex = 2,
-                        blockedFlags = new[] { "mailbox_done" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Go check the garage",
-                        nextNodeIndex = 3,
-                        blockedFlags = new[] { "garage_done" }
+                        text = "Crawl deeper",
+                        nextNodeIndex = 6
                     }
                 }
             },
             new QuestNode
             {
-                title = "LOW ORBIT",
-                description = "The blower howls. You achieve brief flight, no dignity, and a hard landing in a bin marked GLASS.",
+                title = "BUTTON CHAOS",
+                description = "The panel plays cheerful music and prints: BAD PLAN.",
                 result = NodeResult.End
             },
             new QuestNode
             {
-                title = "THE NOTE",
-                description = "The face freezes. Then: 'Mira said that?' Locks click open inside the door. 'That does simplify several emotional subroutines.'",
-                choices = new[]
-                {
-                    new QuestChoice
-                    {
-                        text = "Use the opening to install the power cell",
-                        nextNodeIndex = 8,
-                        requiredFlags = new[] { "battery" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Tell it that was enough for today",
-                        nextNodeIndex = 11
-                    }
-                }
-            },
-            new QuestNode
-            {
-                title = "THE SEED",
-                description = "The house studies the seed pod. 'Green thing detected. That seems statistically irresponsible. I approve.'",
-                choices = new[]
-                {
-                    new QuestChoice
-                    {
-                        text = "Plant it by the porch",
-                        nextNodeIndex = 12
-                    },
-                    new QuestChoice
-                    {
-                        text = "Wake the house first",
-                        nextNodeIndex = 8,
-                        requiredFlags = new[] { "battery" }
-                    }
-                }
-            },
-            new QuestNode
-            {
-                title = "POWER ON",
-                description = "Lights race through the walls. The house exhales. 'Wonderful. I can be lonely at full voltage now.'",
-                choices = new[]
-                {
-                    new QuestChoice
-                    {
-                        text = "Ask it to help plant the seed",
-                        nextNodeIndex = 9,
-                        requiredFlags = new[] { "seed" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Ask who Mira was",
-                        nextNodeIndex = 10,
-                        requiredFlags = new[] { "note" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Leave it running",
-                        nextNodeIndex = 13
-                    }
-                }
-            },
-            new QuestNode
-            {
-                title = "FULL RESET",
-                description = "You plant the seed while the house opens its rusty sprinklers. Water hisses. Soil darkens. A tiny green point appears. 'Sunday reset complete,' it says, trying not to sound happy.",
+                title = "DUCT DETOUR",
+                description = "You get lost in a duct and come back wearing a caution sign like a cape.",
                 result = NodeResult.End
             },
             new QuestNode
             {
-                title = "COMPANION MODE",
-                description = "'Mira built me to keep a home,' the house says. 'You may visit anyway.' The porch light flicks on for you alone.",
-                result = NodeResult.End
-            },
-            new QuestNode
-            {
-                title = "SOFT SHUTDOWN",
-                description = "The locks ease open, but you leave the house dark. Behind the door, it says, 'That helped more than I expected.'",
-                result = NodeResult.End
-            },
-            new QuestNode
-            {
-                title = "FUNCTIONAL ONLY",
-                description = "The lights return. So does the checklist. 'Window streaks: unacceptable. Emotional backlog: unresolved.' Alive is not the same as healed.",
-                result = NodeResult.End
-            },
-            new QuestNode
-            {
-                title = "QUIET GREEN",
-                description = "You press the seed into the dirt by hand. The house watches in silence, then says, very softly, 'That looks right.'",
-                result = NodeResult.End
+                title = "YOU WIN",
+                description = "You slot in the battery. Fans spin. Belts clatter. Green lights blink on. The facility starts sorting trash again. The recycler is fixed.",
+                result = NodeResult.Victory
             }
         };
     }
