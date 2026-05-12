@@ -155,72 +155,92 @@ public class LevelGenerator : MonoBehaviour
     }
 
     void GenerateLevel()
+{
+    for (int y = 0; y < currentLevelRows.Count; y++)
     {
-        for (int y = 0; y < currentLevelRows.Count; y++)
+        string row = currentLevelRows[y];
+        for (int x = 0; x < row.Length; x++)
         {
-            string row = currentLevelRows[y];
-            for (int x = 0; x < row.Length; x++)
+            char tile = row[x];
+            Vector3 pos = new Vector3(x, 0, -y);
+            Vector2Int gridPos = new Vector2Int(x, y);
+
+            if (tile == '.' || tile == '@')
             {
-                char tile = row[x];
-                Vector3 pos = new Vector3(x, 0, -y);
-                Vector2Int gridPos = new Vector2Int(x, y);
+                Instantiate(floorPrefab, pos, Quaternion.identity);
+            }
 
-                if (tile == '.' || tile == '@')
-                {
+            if (tile == 'T')
+            {
+                if (teleportPrefab != null)
+                    Instantiate(teleportPrefab, pos, Quaternion.identity);
+                else
                     Instantiate(floorPrefab, pos, Quaternion.identity);
-                }
+                
+                // ПАРТИКЛЫ ДЛЯ ТЕЛЕПОРТА (источник)
+                GameObject tileObj = new GameObject($"TeleportSource_{x}_{y}");
+                tileObj.transform.position = pos;
+                TileParticles particles = tileObj.AddComponent<TileParticles>();
+                particles.type = TileParticles.ParticleType.TeleportSource;
+                
+                teleportSource = gridPos;
+            }
 
-                if (tile == 'T')
-                {
-                    if (teleportPrefab != null)
-                        Instantiate(teleportPrefab, pos, Quaternion.identity);
-                    else
-                        Instantiate(floorPrefab, pos, Quaternion.identity);
-                    teleportSource = gridPos;
-                }
+            if (tile == '$')
+            {
+                Instantiate(floorPrefab, pos, Quaternion.identity);
+                GameObject box = Instantiate(boxPrefab, pos, Quaternion.identity);
+                allBoxes.Add(box.transform);
+            }
 
-                if (tile == '$')
-                {
-                    Instantiate(floorPrefab, pos, Quaternion.identity);
-                    GameObject box = Instantiate(boxPrefab, pos, Quaternion.identity);
-                    allBoxes.Add(box.transform);
-                }
+            if (tile == '#')
+            {
+                Instantiate(wallPrefab, pos, Quaternion.identity);
+            }
 
-                if (tile == '#')
-                {
+            if (tile == 'U')
+            {
+                if (wallTeleportPrefab != null)
+                    Instantiate(wallTeleportPrefab, pos, Quaternion.identity);
+                else
                     Instantiate(wallPrefab, pos, Quaternion.identity);
-                }
+                
+                // ПАРТИКЛЫ ДЛЯ ВЫХОДА ИЗ ТЕЛЕПОРТА
+                GameObject tileObj = new GameObject($"TeleportDestination_{x}_{y}");
+                tileObj.transform.position = pos;
+                TileParticles particles = tileObj.AddComponent<TileParticles>();
+                particles.type = TileParticles.ParticleType.TeleportDestination;
+                
+                teleportDestination = gridPos;
+            }
 
-                if (tile == 'U')
-                {
-                    if (wallTeleportPrefab != null)
-                        Instantiate(wallTeleportPrefab, pos, Quaternion.identity);
-                    else
-                        Instantiate(wallPrefab, pos, Quaternion.identity);
-                    teleportDestination = gridPos;
-                }
+            if (tile == 'F')
+            {
+                Instantiate(wallPrefab, pos, Quaternion.identity);
+                
+                // ПАРТИКЛЫ ДЛЯ ФИНИША
+                GameObject tileObj = new GameObject($"Finish_{x}_{y}");
+                tileObj.transform.position = pos;
+                TileParticles particles = tileObj.AddComponent<TileParticles>();
+                particles.type = TileParticles.ParticleType.Finish;
+            }
 
-                if (tile == 'F')
-                {
-                    Instantiate(wallPrefab, pos, Quaternion.identity);
-                }
+            if (tile == '*')
+            {
+                Instantiate(wallPrefab, pos, Quaternion.identity);
+                Vector3 boxPos = pos + Vector3.up * wallHeight;
+                GameObject box = Instantiate(boxPrefab, boxPos, Quaternion.identity);
+                allBoxes.Add(box.transform);
+            }
 
-                if (tile == '*')
-                {
-                    Instantiate(wallPrefab, pos, Quaternion.identity);
-                    Vector3 boxPos = pos + Vector3.up * wallHeight;
-                    GameObject box = Instantiate(boxPrefab, boxPos, Quaternion.identity);
-                    allBoxes.Add(box.transform);
-                }
-
-                if (tile == '@')
-                {
-                    playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
-                    playerTransform = playerInstance.transform;
-                }
+            if (tile == '@')
+            {
+                playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
+                playerTransform = playerInstance.transform;
             }
         }
     }
+}
 
     void HandleHeight()
     {
