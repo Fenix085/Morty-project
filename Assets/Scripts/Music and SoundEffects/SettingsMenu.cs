@@ -24,32 +24,38 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    
     private float GetLevelFromMixer(string parameterName)
     {
         float value;
-        bool found = mainMixer.GetFloat(parameterName, out value);
-        if (found)
+        if (mainMixer.GetFloat(parameterName, out value))
         {
-            
             return Mathf.Pow(10, value / 20);
         }
-        return 1f; 
+        return 1f;
     }
 
     public void OpenMenu()
     {
         settingsPanel.SetActive(true);
+        
+        SetGameControl(false);
     }
 
     public void CloseMenu()
     {
         settingsPanel.SetActive(false);
+        SetGameControl(true);
+    }
+
+    private void SetGameControl(bool state)
+    {
+        
+        if (DialogueManager.Instance != null)
+            DialogueManager.Instance.isDialogueActive = !state;
     }
 
     public void SetMusicVolume(float volume)
     {
-        
         float v = Mathf.Max(volume, 0.0001f);
         mainMixer.SetFloat("MusicVol", Mathf.Log10(v) * 20);
     }

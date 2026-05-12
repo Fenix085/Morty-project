@@ -134,7 +134,7 @@ public class GridManager : MonoBehaviour
 
             if (LevelWinUI.Instance != null)
             {
-                LevelWinUI.Instance.ShowWinAnimation();
+                LevelWinUI.Instance.ShowWin();
             }
 
         }
