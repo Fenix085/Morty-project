@@ -13,14 +13,14 @@ EditorBuildSettings:
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/FakeGravity.unity
-    guid: 7bbbee8d6317c754ca2eda3fbf758de9
+    guid: c9896b1d007bedc42ab1adde4a6cc476
   - enabled: 1
     path: Assets/Scenes/FakeGravity.unity
-    guid: ed7814aad7acc7040bb98c47dc96b3fa
+    guid: c9896b1d007bedc42ab1adde4a6cc476
   - enabled: 1
-    path: Assets/Scenes/puzzle1.unity
+    path: Assets/Scenes/puzzle1-3.unity
     guid: 78694a5d3848d86409beabc234024316
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/puzzle2.unity
     guid: 683486af0a058c242885e31b0c42a83f
   - enabled: 1
@@ -32,6 +32,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Power_Puzzle 2.unity
     guid: fb7b8f8c417cf514081697b6b4d6efc6
+  - enabled: 1
+    path: Assets/Scenes/CP1Done.unity
+    guid: c18663440a6266d419670f8fbf59e3c6
+  - enabled: 1
+    path: Assets/Scenes/CP3Done.unity
+    guid: d73f7952ec5ca8a4288d007e1e0af667
+  - enabled: 1
+    path: Assets/Scenes/CP2Done.unity
+    guid: 72244d36745d2bd458c39ee11fca0d2d
+  - enabled: 1
+    path: Assets/Scenes/PuzzleTextQuest.unity
+    guid: 519df4ed2390cad429961209a28b8394
+  - enabled: 1
+    path: Assets/Scenes/puzzle4-6.unity
+    guid: de586b8af23098c4f877e20a207b8db5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

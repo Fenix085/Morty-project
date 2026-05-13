@@ -2478,6 +2478,7 @@ MonoBehaviour:
   newLever: {fileID: 2075743104}
   interactRange: 2.5
   glowObject: {fileID: 1058978762}
+  nextLevel: FakeGravity
 --- !u!65 &407498736
 BoxCollider:
   m_ObjectHideFlags: 0

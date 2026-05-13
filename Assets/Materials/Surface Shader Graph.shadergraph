@@ -777,7 +777,7 @@
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_RenderFace": 2,
+    "m_RenderFace": 0,
     "m_AlphaClip": false,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
@@ -3787,7 +3787,7 @@
     "m_ShaderOutputName": "B",
     "m_StageCapability": 3,
     "m_Value": {
-        "e00": 0.49000000953674319,
+        "e00": 0.2800000011920929,
         "e01": 2.0,
         "e02": 2.0,
         "e03": 2.0,
@@ -4333,7 +4333,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Scale",
     "m_StageCapability": 3,
-    "m_Value": 90.30000305175781,
+    "m_Value": 31.5,
     "m_DefaultValue": 10.0,
     "m_Labels": [],
     "m_LiteralMode": false

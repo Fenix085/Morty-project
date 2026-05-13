@@ -2688,6 +2688,8 @@ MonoBehaviour:
   newLever: {fileID: 2075743104}
   interactRange: 2.5
   glowObject: {fileID: 1058978762}
+  nextLevel: CP3Done
+  isFinal: 0
 --- !u!65 &407498736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7071,6 +7073,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
+  pushDistance: 2
+  moveSpeed: 6
 --- !u!1 &957602840
 GameObject:
   m_ObjectHideFlags: 0
@@ -9171,6 +9175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
+  pushDistance: 2
+  moveSpeed: 6
 --- !u!1 &1290289873
 GameObject:
   m_ObjectHideFlags: 0
@@ -10413,6 +10419,8 @@ MonoBehaviour:
   newLever: {fileID: 1819840164}
   interactRange: 2.5
   glowObject: {fileID: 864145528}
+  nextLevel: CP3Done
+  isFinal: 1
 --- !u!114 &1472023116
 MonoBehaviour:
   m_ObjectHideFlags: 0

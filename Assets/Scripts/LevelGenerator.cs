@@ -21,6 +21,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Выбор уровня")]
     public int currentLevel = 1;
     public bool autoLoadNextLevel = true;
+    public int lastLevel = 3;
 
     private static int savedLevel = 1;
     private static List<string[]> savedAllLevels = null;
@@ -415,7 +416,10 @@ public class LevelGenerator : MonoBehaviour
             
             if (autoLoadNextLevel)
             {
-                LoadNextLevel();
+                if(lastLevel != currentLevel)
+                    LoadNextLevel();
+                else
+                    SceneManager.LoadScene("FakeGravity");
             }
         }
     }

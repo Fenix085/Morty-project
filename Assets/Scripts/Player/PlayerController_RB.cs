@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -20,10 +21,7 @@ public class PlayerController_RB : MonoBehaviour {
     private float jumpForce = 10.0f;
     [SerializeField, Tooltip("Player landing distance")]
     private float maxJumpHeight = 10.0f;
-    [SerializeField] private AudioClip stepSound;
-    [SerializeField] private float stepInterval = 0.4f;
-    private float _stepTimer;
-
+   
     [SerializeField, Tooltip("Distance from world to play landing particles (percentage of distance between worlds)"), Range(0.0f, 1.0f)]
     private float landDistance = 0.4f;
    
@@ -58,12 +56,9 @@ public class PlayerController_RB : MonoBehaviour {
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        if (cameraTransform == null && Camera.main != null)
-        {
-            cameraTransform = Camera.main.transform;
-        }
         // set player details
         _playerRB = GetComponent<Rigidbody>();
+        _playerRB.interpolation = RigidbodyInterpolation.Interpolate;
         _playerMesh = transform.GetChild(0).transform;
         _worldGravity = GetComponent<FakeGravityBody>();
 
@@ -96,6 +91,8 @@ public class PlayerController_RB : MonoBehaviour {
         _currentWorld = CurrentWorldIndex();
         // update player speed
         speed = SpeedUpdate();
+
+        RestoreSavedStateIfAny();
     }
 
     /// <summary>
@@ -125,17 +122,23 @@ public class PlayerController_RB : MonoBehaviour {
         Vector2 mobileInput = MobileJoystick.Instance != null ? MobileJoystick.Instance.Value : Vector2.zero;
         Vector2 keyboardInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 moveInput = mobileInput.sqrMagnitude > keyboardInput.sqrMagnitude ? mobileInput : keyboardInput;
+        float h = moveInput.x;
+        float v = moveInput.y;
 
-        Transform moveCamera = cameraTransform != null ? cameraTransform : transform;
-        Vector3 camForward = moveCamera.forward;
-        Vector3 camRight = moveCamera.right;
-        camForward.y = 0f;
-        camRight.y = 0f;
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+
+        // убираем наклон камеры
+        //camForward.y = 0;
+        //camRight.y = 0;
+
         camForward.Normalize();
         camRight.Normalize();
-
-        _moveDirection = (camForward * moveInput.y + camRight * moveInput.x).normalized;
-
+        camForward = Vector3.ProjectOnPlane(camForward, transform.up);
+        camRight = Vector3.ProjectOnPlane(camRight, transform.up);
+        //Debug.DrawRay(transform.position, camForward * 10, Color.cyan, 2);
+        _moveDirection = (camForward * v + camRight * h).normalized;
+        //Debug.DrawRay(transform.position, camForward * 10, Color.yellow, 2);
         // world transfer
         //if (Input.GetKeyDown("e"))
         //{
@@ -163,28 +166,19 @@ public class PlayerController_RB : MonoBehaviour {
         if(_moveDirection.magnitude > 0)
         {
             animator.Play("Walk");
-            
-            _stepTimer -= Time.fixedDeltaTime;
-            if (_stepTimer <= 0)
-            {
-                if (stepSound != null && SoundEffectsManager.Instance != null)
-                {
-                    SoundEffectsManager.Instance.Play(stepSound);
-                }
-                _stepTimer = stepInterval; 
-            }
         }
         else
         {
             animator.Play("Idle");
-            _stepTimer = 0;
         }
 
-        _playerRB.MovePosition(_playerRB.position + (_moveDirection * speed * Time.deltaTime));
+        _playerRB.MovePosition(
+            _playerRB.position + _moveDirection * speed * Time.fixedDeltaTime
+        );
 
         // 🔥 ВОТ ЭТО УБИРАЕТ СКОЛЬЖЕНИЕ
-        _playerRB.linearVelocity = Vector3.zero;
-        _playerRB.angularVelocity = Vector3.zero;
+        //_playerRB.linearVelocity = Vector3.zero;
+        //_playerRB.angularVelocity = Vector3.zero;
     }
 
     /// <summary>
@@ -370,12 +364,13 @@ public class PlayerController_RB : MonoBehaviour {
     private void RotateForward()
     {
         Vector3 dir = _moveDirection;
+        Vector3 up = transform.up;
+        Vector3 planarDir = Vector3.ProjectOnPlane(dir, up);
 
-        if (dir.magnitude > 0.1f)
+        if (planarDir.sqrMagnitude > 0.01f)
         {
-            float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-
-            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
+            Vector3 localDir = transform.InverseTransformDirection(planarDir.normalized);
+            Quaternion targetRotation = Quaternion.LookRotation(localDir, Vector3.up);
 
             // плавный поворот
             _playerMesh.localRotation = Quaternion.Slerp(
@@ -399,6 +394,23 @@ public class PlayerController_RB : MonoBehaviour {
         }
         // return result
         return newSpeed;
+    }
+
+    private void RestoreSavedStateIfAny()
+    {
+        if (_playerRB == null)
+        {
+            return;
+        }
+
+        var sceneName = SceneManager.GetActiveScene().name;
+        if (SceneSessionState.TryGetPlayerState(sceneName, out var position, out var rotation))
+        {
+            _playerRB.position = position;
+            _playerRB.rotation = rotation;
+            _playerRB.linearVelocity = Vector3.zero;
+            _playerRB.angularVelocity = Vector3.zero;
+        }
     }
 
     /// <summary>

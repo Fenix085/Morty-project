@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LeverSwitch : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class LeverSwitch : MonoBehaviour
 
     [SerializeField, Tooltip("Object to enable on activation")]
     private GameObject glowObject;
+
+    [SerializeField] private string nextLevel; 
+    [SerializeField] private bool isFinal = true; 
 
     private Transform _player;
     private Collider _playerCollider;
@@ -37,7 +42,7 @@ public class LeverSwitch : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.F)) return;
+        if (!Input.GetKeyDown(KeyCode.E)) return;
 
         if (_player == null)
         {
@@ -76,6 +81,15 @@ public class LeverSwitch : MonoBehaviour
             glowObject.SetActive(true);
 
         // disable old lever
-        gameObject.SetActive(false);
+        if(isFinal)
+            StartCoroutine(SwitchScene());
+        else
+            gameObject.SetActive(false);
+    }
+
+    private IEnumerator SwitchScene()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(nextLevel);
     }
 }

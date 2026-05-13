@@ -13,27 +13,43 @@ public class CameraFollow : MonoBehaviour
     public float distance = 6f;
 
     private float yRotation = 0f;
+    private Vector3 lastUp;
+    private Vector3 referenceForward;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
+
+        if (player != null)
+        {
+            lastUp = player.up;
+            referenceForward = player.forward;
+        }
     }
 
     void LateUpdate()
     {
         if (player == null) return;
 
-        // только горизонтальное вращение
+        Vector3 localUp = player.up;
+
+        // keep the reference forward aligned with the surface as the player
+        // moves across the planet (up vector changes)
+        Quaternion upCorrection = Quaternion.FromToRotation(lastUp, localUp);
+        referenceForward = (upCorrection * referenceForward).normalized;
+        lastUp = localUp;
+
+        // project out any drift so it stays perfectly tangent to the surface
+        referenceForward = Vector3.ProjectOnPlane(referenceForward, localUp).normalized;
+
+        // apply mouse rotation around the local up
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         yRotation += mouseX;
 
-        Quaternion rotation = Quaternion.Euler(0f, yRotation, 0f);
+        Quaternion rotation = Quaternion.AngleAxis(yRotation, localUp);
+        Vector3 offset = rotation * (-referenceForward * distance) + localUp * height;
 
-        // позиция камеры
-        Vector3 offset = rotation * new Vector3(0f, height, -distance);
         transform.position = player.position + offset;
-
-        // камера смотрит на игрока
-        transform.LookAt(player.position + Vector3.up * 1.5f);
+        transform.LookAt(player.position + localUp * 1.5f, localUp);
     }
 }

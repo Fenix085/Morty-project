@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class LevelGenerator : MonoBehaviour
+public class LevelGenerator1 : MonoBehaviour
 {
     public GameObject wallPrefab;
     public GameObject floorPrefab;
