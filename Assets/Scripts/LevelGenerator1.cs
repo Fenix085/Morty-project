@@ -35,6 +35,8 @@ public class LevelGenerator1 : MonoBehaviour
     private bool hasTeleported = false;
     private bool levelCompleted = false;
 
+    public PuzzlePlayerMovement PlayerMovement => playerMovement;
+
     void Start()
     {
         GenerateLevel();
@@ -117,7 +119,20 @@ public class LevelGenerator1 : MonoBehaviour
                 if (tile == '@')
                 {
                     playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
+                    playerInstance.name = "PuzzlePlayer";
+                    playerInstance.SetActive(true);
                     playerTransform = playerInstance.transform;
+
+                    PuzzlePlayerMovement movement = playerInstance.GetComponent<PuzzlePlayerMovement>();
+                    if (movement != null)
+                    {
+                        movement.currentLevelGenerator = gameObject;
+                    }
+
+                    if (playerPrefab.scene.IsValid())
+                    {
+                        playerPrefab.SetActive(false);
+                    }
                 }
             }
         }
@@ -135,6 +150,48 @@ public class LevelGenerator1 : MonoBehaviour
             playerTransform = playerInstance.transform;
             playerMovement = playerInstance.GetComponent<PuzzlePlayerMovement>();
         }
+    }
+
+    public void MoveUp()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveUp();
+        }
+    }
+
+    public void MoveDown()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveDown();
+        }
+    }
+
+    public void MoveLeft()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveLeft();
+        }
+    }
+
+    public void MoveRight()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveRight();
+        }
+    }
+
+    bool EnsurePlayerMovement()
+    {
+        if (playerMovement == null)
+        {
+            FindPlayer();
+        }
+
+        return playerMovement != null;
     }
 
     void HandleHeight()

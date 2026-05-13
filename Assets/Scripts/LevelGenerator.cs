@@ -38,6 +38,8 @@ public class LevelGenerator : MonoBehaviour
     private bool levelCompleted = false;
     private bool levelGenerated = false;
 
+    public PuzzlePlayerMovement PlayerMovement => playerMovement;
+
     void Awake()
     {
         if (savedLevel != 1)
@@ -237,11 +239,66 @@ public class LevelGenerator : MonoBehaviour
             if (tile == '@')
             {
                 playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
+                playerInstance.name = "PuzzlePlayer";
+                playerInstance.SetActive(true);
                 playerTransform = playerInstance.transform;
+
+                PuzzlePlayerMovement movement = playerInstance.GetComponent<PuzzlePlayerMovement>();
+                if (movement != null)
+                {
+                    movement.currentLevelGenerator = gameObject;
+                }
+
+                if (playerPrefab.scene.IsValid())
+                {
+                    playerPrefab.SetActive(false);
+                }
             }
         }
     }
 }
+
+    public void MoveUp()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveUp();
+        }
+    }
+
+    public void MoveDown()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveDown();
+        }
+    }
+
+    public void MoveLeft()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveLeft();
+        }
+    }
+
+    public void MoveRight()
+    {
+        if (EnsurePlayerMovement())
+        {
+            playerMovement.MoveRight();
+        }
+    }
+
+    bool EnsurePlayerMovement()
+    {
+        if (playerMovement == null)
+        {
+            FindPlayer();
+        }
+
+        return playerMovement != null;
+    }
 
     void HandleHeight()
     {
