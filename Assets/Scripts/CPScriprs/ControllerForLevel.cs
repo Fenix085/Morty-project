@@ -102,7 +102,11 @@ public class ControllerForLevel : MonoBehaviour {
         if (_transfering)
             return;
 
-        _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        Vector2 mobileInput = MobileJoystick.Instance != null ? MobileJoystick.Instance.Value : Vector2.zero;
+        Vector2 keyboardInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 moveInput = mobileInput.sqrMagnitude > keyboardInput.sqrMagnitude ? mobileInput : keyboardInput;
+
+        _moveDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
         RotateForward();
     }
