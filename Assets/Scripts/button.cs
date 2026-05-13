@@ -8,7 +8,6 @@ public class button : MonoBehaviour
 {
     if (other.CompareTag("Player"))
     {
-        // move door out of sight and disable its collider
         door.transform.position += new Vector3(0, 100f, 0);
         Collider doorCol = door.GetComponent<Collider>();
         if (doorCol != null) doorCol.enabled = false;
