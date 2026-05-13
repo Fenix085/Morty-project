@@ -48,17 +48,23 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
         if (isBoxMoving) return;
 
-        if (Keyboard.current.wKey.wasPressedThisFrame)
-            TryMove(Vector3.forward);
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null)
+        {
+            return;
+        }
 
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-            TryMove(Vector3.back);
+        if (keyboard.wKey.wasPressedThisFrame)
+            MoveUp();
 
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-            TryMove(Vector3.left);
+        if (keyboard.sKey.wasPressedThisFrame)
+            MoveDown();
 
-        if (Keyboard.current.dKey.wasPressedThisFrame)
-            TryMove(Vector3.right);
+        if (keyboard.aKey.wasPressedThisFrame)
+            MoveLeft();
+
+        if (keyboard.dKey.wasPressedThisFrame)
+            MoveRight();
     }
 
     public bool IsMoving()
@@ -66,8 +72,33 @@ public class PuzzlePlayerMovement : MonoBehaviour
         return isMoving || isBoxMoving;
     }
 
+    public void MoveUp()
+    {
+        TryMove(Vector3.forward);
+    }
+
+    public void MoveDown()
+    {
+        TryMove(Vector3.back);
+    }
+
+    public void MoveLeft()
+    {
+        TryMove(Vector3.left);
+    }
+
+    public void MoveRight()
+    {
+        TryMove(Vector3.right);
+    }
+
     void TryMove(Vector3 direction)
     {
+        if (isMoving || isBoxMoving)
+        {
+            return;
+        }
+
         Quaternion targetRotation = Quaternion.LookRotation(direction, transform.up);
         mesh.transform.rotation = targetRotation;
 
