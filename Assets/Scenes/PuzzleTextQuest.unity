@@ -174,15 +174,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.03, g: 0.045, b: 0.04, a: 1}
+  m_Color: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6f0705b452312894bb2df348be72e7e0, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -217,7 +217,11 @@ MonoBehaviour:
   choicesContainer: {fileID: 1580896588}
   buttonTemplate: {fileID: 1504281158}
   restartButton: {fileID: 2064552120}
+  restartButtonLabel: {fileID: 0}
   nodes: []
+  retryButtonText: Try Again
+  victoryButtonText: Play Again
+  victorySceneName: FakeGravity
 --- !u!1 &270520020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,7 +1152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The old service log is waiting. Put your quest text here.
+  m_text: An abandoned recycling facility wheezes in the dust.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: efa1aad4f56df6f44abcec10f2919e68, type: 2}
   m_sharedMaterial: {fileID: -4880294735240893272, guid: efa1aad4f56df6f44abcec10f2919e68, type: 2}
