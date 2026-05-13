@@ -44,6 +44,11 @@ public class LeverSwitch : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.E)) return;
 
+        TryInteract();
+    }
+
+    public void TryInteract()
+    {
         if (_player == null)
         {
             Debug.LogError("LeverSwitch: Player not found! Make sure Player tag is set.");

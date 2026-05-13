@@ -39,11 +39,16 @@ public class BoxCarry : MonoBehaviour
 
         if (Input.GetKeyDown(pickupKey))
         {
-            if (heldBox == null)
-                TryPickup();
-            else
-                Drop();
+            TogglePickupDrop();
         }
+    }
+
+    public void TogglePickupDrop()
+    {
+        if (heldBox == null)
+            TryPickup();
+        else
+            Drop();
     }
 
     private void FixedUpdate()
