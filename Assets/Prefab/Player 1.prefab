@@ -194,12 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2749862816044562450}
-  - component: {fileID: 6541016052198040524}
-  - component: {fileID: 8677773442919147343}
   - component: {fileID: 6518520370029006140}
-  - component: {fileID: 8783477463464495003}
-  - component: {fileID: 4544626183685208156}
-  - component: {fileID: 6033392564126163169}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -224,45 +219,6 @@ Transform:
   - {fileID: 7464730472222559897}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &6541016052198040524
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8536834170437801515}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 2
---- !u!114 &8677773442919147343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8536834170437801515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd96aec41bf3b29499c3c7288ad73050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TrashCollector
 --- !u!135 &6518520370029006140
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -284,51 +240,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.63904667
   m_Center: {x: 0, y: -0.13904667, z: 0}
---- !u!114 &8783477463464495003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8536834170437801515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1afbccd386301ca4787314a7ad62f8f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLevel
-  level: 1
-  maxLevel: 3
---- !u!114 &4544626183685208156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8536834170437801515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb8f4958a0fda6744abbbcc0b147f9e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController_RB
-  speed: 5
-  transferSpeed: 10
-  jumpForce: 16
-  maxJumpHeight: 16
-  landDistance: 0.4
---- !u!114 &6033392564126163169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8536834170437801515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdacf12c9cc27ed42ad31d636e1659f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FakeGravityBody
-  attractor: {fileID: 0}
-  setSolid: 0
 --- !u!1001 &4921968515113948909
 PrefabInstance:
   m_ObjectHideFlags: 0

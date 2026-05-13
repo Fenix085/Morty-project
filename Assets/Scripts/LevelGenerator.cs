@@ -168,15 +168,15 @@ public class LevelGenerator : MonoBehaviour
 
             if (tile == '.' || tile == '@')
             {
-                Instantiate(floorPrefab, pos, Quaternion.identity);
+                Instantiate(floorPrefab, pos + Vector3.down * 0.5f, Quaternion.identity);
             }
 
             if (tile == 'T')
             {
                 if (teleportPrefab != null)
-                    Instantiate(teleportPrefab, pos, Quaternion.identity);
+                    Instantiate(teleportPrefab, pos + Vector3.down * 0.5f, Quaternion.identity);
                 else
-                    Instantiate(floorPrefab, pos, Quaternion.identity);
+                    Instantiate(floorPrefab, pos + Vector3.down * 0.5f, Quaternion.identity);
                 
                 // ПАРТИКЛЫ ДЛЯ ТЕЛЕПОРТА (источник)
                 GameObject tileObj = new GameObject($"TeleportSource_{x}_{y}");
@@ -189,7 +189,7 @@ public class LevelGenerator : MonoBehaviour
 
             if (tile == '$')
             {
-                Instantiate(floorPrefab, pos, Quaternion.identity);
+                Instantiate(floorPrefab, pos + Vector3.down * 0.5f, Quaternion.identity);
                 GameObject box = Instantiate(boxPrefab, pos, Quaternion.identity);
                 allBoxes.Add(box.transform);
             }

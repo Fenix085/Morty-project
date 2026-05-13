@@ -71,11 +71,11 @@ public class TileParticles : MonoBehaviour
                 );
                 break;
             case ParticleType.TeleportDestination:
-                gradient.SetKeys(
-                    new GradientColorKey[] {
-                        new GradientColorKey(Color.magenta, 0f),
-                        new GradientColorKey(new Color(0.5f, 0f, 0.5f), 1f)
-                    },
+                 gradient.SetKeys(
+                     new GradientColorKey[] {
+                        new GradientColorKey(Color.cyan, 0f),
+                        new GradientColorKey(Color.blue, 1f)
+                 },
                     new GradientAlphaKey[] {
                         new GradientAlphaKey(0.8f, 0f),
                         new GradientAlphaKey(0f, 1f)
