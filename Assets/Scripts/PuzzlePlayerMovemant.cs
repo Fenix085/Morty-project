@@ -16,6 +16,8 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
     public GameObject currentLevelGenerator;
 
+    
+
     void Start()
     {
         if (currentLevelGenerator == null)
@@ -100,6 +102,8 @@ public class PuzzlePlayerMovement : MonoBehaviour
 
         targetPosition = newPos;
         isMoving = true;
+
+        
     }
 
     void MovePlayer()

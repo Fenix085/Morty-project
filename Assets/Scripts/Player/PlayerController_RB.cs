@@ -20,7 +20,10 @@ public class PlayerController_RB : MonoBehaviour {
     private float jumpForce = 10.0f;
     [SerializeField, Tooltip("Player landing distance")]
     private float maxJumpHeight = 10.0f;
-   
+    [SerializeField] private AudioClip stepSound;
+    [SerializeField] private float stepInterval = 0.4f;
+    private float _stepTimer;
+
     [SerializeField, Tooltip("Distance from world to play landing particles (percentage of distance between worlds)"), Range(0.0f, 1.0f)]
     private float landDistance = 0.4f;
    
@@ -120,6 +123,7 @@ public class PlayerController_RB : MonoBehaviour {
 
         _moveDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
+
         // world transfer
         //if (Input.GetKeyDown("e"))
         //{
@@ -147,10 +151,21 @@ public class PlayerController_RB : MonoBehaviour {
         if(_moveDirection.magnitude > 0)
         {
             animator.Play("Walk");
+            
+            _stepTimer -= Time.fixedDeltaTime;
+            if (_stepTimer <= 0)
+            {
+                if (stepSound != null && SoundEffectsManager.Instance != null)
+                {
+                    SoundEffectsManager.Instance.Play(stepSound);
+                }
+                _stepTimer = stepInterval; 
+            }
         }
         else
         {
             animator.Play("Idle");
+            _stepTimer = 0;
         }
         // update movement
         _playerRB.MovePosition(_playerRB.position + transform.TransformDirection(_moveDirection * speed * Time.deltaTime));

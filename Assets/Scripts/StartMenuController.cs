@@ -1,12 +1,15 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartMenuController : MonoBehaviour
 {
     [SerializeField] private string gameSceneName = "SampleScene";
+    [SerializeField] private AudioClip clickClip;
 
     public void PlayGame()
     {
+        PlayClickSound();
         if (string.IsNullOrWhiteSpace(gameSceneName))
             return;
 
@@ -22,6 +25,7 @@ public class StartMenuController : MonoBehaviour
 
     public void CloseGame()
     {
+        PlayClickSound();
         try
         {
 #if UNITY_EDITOR
@@ -32,6 +36,15 @@ public class StartMenuController : MonoBehaviour
         }
         catch
         {
+        }
+    }
+
+
+    private void PlayClickSound()
+    {
+        if (SoundEffectsManager.Instance != null && clickClip != null)
+        {
+            SoundEffectsManager.Instance.Play(clickClip);
         }
     }
 }

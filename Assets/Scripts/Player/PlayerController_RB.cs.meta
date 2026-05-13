@@ -1,10 +1,10 @@
 fileFormatVersion: 2
 guid: cb8f4958a0fda6744abbbcc0b147f9e2
-timeCreated: 1497837619
-licenseType: Free
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - stepSound: {fileID: 8300000, guid: 0317ab53846f7224080d83eff405e1c8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
