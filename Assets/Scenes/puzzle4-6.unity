@@ -3614,9 +3614,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 996172333326395122, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 996172333326395122, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 653232982}
+    - target: {fileID: 996172333326395122, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MoveLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 1028612716377974486, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1028612716377974486, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 653232982}
+    - target: {fileID: 1028612716377974486, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MoveRight
+      objectReference: {fileID: 0}
     - target: {fileID: 5330332270997364319, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
       propertyPath: m_Name
       value: UIArrows
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513298017074460457, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513298017074460457, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 653232982}
+    - target: {fileID: 5513298017074460457, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MoveDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 8659091617679369404, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8659091617679369404, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 653232982}
+    - target: {fileID: 8659091617679369404, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MoveUp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
