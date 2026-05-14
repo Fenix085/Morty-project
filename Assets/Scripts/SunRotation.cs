@@ -3,6 +3,7 @@ using UnityEngine;
 public class SunRotation : MonoBehaviour
 {
     [SerializeField] private float degreesPerSecond = 20f;
+    [SerializeField] private Vector3 rotationAxis = Vector3.right;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,6 +14,6 @@ public class SunRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.right + Vector3.left, degreesPerSecond * Time.deltaTime, Space.Self);
+        transform.Rotate(rotationAxis, degreesPerSecond * Time.deltaTime, Space.Self);
     }
 }
