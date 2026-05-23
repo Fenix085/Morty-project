@@ -203,12 +203,12 @@ public class TextQuestController : MonoBehaviour
 
         if (result == NodeResult.Victory)
         {
-            SetRestartButtonLabel(victoryButtonText);
+            SetRestartButtonLabel("Continue");
             restartButton.onClick.AddListener(LoadVictoryScene);
             return;
         }
 
-        SetRestartButtonLabel(retryButtonText);
+        SetRestartButtonLabel("Try Again");
         restartButton.onClick.AddListener(RestartQuest);
     }
 
@@ -333,101 +333,145 @@ public class TextQuestController : MonoBehaviour
     {
         return new[]
         {
-            new QuestNode
+            new QuestNode // 0
             {
-                title = "FACILITY PING",
-                description = "An abandoned recycling facility wheezes in the dust. Inside, something is broken.",
+                title = "ECHO STATION: INBOUND",
+                description = "The airlock hisses, spitting stale air and the scent of ozone. Before you lies Sector 4. The conveyors are frozen like petrified serpents. The facility is dead, but it can be awakened.",
                 choices = new[]
                 {
-                    new QuestChoice { text = "Go inside", nextNodeIndex = 1 }
+                    new QuestChoice { text = "Step into the darkness", nextNodeIndex = 1 }
                 }
             },
-            new QuestNode
+            new QuestNode // 1
             {
-                title = "MAIN FLOOR",
-                description = "Dead belts. Dark panel. Jammed intake. Loose hatch.",
+                title = "THE ATRIUM",
+                description = "You stand on the main processing floor. The silence is heavy, broken only by the dripping of coolant. Four paths branch out into the shadows. Where to?",
                 choices = new[]
                 {
-                    new QuestChoice
-                    {
-                        text = "Step on the yellow thing",
-                        nextNodeIndex = 2
-                    },
-                    new QuestChoice
-                    {
-                        text = "Clear the intake",
-                        nextNodeIndex = 3,
-                        blockedFlags = new[] { "intake_fixed" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Open the hatch",
-                        nextNodeIndex = 4,
-                        blockedFlags = new[] { "battery_found" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Kick the panel",
-                        nextNodeIndex = 5
-                    }
+                    new QuestChoice { text = "Search the Intake Chutes", nextNodeIndex = 2 },
+                    new QuestChoice { text = "Enter the Maintenance Crawlspace", nextNodeIndex = 3 },
+                    new QuestChoice { text = "Access the Overseer's Booth", nextNodeIndex = 6 },
+                    new QuestChoice { text = "Approach the Primary Core", nextNodeIndex = 8 }
                 }
             },
-            new QuestNode
+            new QuestNode // 2
             {
-                title = "BANANA INCIDENT",
-                description = "It was a banana peel. You slip, spin, and crash into the floor dramatically. How did it survive all these years untouched? I guess we will never know.",
+                title = "INTAKE CHUTES",
+                description = "Mountains of unsorted scrap loom in the dark. Under a collapsed sorting drone, you spot a datapad glowing faintly: 'CRITICAL: The ignition coil will detonate if you route power through the Red circuit first.'",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Dig deeper into the scrap pile", nextNodeIndex = 12 },
+                    new QuestChoice { text = "Return to The Atrium", nextNodeIndex = 1 }
+                }
+            },
+            new QuestNode // 3
+            {
+                title = "MAINTENANCE CRAWLSPACE",
+                description = "The ventilation shaft is suffocatingly tight, smelling of burnt copper. The shaft splits ahead into two directions.",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Take the left passage", nextNodeIndex = 4 },
+                    new QuestChoice { text = "Take the right passage", nextNodeIndex = 5 },
+                    new QuestChoice { text = "Back out to The Atrium", nextNodeIndex = 1 }
+                }
+            },
+            new QuestNode // 4
+            {
+                title = "CRAWLSPACE - LEFT",
+                description = "Etched violently into the metal wall with a laser cutter is a frantic message: 'THE BLUE LINE BLEEDS HEAT. IT ALWAYS GOES LAST. IF NOT, WE ALL BURN.'",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Return to the junction", nextNodeIndex = 3 }
+                }
+            },
+            new QuestNode // 5
+            {
+                title = "CRAWLSPACE - RIGHT",
+                description = "You find a skeleton in mechanics gear clutching a wrench. A faded manual page in its pocket reads: 'COOLANT PRESSURE WARNING: Valve Alpha opens the main flow. Always start with Alpha to prevent backflow.'",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Return to the junction", nextNodeIndex = 3 }
+                }
+            },
+            new QuestNode // 6
+            {
+                title = "OVERSEER'S BOOTH",
+                description = "Shattered glass crunches beneath your boots. The terminal flickers. A corrupted audio log stutters: '...standard overrides... Yellow, Red, Blue... sequence is... *static*...'",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Search the Overseer's desk", nextNodeIndex = 7 },
+                    new QuestChoice { text = "Head back down to The Atrium", nextNodeIndex = 1 }
+                }
+            },
+            new QuestNode // 7
+            {
+                title = "OVERSEER'S DESK",
+                description = "Rummaging through the drawers, you find a sticky note attached to a flask: 'To stabilize the core after restart, finally cycle Valve Gamma to regulate the excess pressure. - Supervisor'",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Head back down to The Atrium", nextNodeIndex = 1 }
+                }
+            },
+            new QuestNode // 8
+            {
+                title = "PRIMARY CORE",
+                description = "The main reactor towers before you. A holographic prompt awaits a manual override sequence. Three heavy routing cables lay on the deck: Yellow, Red, and Blue. One wrong move, and the core goes critical.",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Step back. I need to check the logs again.", nextNodeIndex = 1 },
+                    new QuestChoice { text = "Connect Red -> Yellow -> Blue", nextNodeIndex = 9 },
+                    new QuestChoice { text = "Connect Yellow -> Blue -> Red", nextNodeIndex = 10 },
+                    new QuestChoice { text = "Connect Yellow -> Red -> Blue", nextNodeIndex = 11 }
+                }
+            },
+            new QuestNode // 9
+            {
+                title = "CATASTROPHIC FEEDBACK",
+                description = "You slide the Red cable in first. A high-pitched whine pierces your ears. The ignition coil overloads instantly, engulfing the room in searing white plasma. You were warned.",
                 result = NodeResult.End
             },
-            new QuestNode
+            new QuestNode // 10
             {
-                title = "INTAKE CHUTE",
-                description = "You yank out junk and one rubber duck. The intake beeps happily.",
-                choices = new[]
-                {
-                    new QuestChoice
-                    {
-                        text = "Take the duck",
-                        nextNodeIndex = 1,
-                        setFlags = new[] { "intake_fixed", "duck" }
-                    }
-                }
-            },
-            new QuestNode
-            {
-                title = "MAINTENANCE HATCH",
-                description = "Dust, bolts, and one backup battery. Nice.",
-                choices = new[]
-                {
-                    new QuestChoice
-                    {
-                        text = "Take the battery",
-                        nextNodeIndex = 7,
-                        requiredFlags = new[] { "intake_fixed" },
-                        setFlags = new[] { "battery_found" }
-                    },
-                    new QuestChoice
-                    {
-                        text = "Crawl deeper",
-                        nextNodeIndex = 6
-                    }
-                }
-            },
-            new QuestNode
-            {
-                title = "BUTTON CHAOS",
-                description = "The panel plays cheerful music and prints: BAD PLAN.",
+                title = "THERMAL RUNAWAY",
+                description = "You connect the Blue line too early. The cooling loops fail to sync. Alarms shriek as heat bleeds uncontrollably through the chassis. The metal melts beneath your feet.",
                 result = NodeResult.End
             },
-            new QuestNode
+            new QuestNode // 11
             {
-                title = "DUCT DETOUR",
-                description = "You get lost in a duct and come back wearing a caution sign like a cape.",
+                title = "SYSTEMS NOMINAL... ALERT!",
+                description = "Yellow clicks in. Red pre-warms. Blue cools. The core hums to life! But suddenly, crimson sirens blare!\n'WARNING: COOLANT PRESSURE CRITICAL. MANUAL VALVE OVERRIDE REQUIRED.'\nYou rush to the Coolant Terminal.",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Open Valve Beta, then Gamma", nextNodeIndex = 13 },
+                    new QuestChoice { text = "Open Valve Gamma, then Alpha", nextNodeIndex = 14 },
+                    new QuestChoice { text = "Open Valve Alpha, then Gamma", nextNodeIndex = 15 }
+                }
+            },
+            new QuestNode // 12
+            {
+                title = "DEEP CHUTE",
+                description = "You squeeze further into the debris and find a jammed pneumatic lock with a scribbled warning: 'Secondary Coolant: Valve Beta seal is blown. Do NOT attempt to cycle Beta or we flood the chamber.'",
+                choices = new[]
+                {
+                    new QuestChoice { text = "Return to The Atrium", nextNodeIndex = 1 }
+                }
+            },
+            new QuestNode // 13
+            {
+                title = "TOXIC FLOOD",
+                description = "You initiate Valve Beta. The blown seal gives way completely, flooding the chamber with supercooled liquid nitrogen. You are frozen instantly where you stand.",
                 result = NodeResult.End
             },
-            new QuestNode
+            new QuestNode // 14
             {
-                title = "YOU WIN",
-                description = "You slot in the battery. Fans spin. Belts clatter. Green lights blink on. The facility starts sorting trash again. The recycler is fixed.",
+                title = "PRESSURE INVERSION",
+                description = "You open Valve Gamma before releasing the main flow from Alpha. The pressure difference crushes the pipes inward, causing a massive internal explosion.",
+                result = NodeResult.End
+            },
+            new QuestNode // 15
+            {
+                title = "FACILITY SECURED",
+                description = "Valve Alpha smoothly opens the main flow, and Valve Gamma engages perfectly to regulate the pressure! The alarms silence, replaced by the healthy hum of Sector 4. The recycler is fixed and you survive!",
                 result = NodeResult.Victory
             }
         };
