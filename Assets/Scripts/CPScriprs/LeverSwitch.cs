@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LeverSwitch : MonoBehaviour
 {
@@ -13,12 +11,8 @@ public class LeverSwitch : MonoBehaviour
     [SerializeField, Tooltip("Object to enable on activation")]
     private GameObject glowObject;
 
-    [SerializeField] private string nextLevel; 
-    [SerializeField] private bool isFinal = true; 
-
     private Transform _player;
     private Collider _playerCollider;
-
     private Collider _leverCollider;
 
     private void Start()
@@ -42,59 +36,35 @@ public class LeverSwitch : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.E)) return;
+        if (!Input.GetKeyDown(KeyCode.F)) return;
 
-        TryInteract();
-    }
-
-    public void TryInteract()
-    {
         if (_player == null)
         {
-            Debug.LogError("LeverSwitch: Player not found! Make sure Player tag is set.");
+            Debug.LogError("LeverSwitch: Player not found!");
             return;
         }
 
         Vector3 leverPos = _leverCollider != null ? _leverCollider.bounds.center : transform.position;
         Vector3 playerPos = _playerCollider != null ? _playerCollider.bounds.center : _player.position;
         float dist = Vector3.Distance(leverPos, playerPos);
-        Debug.Log($"LeverSwitch: distance to player = {dist}, interactRange = {interactRange}");
 
-        if (dist > interactRange)
-        {
-            Debug.Log("LeverSwitch: too far away");
-            return;
-        }
+        if (dist > interactRange) return;
 
         Activate();
     }
 
     private void Activate()
     {
-        Vector3 spawnPos = transform.position;
-        Quaternion spawnRot = transform.rotation;
-
-        // show new lever and light
         if (newLever != null)
         {
-            newLever.transform.position = spawnPos;
-            newLever.transform.rotation = spawnRot;
+            newLever.transform.position = transform.position;
+            newLever.transform.rotation = transform.rotation;
             newLever.SetActive(true);
         }
 
         if (glowObject != null)
             glowObject.SetActive(true);
 
-        // disable old lever
-        if(isFinal)
-            StartCoroutine(SwitchScene());
-        else
-            gameObject.SetActive(false);
-    }
-
-    private IEnumerator SwitchScene()
-    {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(nextLevel);
+        gameObject.SetActive(false);
     }
 }
