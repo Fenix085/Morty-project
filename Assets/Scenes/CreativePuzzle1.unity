@@ -2061,7 +2061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeverSwitch
   newLever: {fileID: 2075743104}
-  interactRange: 2.5
+  interactRange: 4.5
   glowObject: {fileID: 1058978762}
 --- !u!65 &407498736
 BoxCollider:
