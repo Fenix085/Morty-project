@@ -21,9 +21,21 @@ public class Facility : MonoBehaviour
     public Material greenMaterial;
     private Material groundMat;
     private bool hasAnimated = false;
+    
+    [Header("Grass Growth")]
+    public Transform grassObject;
+    private Vector3 originalGrassScale = Vector3.one;
 
     void Start()
     {
+        if (grassObject != null)
+        {
+            originalGrassScale = grassObject.localScale;
+            // Fallback just in case it was accidentally left at 0,0,0 in the editor
+            if (originalGrassScale == Vector3.zero) 
+                originalGrassScale = Vector3.one;
+        }
+
         canvas = GetComponentInChildren<Canvas>();
         if (canvas != null)
             canvas.gameObject.SetActive(false);
@@ -39,29 +51,101 @@ public class Facility : MonoBehaviour
         }
 
         if (IsCompleted)
+        {
             ApplyReturnStateIfCompleted();
+            if (grassObject != null)
+            {
+                grassObject.gameObject.SetActive(true);
+                grassObject.localScale = originalGrassScale;
+            }
+        }
+        else
+        {
+            if (grassObject != null)
+            {
+                grassObject.gameObject.SetActive(false);
+                grassObject.localScale = Vector3.zero;
+            }
+        }
     }
 
     private IEnumerator AnimateGroundTransition()
     {
-        Color startColor = barrenMaterial.color;
-        Color endColor = greenMaterial.color;
+        // Deactivate barren objects and activate green objects
+        SetActiveForArray(setInactiveOnReturn, false);
+        SetActiveForArray(setActiveOnReturn, true);
 
-        // Work on a copy so we don't modify the asset
-        groundRenderer.material = new Material(barrenMaterial);
-
-        float elapsed = 0f;
-
-        while (elapsed < transitionDuration)
+        if (grassObject != null)
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / transitionDuration;
-            groundRenderer.material.color = Color.Lerp(startColor, endColor, t);
-            yield return null;
+            grassObject.gameObject.SetActive(true);
+            grassObject.localScale = Vector3.zero;
         }
 
-        // Snap to the actual green material at the end
-        groundRenderer.material = greenMaterial;
+        if (groundRenderer != null && barrenMaterial != null && greenMaterial != null && transitionDuration > 0f)
+        {
+            Material tempMaterial = new Material(barrenMaterial);
+            groundRenderer.material = tempMaterial;
+
+            // Safely get colors to prevent URP exceptions! (Calling .color on a URP material without _Color crashes the coroutine)
+            Color startColor = Color.white;
+            if (barrenMaterial.HasProperty("_BaseColor")) startColor = barrenMaterial.GetColor("_BaseColor");
+            else if (barrenMaterial.HasProperty("_Color")) startColor = barrenMaterial.color;
+
+            Color endColor = Color.white;
+            if (greenMaterial.HasProperty("_BaseColor")) endColor = greenMaterial.GetColor("_BaseColor");
+            else if (greenMaterial.HasProperty("_Color")) endColor = greenMaterial.color;
+
+            float elapsedTime = 0f;
+
+            while (elapsedTime < transitionDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / transitionDuration;
+                
+                // Explicitly interpolate colors without Material.Lerp which causes rendering glitches
+                Color lerpedColor = Color.Lerp(startColor, endColor, t);
+                
+                if (tempMaterial.HasProperty("_BaseColor"))
+                    tempMaterial.SetColor("_BaseColor", lerpedColor);
+                else if (tempMaterial.HasProperty("_Color"))
+                    tempMaterial.color = lerpedColor;
+                
+                if (grassObject != null)
+                {
+                    grassObject.localScale = Vector3.Lerp(Vector3.zero, originalGrassScale, t);
+                }
+                
+                yield return null;
+            }
+
+            // Snap to the actual green material at the end
+            groundRenderer.material = greenMaterial;
+        }
+        else
+        {
+            // Fallback if GroundRenderer or material is missing but we still want grass to grow
+            float elapsedTime = 0f;
+            while (elapsedTime < transitionDuration && transitionDuration > 0f)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / transitionDuration;
+                if (grassObject != null)
+                {
+                    grassObject.localScale = Vector3.Lerp(Vector3.zero, originalGrassScale, t);
+                }
+                yield return null;
+            }
+
+            if (groundRenderer != null && greenMaterial != null)
+            {
+                groundRenderer.material = greenMaterial;
+            }
+        }
+        
+        if (grassObject != null)
+        {
+            grassObject.localScale = originalGrassScale;
+        }
     }
 
     public void ChangeScene()
