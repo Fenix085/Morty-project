@@ -1562,8 +1562,44 @@ PrefabInstance:
       value: -0.6129419
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: fadeMin
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: facilityId
+      value: facility.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: waveOrigin
+      value: 
+      objectReference: {fileID: 535343203}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: IsCompleted
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: puzzleScene
       value: CP1Done
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: fadeDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: planetCenter
+      value: 
+      objectReference: {fileID: 1551326793}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: planetRadius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: scaleCenterCutoff
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: transitionDuration
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: setActiveOnReturn.Array.size
@@ -2076,6 +2112,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
   gravity: -10
   size: 10
+--- !u!4 &1551326793 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+  m_PrefabInstance: {fileID: 665947151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1551426281 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8031269941669211881, guid: 36a7447f0c8e3954a89cc94bbb513926, type: 3}
