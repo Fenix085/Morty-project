@@ -875,8 +875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
-  pushDistance: 2
-  moveSpeed: 6
 --- !u!1 &204528622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,6 +2318,18 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 26f72c76fba748649881f9b7b05a1bf0, type: 2}
+    - target: {fileID: -5402711782832044241, guid: 60d589a48e6e3b648b772f696172fe35, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5402711782832044241, guid: 60d589a48e6e3b648b772f696172fe35, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -5402711782832044241, guid: 60d589a48e6e3b648b772f696172fe35, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.36
+      objectReference: {fileID: 0}
     - target: {fileID: -5257877089072336741, guid: 60d589a48e6e3b648b772f696172fe35, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -2636,6 +2646,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: eb9dfbef4272d83439d957dac5b4e55f, type: 2}
+    - target: {fileID: 9089919316935487481, guid: 60d589a48e6e3b648b772f696172fe35, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.99
+      objectReference: {fileID: 0}
     - target: {fileID: 9112182160914493650, guid: 60d589a48e6e3b648b772f696172fe35, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5770,8 +5784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
-  pushDistance: 2
-  moveSpeed: 6
 --- !u!1 &957602840
 GameObject:
   m_ObjectHideFlags: 0
