@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LeverSwitch : MonoBehaviour
@@ -11,12 +12,19 @@ public class LeverSwitch : MonoBehaviour
     [SerializeField, Tooltip("Object to enable on activation")]
     private GameObject glowObject;
 
+    [SerializeField, Tooltip("Activation sound")]
+    private AudioClip activationSound;
+
     private Transform _player;
     private Collider _playerCollider;
     private Collider _leverCollider;
+    private AudioSource _audioSource;
 
     private void Start()
     {
+        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource.playOnAwake = false;
+
         if (ControllerForLevel.Instance != null)
         {
             _player = ControllerForLevel.Instance.transform;
@@ -55,6 +63,17 @@ public class LeverSwitch : MonoBehaviour
 
     private void Activate()
     {
+        StartCoroutine(DisableAfterSound());
+    }
+
+    private IEnumerator DisableAfterSound()
+    {
+        if (activationSound != null)
+        {
+            _audioSource.PlayOneShot(activationSound);
+            yield return new WaitForSeconds(activationSound.length);
+        }
+
         if (newLever != null)
         {
             newLever.transform.position = transform.position;
