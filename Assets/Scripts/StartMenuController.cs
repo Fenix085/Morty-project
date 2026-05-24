@@ -13,13 +13,14 @@ public class StartMenuController : MonoBehaviour
         if (string.IsNullOrWhiteSpace(gameSceneName))
             return;
 
-        try
+        if (SceneTransitionManager.Instance != null)
         {
-            if (Application.CanStreamedLevelBeLoaded(gameSceneName))
-                SceneManager.LoadScene(gameSceneName);
+            SceneTransitionManager.Instance.SwitchScene(gameSceneName);
         }
-        catch
+        else
         {
+            
+            SceneManager.LoadScene(gameSceneName);
         }
     }
 

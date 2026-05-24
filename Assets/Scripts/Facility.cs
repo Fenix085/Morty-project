@@ -30,7 +30,16 @@ public class Facility : MonoBehaviour
         SavePlayerStateForScene();
         IsCompleted = true;
         SaveCompletionState();
-        SceneManager.LoadScene(puzzleScene);
+
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.SwitchScene(puzzleScene);
+        }
+        else
+        {
+            
+            SceneManager.LoadScene(puzzleScene);
+        }
     }
 
     // Update is called once per frame

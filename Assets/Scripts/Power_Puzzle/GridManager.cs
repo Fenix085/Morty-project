@@ -53,6 +53,7 @@ public class GridManager : MonoBehaviour
 
         Vector2Int startPos = sourcePosition + DirectionToVector(sourceDirection);
 
+        
         if (IsInside(startPos))
         {
             DraggableItem firstItem = placedItems[startPos.x, startPos.y];
@@ -62,7 +63,6 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        
         while (checkQueue.Count > 0)
         {
             Vector2Int current = checkQueue.Dequeue();
@@ -90,16 +90,52 @@ public class GridManager : MonoBehaviour
         }
 
         
+        bool allTargetsPowered = true;
+        if (targets.Count == 0) allTargetsPowered = false;
+
+        foreach (var target in targets)
+        {
+            Vector2Int neighborToTarget = target.position + DirectionToVector(target.direction);
+            bool targetReached = false;
+
+            if (IsInside(neighborToTarget))
+            {
+                DraggableItem lastItem = placedItems[neighborToTarget.x, neighborToTarget.y];
+                if (lastItem != null && itemsThatShouldBePowered.Contains(lastItem))
+                {
+                    if (lastItem.GetConnections().Contains(Opposite(target.direction)))
+                    {
+                        targetReached = true;
+                    }
+                }
+            }
+
+            if (!targetReached)
+            {
+                allTargetsPowered = false;
+                break;
+            }
+        }
+
+        
         foreach (var item in placedItems)
         {
             if (item != null)
             {
-                bool powerStatus = itemsThatShouldBePowered.Contains(item);
+                
+                bool powerStatus = allTargetsPowered && itemsThatShouldBePowered.Contains(item);
                 item.SetPowered(powerStatus);
             }
         }
 
-        CheckVictory(itemsThatShouldBePowered);
+        
+        if (allTargetsPowered)
+        {
+            if (LevelWinUI.Instance != null)
+            {
+                LevelWinUI.Instance.ShowWin();
+            }
+        }
     }
 
     private void CheckVictory(HashSet<DraggableItem> poweredItems)
