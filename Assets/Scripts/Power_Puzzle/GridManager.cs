@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
 
 public class GridManager : MonoBehaviour
 {
@@ -13,6 +13,8 @@ public class GridManager : MonoBehaviour
     public Direction sourceDirection;
     public Vector2 gridOffset;
 
+    private Coroutine powerRoutine;
+
     [System.Serializable]
     public struct TargetData
     {
@@ -20,12 +22,21 @@ public class GridManager : MonoBehaviour
         public Direction direction;
     }
 
-    
     public List<TargetData> targets = new List<TargetData>();
 
     public void RegisterTarget(Vector2Int pos, Direction dir)
     {
-        targets.Add(new TargetData { position = pos, direction = dir });
+        bool exists = false;
+        foreach (var t in targets)
+        {
+            if (t.position == pos && t.direction == dir) { exists = true; break; }
+        }
+
+        if (!exists)
+        {
+            targets.Add(new TargetData { position = pos, direction = dir });
+            Debug.Log($"Target registered at {pos} from direction {dir}");
+        }
     }
 
     public Vector2Int DirectionToVector(Direction dir)
@@ -47,13 +58,33 @@ public class GridManager : MonoBehaviour
 
     public void UpdatePower(Vector2Int sourcePos)
     {
-        HashSet<DraggableItem> itemsThatShouldBePowered = new HashSet<DraggableItem>();
+        
+        StopPowerAnimation();
+        foreach (var item in placedItems)
+        {
+            if (item != null) item.SetPowered(false);
+        }
+
+        
+        List<DraggableItem> currentPath = GetCurrentPowerPath();
+        bool isComplete = CheckVictoryCondition(currentPath);
+
+       
+        if (isComplete)
+        {
+            powerRoutine = StartCoroutine(AnimatePowerFlow(currentPath));
+        }
+    }
+
+    
+    private List<DraggableItem> GetCurrentPowerPath()
+    {
+        List<DraggableItem> path = new List<DraggableItem>();
         Queue<Vector2Int> checkQueue = new Queue<Vector2Int>();
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
 
         Vector2Int startPos = sourcePosition + DirectionToVector(sourceDirection);
 
-        
         if (IsInside(startPos))
         {
             DraggableItem firstItem = placedItems[startPos.x, startPos.y];
@@ -72,7 +103,7 @@ public class GridManager : MonoBehaviour
             DraggableItem currentItem = placedItems[current.x, current.y];
             if (currentItem == null) continue;
 
-            itemsThatShouldBePowered.Add(currentItem);
+            path.Add(currentItem);
 
             foreach (var dir in currentItem.GetConnections())
             {
@@ -88,10 +119,12 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+        return path;
+    }
 
-        
-        bool allTargetsPowered = true;
-        if (targets.Count == 0) allTargetsPowered = false;
+    private bool CheckVictoryCondition(List<DraggableItem> path)
+    {
+        if (targets.Count == 0) return false;
 
         foreach (var target in targets)
         {
@@ -101,7 +134,8 @@ public class GridManager : MonoBehaviour
             if (IsInside(neighborToTarget))
             {
                 DraggableItem lastItem = placedItems[neighborToTarget.x, neighborToTarget.y];
-                if (lastItem != null && itemsThatShouldBePowered.Contains(lastItem))
+                
+                if (lastItem != null && path.Contains(lastItem))
                 {
                     if (lastItem.GetConnections().Contains(Opposite(target.direction)))
                     {
@@ -110,69 +144,36 @@ public class GridManager : MonoBehaviour
                 }
             }
 
-            if (!targetReached)
-            {
-                allTargetsPowered = false;
-                break;
-            }
+            if (!targetReached) return false;
+        }
+        return true;
+    }
+
+  
+    private IEnumerator AnimatePowerFlow(List<DraggableItem> path)
+    {
+        float delayPerStep = 1.0f;
+
+        foreach (var item in path)
+        {
+            item.SetPowered(true);
+            yield return new WaitForSeconds(delayPerStep);
         }
 
-        
-        foreach (var item in placedItems)
-        {
-            if (item != null)
-            {
-                
-                bool powerStatus = allTargetsPowered && itemsThatShouldBePowered.Contains(item);
-                item.SetPowered(powerStatus);
-            }
-        }
+        yield return new WaitForSeconds(0.3f);
 
-        
-        if (allTargetsPowered)
+        if (LevelWinUI.Instance != null)
         {
-            if (LevelWinUI.Instance != null)
-            {
-                LevelWinUI.Instance.ShowWin();
-            }
+            LevelWinUI.Instance.ShowWin();
         }
     }
 
-    private void CheckVictory(HashSet<DraggableItem> poweredItems)
+    private void StopPowerAnimation()
     {
-        if (targets.Count == 0) return;
-
-        int poweredTargetsCount = 0;
-
-        foreach (var target in targets)
+        if (powerRoutine != null)
         {
-            
-            Vector2Int neighborToTarget = target.position + DirectionToVector(target.direction);
-
-            if (IsInside(neighborToTarget))
-            {
-                DraggableItem lastItem = placedItems[neighborToTarget.x, neighborToTarget.y];
-
-                if (lastItem != null && poweredItems.Contains(lastItem))
-                {
-                    if (lastItem.GetConnections().Contains(Opposite(target.direction)))
-                    {
-                        poweredTargetsCount++;
-                    }
-                }
-            }
-        }
-
-
-        if (poweredTargetsCount == targets.Count)
-        {
-            Debug.Log("Victory! All " + targets.Count + " targets are powered!");
-
-            if (LevelWinUI.Instance != null)
-            {
-                LevelWinUI.Instance.ShowWin();
-            }
-
+            StopCoroutine(powerRoutine);
+            powerRoutine = null;
         }
     }
 
@@ -183,7 +184,6 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
-        targets.Clear();
         GenerateGrid();
     }
 
