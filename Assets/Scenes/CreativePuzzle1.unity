@@ -11381,6 +11381,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: -0.3447
       objectReference: {fileID: 0}
+    - target: {fileID: 9218967573815693529, guid: 7132f8fee5fe0534b8cc327e8f3ae104, type: 3}
+      propertyPath: m_Constraints
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
