@@ -32,6 +32,12 @@ public class RobotEnergy : MonoBehaviour
         }
     }
 
+    public void RestoreEnergy(float amount)
+    {
+        currentEnergy = Mathf.Min(currentEnergy + amount, maxEnergy);
+        UpdateUI();
+    }
+
     void UpdateUI()
     {
         if (energySlider != null)

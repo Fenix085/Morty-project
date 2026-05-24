@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 
 public class IntroManager : MonoBehaviour
 {
-    [Header("Camera")]
+    [Header("Cameras")]
     public Camera mainCamera;
     public Camera faceCamera;
 
@@ -12,29 +13,37 @@ public class IntroManager : MonoBehaviour
     public PlayerController_RB playerScript;
     public CameraFollow cameraFollowScript;
 
-    [Header("UI")]
+    [Header("UI Elements")]
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
+    public Button skipButton;
 
-    [Header("Text")]
+    [Header("Text Settings")]
     public float typingSpeed = 0.05f;
     public AudioClip typeSound;
     private AudioSource audioSource;
 
-    [Header("Flight Settings")]
+    [Header("Transition Settings")]
     public float transitionDuration = 2.0f;
+
+    private Coroutine introCoroutine;
+    private Vector3 startPos;
+    private Quaternion startRot;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
+
+        if (skipButton != null)
+            skipButton.onClick.AddListener(SkipIntro);
     }
 
     void Start()
     {
         faceCamera.enabled = false;
-        StartCoroutine(PlayIntroSequence());
+        introCoroutine = StartCoroutine(PlayIntroSequence());
     }
 
     IEnumerator PlayIntroSequence()
@@ -43,8 +52,11 @@ public class IntroManager : MonoBehaviour
         cameraFollowScript.enabled = false;
         dialoguePanel.SetActive(false);
 
-        Vector3 startPos = mainCamera.transform.position;
-        Quaternion startRot = mainCamera.transform.rotation;
+        if (skipButton != null)
+            skipButton.gameObject.SetActive(true);
+
+        startPos = mainCamera.transform.position;
+        startRot = mainCamera.transform.rotation;
 
         yield return new WaitForSeconds(3f);
 
@@ -55,11 +67,33 @@ public class IntroManager : MonoBehaviour
         yield return StartCoroutine(TypeText(message));
 
         yield return new WaitForSeconds(2f);
+
         dialoguePanel.SetActive(false);
 
         yield return StartCoroutine(LerpCamera(mainCamera.transform.position, mainCamera.transform.rotation, startPos, startRot));
 
-        
+        EndIntro();
+    }
+
+    public void SkipIntro()
+    {
+        if (introCoroutine != null)
+            StopCoroutine(introCoroutine);
+
+        StopAllCoroutines();
+        EndIntro();
+    }
+
+    private void EndIntro()
+    {
+        mainCamera.transform.position = startPos;
+        mainCamera.transform.rotation = startRot;
+
+        dialoguePanel.SetActive(false);
+
+        if (skipButton != null)
+            skipButton.gameObject.SetActive(false);
+
         playerScript.enabled = true;
         cameraFollowScript.enabled = true;
     }
@@ -74,7 +108,6 @@ public class IntroManager : MonoBehaviour
 
             if (audioSource && typeSound)
             {
-                
                 audioSource.PlayOneShot(typeSound);
             }
 

@@ -1,82 +1,98 @@
 using UnityEngine;
-using System.Collections;
 
 public class TrashMagnet : MonoBehaviour
 {
-    public float attractDistance = 3f;
-    public float moveSpeed = 5f;
+    [Header("Settings")]
+    public float attractDistance = 5f;
+    public float moveSpeed = 6f; // Faster for better feel
+    public float energyGrant = 10f;
+    public float collectionRadius = 0.8f; // Collect slightly earlier to avoid bumping
 
-    private Transform player;
-    private bool isAttracting = false;
-    private Collider col;
+    private Transform _playerTransform;
+    private RobotEnergy _robotEnergy;
+    private PlayerLevel _playerLevel;
+    private Collider _trashCollider;
+    private Vector3 _initialScale;
 
-    public AudioClip attractSound;
-    private AudioSource activeSource;
-    private bool isFadingOut = false;
+    private bool _isAttracting = false;
+    private bool _isCollected = false;
+
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        col = GetComponent<Collider>();
-    }
+        _initialScale = transform.localScale;
+        _trashCollider = GetComponent<Collider>();
 
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            _playerTransform = player.transform;
+            _robotEnergy = player.GetComponent<RobotEnergy>();
+            _playerLevel = player.GetComponent<PlayerLevel>();
+        }
+    }
 
     void Update()
     {
-        if (!col.isTrigger) return;
+        if (_playerTransform == null || _isCollected) return;
 
-        float distance = Vector3.Distance(transform.position, player.position);
+        // 1. Variable 'distance' is already declared here
+        float distance = Vector3.Distance(transform.position, _playerTransform.position);
 
-        if (distance < attractDistance && !isAttracting)
+        // Check level requirement
+        TrashLevel trashData = GetComponent<TrashLevel>();
+        bool canSuck = trashData == null || (_playerLevel != null && _playerLevel.level >= trashData.trashLevel);
+
+        if (distance < attractDistance && canSuck && !_isAttracting)
         {
-            isAttracting = true;
-            
-            if (SoundEffectsManager.Instance != null && SoundEffectsManager.Instance.vacuumSound != null)
-            {
-                activeSource = SoundEffectsManager.Instance.PlayLoopingSound(
-                    SoundEffectsManager.Instance.vacuumSound,
-                    SoundEffectsManager.Instance.volume
-                );
-            }
+            StartSucking();
         }
 
-        if (isAttracting)
+        if (_isAttracting && !_isCollected)
         {
+            // 2. Move towards player
             transform.position = Vector3.MoveTowards(
                 transform.position,
-                player.position,
+                _playerTransform.position,
                 moveSpeed * Time.deltaTime
             );
-        }
 
-        
-        if (distance < 0.2f && !isFadingOut)
-        {
-            StartCoroutine(FadeAndDestroy());
+            // 3. VISUAL IMPROVEMENT: Scale down
+            // Use the 'distance' variable declared above instead of declaring it again
+            float scaleRatio = distance / attractDistance;
+            transform.localScale = Vector3.Lerp(Vector3.zero, _initialScale, scaleRatio);
+
+            // 4. Collection check
+            if (distance < collectionRadius)
+            {
+                Collect();
+            }
         }
     }
 
-    private IEnumerator FadeAndDestroy()
+    private void StartSucking()
     {
-        isFadingOut = true;
-        float startVol = activeSource != null ? activeSource.volume : 0;
-        float duration = 0.2f;
-        float timer = 0;
+        _isAttracting = true;
 
-        while (timer < duration)
+        // DISABLE COLLIDER: This is the key. 
+        // Once it starts flying, it effectively "leaves" the physical world.
+        if (_trashCollider != null)
         {
-            timer += Time.deltaTime;
-            if (activeSource != null)
-            {
-                activeSource.volume = Mathf.Lerp(startVol, 0, timer / duration);
-            }
-            yield return null;
+            _trashCollider.enabled = false;
         }
+    }
 
-        if (activeSource != null)
-        {
-            Destroy(activeSource.gameObject);
-        }
+    private void Collect()
+    {
+        if (_isCollected) return;
+        _isCollected = true;
 
+        if (_robotEnergy != null)
+            _robotEnergy.RestoreEnergy(energyGrant);
+
+        if (TrashCounterUI.Instance != null)
+            TrashCounterUI.Instance.RegisterCollectedTrash(gameObject);
+
+        // Instant removal
         Destroy(gameObject);
     }
 }
