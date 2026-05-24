@@ -34,6 +34,7 @@ public class PlayerController_RB : MonoBehaviour {
     private Rigidbody _playerRB;
     private Transform _playerMesh;
     private FakeGravityBody _worldGravity;
+    private RobotEnergy _robotEnergy;
 
     private Animator animator;
     [SerializeField] private Transform cameraTransform;
@@ -55,6 +56,7 @@ public class PlayerController_RB : MonoBehaviour {
     // Use this for initialization
     private void Start()
     {
+        _robotEnergy = GetComponent<RobotEnergy>();
         animator = GetComponentInChildren<Animator>();
         // set player details
         _playerRB = GetComponent<Rigidbody>();
@@ -112,23 +114,26 @@ public class PlayerController_RB : MonoBehaviour {
     // Update is called once per frame
     private void Update()
     {
-        // if changing worlds
-        if (_transfering)
-        {
-            return;
-        }
 
-        // update move direction
+        if (_transfering) return;
+
+        
+        bool canMove = (_robotEnergy == null || _robotEnergy.HasEnergy);
+
         Vector2 mobileInput = MobileJoystick.Instance != null ? MobileJoystick.Instance.Value : Vector2.zero;
         Vector2 keyboardInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 moveInput = mobileInput.sqrMagnitude > keyboardInput.sqrMagnitude ? mobileInput : keyboardInput;
+
+        
+        if (!canMove) moveInput = Vector2.zero;
+
         float h = moveInput.x;
         float v = moveInput.y;
 
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
 
-        // убираем наклон камеры
+        
         //camForward.y = 0;
         //camRight.y = 0;
 
@@ -144,7 +149,7 @@ public class PlayerController_RB : MonoBehaviour {
         //{
         //    WorldTransfer();
         //}
-//
+        //
         //// jump
         //if (Input.GetKeyDown("space"))
         //{
@@ -158,14 +163,14 @@ public class PlayerController_RB : MonoBehaviour {
     // FixedUpdate is called every fixed framerate frame
     private void FixedUpdate()
     {
-        if (_transfering)
-        {
-            return;
-        }
+        if (_transfering) return;
 
-        if(_moveDirection.magnitude > 0)
+        if (_moveDirection.magnitude > 0)
         {
             animator.Play("Walk");
+
+            
+            if (_robotEnergy != null) _robotEnergy.UseEnergy();
         }
         else
         {
@@ -175,10 +180,6 @@ public class PlayerController_RB : MonoBehaviour {
         _playerRB.MovePosition(
             _playerRB.position + _moveDirection * speed * Time.fixedDeltaTime
         );
-
-        // 🔥 ВОТ ЭТО УБИРАЕТ СКОЛЬЖЕНИЕ
-        //_playerRB.linearVelocity = Vector3.zero;
-        //_playerRB.angularVelocity = Vector3.zero;
     }
 
     /// <summary>
