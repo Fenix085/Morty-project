@@ -293,6 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 1836208091}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -2552,6 +2555,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 1795121099}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -4621,6 +4627,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 1908275328}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -7537,8 +7546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
-  pushDistance: 2
-  moveSpeed: 6
 --- !u!1 &953456226
 GameObject:
   m_ObjectHideFlags: 0
@@ -9220,6 +9227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 204528622}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -10216,8 +10226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
-  pushDistance: 2
-  moveSpeed: 6
 --- !u!1 &1289894885
 GameObject:
   m_ObjectHideFlags: 0
@@ -10596,6 +10604,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 2056924427}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -11591,7 +11602,7 @@ Transform:
   m_GameObject: {fileID: 1491147072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -14.5, y: 7, z: -2.36}
+  m_LocalPosition: {x: -15.49, y: 7, z: -2.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12274,6 +12285,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 618149283}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -13192,6 +13206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 2087108343}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 0}
+  releaseSound: {fileID: 0}
   triggerTags:
   - Player
   - Box
