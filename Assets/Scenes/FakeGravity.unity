@@ -669,6 +669,8 @@ MonoBehaviour:
   cameraFollowScript: {fileID: 224339877}
   dialoguePanel: {fileID: 345631109}
   dialogueText: {fileID: 443502526}
+  typingSpeed: 0.05
+  typeSound: {fileID: 8300000, guid: 98dde2fd6564e8947a2a566b85606dd6, type: 3}
   transitionDuration: 3
 --- !u!4 &406799442
 Transform:
