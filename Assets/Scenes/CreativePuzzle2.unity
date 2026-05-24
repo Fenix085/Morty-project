@@ -2973,6 +2973,7 @@ MonoBehaviour:
   newLever: {fileID: 2075743104}
   interactRange: 2.5
   glowObject: {fileID: 1058978762}
+  activationSound: {fileID: 8300000, guid: c60e32694fa228f45a23cf44bda57c10, type: 3}
 --- !u!65 &407498736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3046,6 +3047,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 1795121099}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -8439,6 +8443,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 204528622}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -9279,6 +9286,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 2056924427}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
@@ -10257,6 +10267,7 @@ MonoBehaviour:
   newLever: {fileID: 1819840164}
   interactRange: 2.5
   glowObject: {fileID: 864145528}
+  activationSound: {fileID: 8300000, guid: c60e32694fa228f45a23cf44bda57c10, type: 3}
 --- !u!114 &1472023116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10642,6 +10653,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteSwitch
   defaultButton: {fileID: 618149283}
+  activeButton: {fileID: 0}
+  pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
   triggerTags:
   - Player
   - Box
