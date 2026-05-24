@@ -530,6 +530,55 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -6443886568426979757, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &416496051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416496049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5b0dc7083fc8240a20062aadca7d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeGrowth
+  growthDuration: 1.5
+  randomDelayMax: 1
+  growthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.6220869
+      value: 0.55029213
+      inSlope: -2.4044185
+      outSlope: -2.4044185
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.13845515
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0.007367075
+      outSlope: 0.007367075
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animateChildren: 1
+  playOnEnable: 0
 --- !u!1 &420399897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5756727310939944199, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -797,6 +846,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1551326792}
+    - targetCorrespondingSourceObject: {fileID: -6443886568426979757, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 416496051}
   m_SourcePrefab: {fileID: 100100000, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
 --- !u!1 &837240331 stripped
 GameObject:
@@ -1413,6 +1465,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -6433795963395200455, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2117294481}
+    - targetCorrespondingSourceObject: {fileID: -6443886568426979757, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1650689801}
   m_SourcePrefab: {fileID: 100100000, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
 --- !u!1001 &1071973703
 PrefabInstance:
@@ -2245,6 +2300,55 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -6443886568426979757, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
   m_PrefabInstance: {fileID: 1054837407}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1650689801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650689799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5b0dc7083fc8240a20062aadca7d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeGrowth
+  growthDuration: 1.5
+  randomDelayMax: 1
+  growthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7
+      value: 1.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animateChildren: 1
+  playOnEnable: 1
 --- !u!1001 &1656775986
 PrefabInstance:
   m_ObjectHideFlags: 0

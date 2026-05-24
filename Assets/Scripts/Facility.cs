@@ -71,14 +71,28 @@ public class Facility : MonoBehaviour
 
     private IEnumerator AnimateGroundTransition()
     {
-        // Deactivate barren objects and activate green objects
-        SetActiveForArray(setInactiveOnReturn, false);
-        SetActiveForArray(setActiveOnReturn, true);
+        // Trigger Shrink animation on dead trees if they have TreeGrowth script
+        if (setInactiveOnReturn != null)
+        {
+            foreach (var target in setInactiveOnReturn)
+            {
+                if (target != null)
+                {
+                    TreeGrowth treeGrowth = target.GetComponent<TreeGrowth>();
+                    if (treeGrowth != null)
+                    {
+                        treeGrowth.TriggerShrink();
+                    }
+                }
+            }
+        }
+
+        Vector3 startScale = originalGrassScale * 0.9f;
 
         if (grassObject != null)
         {
             grassObject.gameObject.SetActive(true);
-            grassObject.localScale = Vector3.zero;
+            grassObject.localScale = startScale;
         }
 
         if (groundRenderer != null && barrenMaterial != null && greenMaterial != null && transitionDuration > 0f)
@@ -112,7 +126,7 @@ public class Facility : MonoBehaviour
                 
                 if (grassObject != null)
                 {
-                    grassObject.localScale = Vector3.Lerp(Vector3.zero, originalGrassScale, t);
+                    grassObject.localScale = Vector3.Lerp(startScale, originalGrassScale, t);
                 }
                 
                 yield return null;
@@ -131,7 +145,7 @@ public class Facility : MonoBehaviour
                 float t = elapsedTime / transitionDuration;
                 if (grassObject != null)
                 {
-                    grassObject.localScale = Vector3.Lerp(Vector3.zero, originalGrassScale, t);
+                    grassObject.localScale = Vector3.Lerp(startScale, originalGrassScale, t);
                 }
                 yield return null;
             }
@@ -146,6 +160,11 @@ public class Facility : MonoBehaviour
         {
             grassObject.localScale = originalGrassScale;
         }
+
+        // Deactivate barren objects (dead trees) and activate green objects (green trees) 
+        // AFTER the grass and ground transition has finished.
+        SetActiveForArray(setInactiveOnReturn, false);
+        SetActiveForArray(setActiveOnReturn, true);
     }
 
     public void ChangeScene()
