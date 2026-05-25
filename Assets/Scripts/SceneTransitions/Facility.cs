@@ -188,6 +188,12 @@ public class Facility : MonoBehaviour
                 groundRenderer.material = greenMaterial;
             }
         }
+
+        if (grassObject != null)
+        {
+            grassObject.localScale = originalGrassScale;
+        }
+
         ApplyReturnStateIfCompleted();
     }
 
