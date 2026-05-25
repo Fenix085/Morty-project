@@ -33,10 +33,30 @@ public class TextQuestController : MonoBehaviour
         [TextArea(3, 8)]
         public string description;
 
+        public Sprite nodeImage;
+
         public NodeResult result;
         public QuestChoice[] choices;
     }
 
+    [Header("Quest Images Setup")]
+    [Tooltip("Used for: Echo Station, The Atrium")]
+    [SerializeField] private Sprite imageAtrium;
+    [Tooltip("Used for: Intake Chutes, Deep Chute")]
+    [SerializeField] private Sprite imageIntakeChutes;
+    [Tooltip("Used for: All Crawlspace paths")]
+    [SerializeField] private Sprite imageCrawlspace;
+    [Tooltip("Used for: Overseer's Booth, Overseer's Desk")]
+    [SerializeField] private Sprite imageOverseersBooth;
+    [Tooltip("Used for: Primary Core, Systems Nominal (Alert)")]
+    [SerializeField] private Sprite imagePrimaryCore;
+    [Tooltip("Used for: All Death screens")]
+    [SerializeField] private Sprite imageCriticalFailure;
+    [Tooltip("Used for: Facility Secured (Victory)")]
+    [SerializeField] private Sprite imageVictory;
+
+    [Header("UI References")]
+    [SerializeField] private UnityEngine.UI.Image questImageUI;
     [SerializeField] private string defaultTitle = "RECOVERY LOG";
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text descriptionText;
@@ -120,6 +140,13 @@ public class TextQuestController : MonoBehaviour
 
         if (restartButtonLabel == null && restartButton != null)
             restartButtonLabel = restartButton.GetComponentInChildren<TMP_Text>(true);
+
+        if (questImageUI == null)
+        {
+            Transform imageTransform = transform.Find("QuestImage");
+            if (imageTransform != null)
+                questImageUI = imageTransform.GetComponent<UnityEngine.UI.Image>();
+        }
     }
 
     private bool HasValidReferences()
@@ -148,6 +175,19 @@ public class TextQuestController : MonoBehaviour
 
         ClearChoiceButtons();
         restartButton.gameObject.SetActive(false);
+
+        if (questImageUI != null)
+        {
+            if (node.nodeImage != null)
+            {
+                questImageUI.sprite = node.nodeImage;
+                questImageUI.gameObject.SetActive(true);
+            }
+            else
+            {
+                questImageUI.gameObject.SetActive(false);
+            }
+        }
 
         titleText.text = string.IsNullOrWhiteSpace(node.title) ? defaultTitle : node.title;
         descriptionText.text = node.description;
@@ -337,6 +377,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "ECHO STATION: INBOUND",
                 description = "The airlock hisses, spitting stale air and the scent of ozone. Before you lies Sector 4. The conveyors are frozen like petrified serpents. The facility is dead, but it can be awakened.",
+                nodeImage = imageAtrium,
                 choices = new[]
                 {
                     new QuestChoice { text = "Step into the darkness", nextNodeIndex = 1 }
@@ -345,7 +386,8 @@ public class TextQuestController : MonoBehaviour
             new QuestNode // 1
             {
                 title = "THE ATRIUM",
-                description = "You stand on the main processing floor. The silence is heavy, broken only by the dripping of coolant. Four paths branch out into the shadows. Where to?",
+                description = "You stand on the main floor. The paths branch out. Above the main door to the Core, a giant neon sign flashes: 'DO NOT USE STANDARD IGNITION (LEFT). IT IS FRIED. USE AUXILIARY (RIGHT) ONLY.' Where to?",
+                nodeImage = imageAtrium,
                 choices = new[]
                 {
                     new QuestChoice { text = "Search the Intake Chutes", nextNodeIndex = 2 },
@@ -358,6 +400,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "INTAKE CHUTES",
                 description = "Mountains of unsorted scrap loom in the dark. Under a collapsed sorting drone, you spot a datapad glowing faintly: 'CRITICAL: The ignition coil will detonate if you route power through the Red circuit first.'",
+                nodeImage = imageIntakeChutes,
                 choices = new[]
                 {
                     new QuestChoice { text = "Dig deeper into the scrap pile", nextNodeIndex = 12 },
@@ -368,6 +411,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "MAINTENANCE CRAWLSPACE",
                 description = "The ventilation shaft is suffocatingly tight, smelling of burnt copper. The shaft splits ahead into two directions.",
+                nodeImage = imageCrawlspace,
                 choices = new[]
                 {
                     new QuestChoice { text = "Take the left passage", nextNodeIndex = 4 },
@@ -379,6 +423,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "CRAWLSPACE - LEFT",
                 description = "Etched violently into the metal wall with a laser cutter is a frantic message: 'THE BLUE LINE BLEEDS HEAT. IT ALWAYS GOES LAST. IF NOT, WE ALL BURN.'",
+                nodeImage = imageCrawlspace,
                 choices = new[]
                 {
                     new QuestChoice { text = "Return to the junction", nextNodeIndex = 3 }
@@ -388,6 +433,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "CRAWLSPACE - RIGHT",
                 description = "You find a skeleton in mechanics gear clutching a wrench. A faded manual page in its pocket reads: 'COOLANT PRESSURE WARNING: Valve Alpha opens the main flow. Always start with Alpha to prevent backflow.'",
+                nodeImage = imageCrawlspace,
                 choices = new[]
                 {
                     new QuestChoice { text = "Return to the junction", nextNodeIndex = 3 }
@@ -397,6 +443,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "OVERSEER'S BOOTH",
                 description = "Shattered glass crunches beneath your boots. The terminal flickers. A corrupted audio log stutters: '...standard overrides... Yellow, Red, Blue... sequence is... *static*...'",
+                nodeImage = imageOverseersBooth,
                 choices = new[]
                 {
                     new QuestChoice { text = "Search the Overseer's desk", nextNodeIndex = 7 },
@@ -407,6 +454,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "OVERSEER'S DESK",
                 description = "Rummaging through the drawers, you find a sticky note attached to a flask: 'To stabilize the core after restart, finally cycle Valve Gamma to regulate the excess pressure. - Supervisor'",
+                nodeImage = imageOverseersBooth,
                 choices = new[]
                 {
                     new QuestChoice { text = "Head back down to The Atrium", nextNodeIndex = 1 }
@@ -416,6 +464,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "PRIMARY CORE",
                 description = "The main reactor towers before you. A holographic prompt awaits a manual override sequence. Three heavy routing cables lay on the deck: Yellow, Red, and Blue. One wrong move, and the core goes critical.",
+                nodeImage = imagePrimaryCore,
                 choices = new[]
                 {
                     new QuestChoice { text = "Step back. I need to check the logs again.", nextNodeIndex = 1 },
@@ -428,18 +477,21 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "CATASTROPHIC FEEDBACK",
                 description = "You slide the Red cable in first. A high-pitched whine pierces your ears. The ignition coil overloads instantly, engulfing the room in searing white plasma. You were warned.",
+                nodeImage = imageCriticalFailure,
                 result = NodeResult.End
             },
             new QuestNode // 10
             {
                 title = "THERMAL RUNAWAY",
                 description = "You connect the Blue line too early. The cooling loops fail to sync. Alarms shriek as heat bleeds uncontrollably through the chassis. The metal melts beneath your feet.",
+                nodeImage = imageCriticalFailure,
                 result = NodeResult.End
             },
             new QuestNode // 11
             {
                 title = "SYSTEMS NOMINAL... ALERT!",
                 description = "Yellow clicks in. Red pre-warms. Blue cools. The core hums to life! But suddenly, crimson sirens blare!\n'WARNING: COOLANT PRESSURE CRITICAL. MANUAL VALVE OVERRIDE REQUIRED.'\nYou rush to the Coolant Terminal.",
+                nodeImage = imagePrimaryCore,
                 choices = new[]
                 {
                     new QuestChoice { text = "Open Valve Beta, then Gamma", nextNodeIndex = 13 },
@@ -451,6 +503,7 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "DEEP CHUTE",
                 description = "You squeeze further into the debris and find a jammed pneumatic lock with a scribbled warning: 'Secondary Coolant: Valve Beta seal is blown. Do NOT attempt to cycle Beta or we flood the chamber.'",
+                nodeImage = imageIntakeChutes,
                 choices = new[]
                 {
                     new QuestChoice { text = "Return to The Atrium", nextNodeIndex = 1 }
@@ -460,18 +513,39 @@ public class TextQuestController : MonoBehaviour
             {
                 title = "TOXIC FLOOD",
                 description = "You initiate Valve Beta. The blown seal gives way completely, flooding the chamber with supercooled liquid nitrogen. You are frozen instantly where you stand.",
+                nodeImage = imageCriticalFailure,
                 result = NodeResult.End
             },
             new QuestNode // 14
             {
                 title = "PRESSURE INVERSION",
                 description = "You open Valve Gamma before releasing the main flow from Alpha. The pressure difference crushes the pipes inward, causing a massive internal explosion.",
+                nodeImage = imageCriticalFailure,
                 result = NodeResult.End
             },
             new QuestNode // 15
             {
+                title = "PRESSURE STABILIZED... STANDBY",
+                description = "Valve Alpha opens the flow, and Gamma regulates the pressure! The alarms stop, but a final Igniter Lever unlocks. Beside it is a Safety Mode Dial.",
+                nodeImage = imagePrimaryCore,
+                choices = new[]
+                {
+                    new QuestChoice { text = "Turn Dial RIGHT and Ignite", nextNodeIndex = 17 },
+                    new QuestChoice { text = "Turn Dial LEFT and Ignite", nextNodeIndex = 16 }
+                }
+            },
+            new QuestNode // 16
+            {
+                title = "FRIED RELAYS",
+                description = "You turn it LEFT to Standard. The broken relays instantly short-circuit. Millions of volts arc through the console, electrocuting you on the spot.",
+                nodeImage = imageCriticalFailure,
+                result = NodeResult.End
+            },
+            new QuestNode // 17
+            {
                 title = "FACILITY SECURED",
-                description = "Valve Alpha smoothly opens the main flow, and Valve Gamma engages perfectly to regulate the pressure! The alarms silence, replaced by the healthy hum of Sector 4. The recycler is fixed and you survive!",
+                description = "You turn the dial RIGHT to Auxiliary and pull the lever. The core ignites with a safe, steady roar! Warm lights flood the facility. The recycler is fixed and you survive!",
+                nodeImage = imageVictory,
                 result = NodeResult.Victory
             }
         };
