@@ -220,6 +220,8 @@ public class TextQuestController : MonoBehaviour
 
     private void LoadVictoryScene()
     {
+        SceneSessionState.MarkCurrentFacilityCompleted();
+
         if (string.IsNullOrWhiteSpace(victorySceneName))
         {
             RestartQuest();

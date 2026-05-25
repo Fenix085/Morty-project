@@ -388,6 +388,10 @@ PrefabInstance:
       value: -0.45048195
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: facilityId
+      value: river
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: grassObject
       value: 
       objectReference: {fileID: 1011394667}
@@ -409,11 +413,11 @@ PrefabInstance:
       objectReference: {fileID: 370335179}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: setActiveOnReturn.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: setInactiveOnReturn.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[0]'
@@ -426,7 +430,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[2]'
       value: 
-      objectReference: {fileID: 1717687725}
+      objectReference: {fileID: 1302259811}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setInactiveOnReturn.Array.data[0]'
       value: 
@@ -438,7 +442,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setInactiveOnReturn.Array.data[2]'
       value: 
-      objectReference: {fileID: 1917831809}
+      objectReference: {fileID: 1731519950}
     - target: {fileID: 3574460870928621970, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: m_WorldUpObject
       value: 
@@ -460,6 +464,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
   m_PrefabInstance: {fileID: 269653902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &337712634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4534896966284596477, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+  m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &341856856 stripped
 GameObject:
@@ -1901,7 +1910,7 @@ PrefabInstance:
       objectReference: {fileID: 137900814}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: facilityId
-      value: facility.001
+      value: start
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: grassLayer
@@ -2162,6 +2171,10 @@ PrefabInstance:
       value: 0.442957
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: facilityId
+      value: lake
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: grassObject
       value: 
       objectReference: {fileID: 1767849857}
@@ -2187,7 +2200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: setInactiveOnReturn.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[0]'
@@ -2212,7 +2225,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setInactiveOnReturn.Array.data[2]'
       value: 
-      objectReference: {fileID: 1917831809}
+      objectReference: {fileID: 337712634}
     - target: {fileID: 3574460870928621970, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: m_WorldUpObject
       value: 
@@ -2752,6 +2765,10 @@ PrefabInstance:
       value: -0.8997412
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: facilityId
+      value: forest
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: grassObject
       value: 
       objectReference: {fileID: 624888689}
@@ -2867,6 +2884,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
   gravity: -10
   size: 10
+--- !u!1 &1731519950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6854800111600964779, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+  m_PrefabInstance: {fileID: 665947151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1735874577 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3391013225177377428, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
@@ -3161,6 +3183,10 @@ PrefabInstance:
     - target: {fileID: 2451189635984184421, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.011969104
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: facilityId
+      value: field
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: grassObject

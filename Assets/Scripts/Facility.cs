@@ -42,29 +42,49 @@ public class Facility : MonoBehaviour
 
         LoadCompletionState();
 
-        if (groundRenderer != null)
+        if (SceneSessionState.JustCompletedFacilityId == GetEffectiveFacilityId())
         {
-            if (IsCompleted)
-                groundRenderer.material = greenMaterial;
-            else
+            if (groundRenderer != null)
                 groundRenderer.material = barrenMaterial;
-        }
 
-        if (IsCompleted)
-        {
-            ApplyReturnStateIfCompleted();
-            if (grassObject != null)
-            {
-                grassObject.gameObject.SetActive(true);
-                grassObject.localScale = originalGrassScale;
-            }
-        }
-        else
-        {
             if (grassObject != null)
             {
                 grassObject.gameObject.SetActive(false);
                 grassObject.localScale = Vector3.zero;
+            }
+
+            IsCompleted = true;
+            SaveCompletionState();
+
+            SceneSessionState.JustCompletedFacilityId = "";
+            StartCoroutine(AnimateGroundTransition());
+        }
+        else
+        {
+            if (groundRenderer != null)
+            {
+                if (IsCompleted)
+                    groundRenderer.material = greenMaterial;
+                else
+                    groundRenderer.material = barrenMaterial;
+            }
+
+            if (IsCompleted)
+            {
+                ApplyReturnStateIfCompleted();
+                if (grassObject != null)
+                {
+                    grassObject.gameObject.SetActive(true);
+                    grassObject.localScale = originalGrassScale;
+                }
+            }
+            else
+            {
+                if (grassObject != null)
+                {
+                    grassObject.gameObject.SetActive(false);
+                    grassObject.localScale = Vector3.zero;
+                }
             }
         }
     }
@@ -170,7 +190,8 @@ public class Facility : MonoBehaviour
     public void ChangeScene()
     {
         SavePlayerStateForScene();
-        IsCompleted = true;
+        SceneSessionState.CurrentFacilityId = GetEffectiveFacilityId();
+        // IsCompleted = true;
         SaveCompletionState();
         SceneManager.LoadScene(puzzleScene);
     }
@@ -226,11 +247,15 @@ public class Facility : MonoBehaviour
         SceneSessionState.SavePlayerState(sceneName, player.transform.position, player.transform.rotation);
     }
 
+    public string GetEffectiveFacilityId()
+    {
+        return string.IsNullOrEmpty(facilityId) ? GetTransformPath(transform) : facilityId;
+    }
+
     private string GetCompletedKey()
     {
         var sceneName = SceneManager.GetActiveScene().name;
-        var id = string.IsNullOrEmpty(facilityId) ? GetTransformPath(transform) : facilityId;
-        return $"{CompletedKeyPrefix}{sceneName}_{id}";
+        return $"{CompletedKeyPrefix}{sceneName}_{GetEffectiveFacilityId()}";
     }
 
     private string GetTransformPath(Transform current)

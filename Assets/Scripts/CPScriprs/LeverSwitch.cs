@@ -95,6 +95,7 @@ public class LeverSwitch : MonoBehaviour
     private IEnumerator SwitchScene()
     {
         yield return new WaitForSeconds(1);
+        SceneSessionState.MarkCurrentFacilityCompleted();
         SceneManager.LoadScene(nextLevel);
     }
 }

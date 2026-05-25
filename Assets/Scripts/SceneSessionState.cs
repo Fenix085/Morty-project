@@ -11,6 +11,14 @@ public static class SceneSessionState
 
     private static readonly Dictionary<string, PlayerState> PlayerStatesByScene = new Dictionary<string, PlayerState>();
 
+    public static string JustCompletedFacilityId = "";
+    public static string CurrentFacilityId = "";
+
+    public static void MarkCurrentFacilityCompleted()
+    {
+        JustCompletedFacilityId = CurrentFacilityId;
+    }
+
     public static void SavePlayerState(string sceneName, Vector3 position, Quaternion rotation)
     {
         if (string.IsNullOrEmpty(sceneName))

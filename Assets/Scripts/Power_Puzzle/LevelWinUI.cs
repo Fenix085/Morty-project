@@ -31,6 +31,8 @@ public class LevelWinUI : MonoBehaviour
     
     public void OnDoneButtonClick()
     {
+        SceneSessionState.MarkCurrentFacilityCompleted();
+
         if (!string.IsNullOrEmpty(nextSceneName))
         {
             SceneManager.LoadScene(nextSceneName);
