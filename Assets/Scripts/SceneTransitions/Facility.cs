@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,17 +13,31 @@ public class Facility : MonoBehaviour
     public string facilityId = "";
     public GameObject[] setInactiveOnReturn;
     public GameObject[] setActiveOnReturn;
+
+    [Header("Return Animation Settings")]
+    public Transform zoomInPoint;
+    public Transform zoomOutPoint;
+    public float transitionSpeed = 1.0f;
+
+    // Static variable persists between scene loads
+    private static string lastVisitedFacilityId = "";
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         canvas = GetComponentInChildren<Canvas>();
-        if (canvas != null)
-        {
-            canvas.gameObject.SetActive(false);
-        }
+        if (canvas != null) canvas.gameObject.SetActive(false);
 
         LoadCompletionState();
         ApplyReturnStateIfCompleted();
+
+        
+        string currentId = GetCompletedKey();
+        if (lastVisitedFacilityId == currentId)
+        {
+            lastVisitedFacilityId = ""; 
+            StartCoroutine(PlayReturnAnimation());
+        }
     }
 
     public void ChangeScene()
@@ -31,15 +46,81 @@ public class Facility : MonoBehaviour
         IsCompleted = true;
         SaveCompletionState();
 
+        
+        lastVisitedFacilityId = GetCompletedKey();
+
         if (SceneTransitionManager.Instance != null)
-        {
             SceneTransitionManager.Instance.SwitchScene(puzzleScene);
-        }
         else
-        {
-            
             SceneManager.LoadScene(puzzleScene);
+    }
+
+    IEnumerator PlayReturnAnimation()
+    {
+   
+        var player = PlayerController_RB.Instance;
+
+  
+        var mainCam = Camera.main;
+
+        var followScript = FindFirstObjectByType<CameraFollow>();
+
+
+        if (player == null) { Debug.LogError("Facility: Player not found"); yield break; }
+        if (mainCam == null) { Debug.LogError("Facility: MainCamera not found! Check the MainCamera tag."); yield break; }
+        if (followScript == null) { Debug.LogError("Facility: CameraFollow script not found on the scene!"); yield break; }
+
+        player.enabled = false;
+        followScript.enabled = false;
+
+
+        mainCam.transform.position = zoomInPoint.position;
+        mainCam.transform.rotation = zoomInPoint.rotation;
+
+
+        yield return new WaitForSeconds(1.0f);
+
+
+        yield return StartCoroutine(LerpCamera(mainCam.transform, zoomInPoint.position, zoomInPoint.rotation, zoomOutPoint.position, zoomOutPoint.rotation, 2.5f));
+
+        yield return new WaitForSeconds(1.5f);
+
+  
+        float elapsed = 0;
+        Vector3 startPos = mainCam.transform.position;
+        Quaternion startRot = mainCam.transform.rotation;
+
+        while (elapsed < 1.0f)
+        {
+            elapsed += Time.deltaTime * transitionSpeed;
+
+      
+            Vector3 targetPos = followScript.transform.position;
+            Quaternion targetRot = followScript.transform.rotation;
+
+            mainCam.transform.position = Vector3.Lerp(startPos, targetPos, elapsed);
+            mainCam.transform.rotation = Quaternion.Slerp(startRot, targetRot, elapsed);
+
+            yield return null;
         }
+
+        
+        player.enabled = true;
+        followScript.enabled = true;
+    }
+
+    IEnumerator LerpCamera(Transform cam, Vector3 fromPos, Quaternion fromRot, Vector3 toPos, Quaternion toRot, float duration)
+    {
+        float time = 0;
+        while (time < 1.0f)
+        {
+            time += Time.deltaTime / duration;
+            cam.position = Vector3.Lerp(fromPos, toPos, time);
+            cam.rotation = Quaternion.Slerp(fromRot, toRot, time);
+            yield return null;
+        }
+        cam.position = toPos;
+        cam.rotation = toRot;
     }
 
     // Update is called once per frame

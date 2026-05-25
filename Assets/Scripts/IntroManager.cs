@@ -30,6 +30,36 @@ public class IntroManager : MonoBehaviour
     private Vector3 startPos;
     private Quaternion startRot;
 
+    // Key to save the state
+    private const string IntroWatchedKey = "IntroWatched";
+
+    [Header("Debug")]
+    public bool resetIntroOnStart = false; 
+    public bool forceShowIntro = false;    
+
+    void Start()
+    {
+        
+        if (resetIntroOnStart)
+        {
+            PlayerPrefs.DeleteKey(IntroWatchedKey);
+        }
+
+        faceCamera.enabled = false;
+
+        
+        if (!forceShowIntro && PlayerPrefs.GetInt(IntroWatchedKey, 0) == 1)
+        {
+            startPos = mainCamera.transform.position;
+            startRot = mainCamera.transform.rotation;
+            EndIntro();
+        }
+        else
+        {
+            introCoroutine = StartCoroutine(PlayIntroSequence());
+        }
+    }
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -40,11 +70,7 @@ public class IntroManager : MonoBehaviour
             skipButton.onClick.AddListener(SkipIntro);
     }
 
-    void Start()
-    {
-        faceCamera.enabled = false;
-        introCoroutine = StartCoroutine(PlayIntroSequence());
-    }
+    
 
     IEnumerator PlayIntroSequence()
     {
@@ -72,6 +98,8 @@ public class IntroManager : MonoBehaviour
 
         yield return StartCoroutine(LerpCamera(mainCamera.transform.position, mainCamera.transform.rotation, startPos, startRot));
 
+        // Save that the player has watched the intro
+        MarkIntroAsWatched();
         EndIntro();
     }
 
@@ -81,7 +109,14 @@ public class IntroManager : MonoBehaviour
             StopCoroutine(introCoroutine);
 
         StopAllCoroutines();
+        MarkIntroAsWatched(); // Save state even on skip
         EndIntro();
+    }
+
+    private void MarkIntroAsWatched()
+    {
+        PlayerPrefs.SetInt(IntroWatchedKey, 1);
+        PlayerPrefs.Save();
     }
 
     private void EndIntro()
@@ -98,19 +133,14 @@ public class IntroManager : MonoBehaviour
         cameraFollowScript.enabled = true;
     }
 
+    // Coroutines for TypeText and LerpCamera remain the same...
     IEnumerator TypeText(string textToType)
     {
         dialogueText.text = "";
-
         foreach (char letter in textToType.ToCharArray())
         {
             dialogueText.text += letter;
-
-            if (audioSource && typeSound)
-            {
-                audioSource.PlayOneShot(typeSound);
-            }
-
+            if (audioSource && typeSound) audioSource.PlayOneShot(typeSound);
             yield return new WaitForSeconds(typingSpeed);
         }
     }
@@ -121,13 +151,10 @@ public class IntroManager : MonoBehaviour
         while (time < 1.0f)
         {
             time += Time.deltaTime / transitionDuration;
-
             mainCamera.transform.position = Vector3.Lerp(fromPos, toPos, time);
             mainCamera.transform.rotation = Quaternion.Slerp(fromRot, toRot, time);
-
             yield return null;
         }
-
         mainCamera.transform.position = toPos;
         mainCamera.transform.rotation = toRot;
     }

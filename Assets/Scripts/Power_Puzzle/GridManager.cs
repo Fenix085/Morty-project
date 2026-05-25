@@ -152,7 +152,7 @@ public class GridManager : MonoBehaviour
   
     private IEnumerator AnimatePowerFlow(List<DraggableItem> path)
     {
-        float delayPerStep = 1.0f;
+        float delayPerStep = 0.5f;
 
         foreach (var item in path)
         {
