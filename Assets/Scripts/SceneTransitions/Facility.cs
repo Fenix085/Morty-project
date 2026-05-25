@@ -33,7 +33,6 @@ public class Facility : MonoBehaviour
     private static string lastVisitedFacilityId = "";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (grassObject != null)
@@ -73,6 +72,14 @@ public class Facility : MonoBehaviour
                 grassObject.localScale = Vector3.zero;
             }
         }
+
+        // Check if returning from puzzle and trigger return animation
+        string currentId = GetCompletedKey();
+        if (lastVisitedFacilityId == currentId && zoomInPoint != null && zoomOutPoint != null)
+        {
+            lastVisitedFacilityId = ""; 
+            StartCoroutine(PlayReturnAnimation());
+        }
     }
 
     private IEnumerator AnimateGroundTransition()
@@ -106,7 +113,7 @@ public class Facility : MonoBehaviour
             Material tempMaterial = new Material(barrenMaterial);
             groundRenderer.material = tempMaterial;
 
-            // Safely get colors to prevent URP exceptions! (Calling .color on a URP material without _Color crashes the coroutine)
+            // Safely get colors to prevent URP exceptions
             Color startColor = Color.white;
             if (barrenMaterial.HasProperty("_BaseColor")) startColor = barrenMaterial.GetColor("_BaseColor");
             else if (barrenMaterial.HasProperty("_Color")) startColor = barrenMaterial.color;
@@ -162,7 +169,74 @@ public class Facility : MonoBehaviour
             }
         }
         ApplyReturnStateIfCompleted();
-        ApplyReturnStateIfCompleted();
+    }
+
+    IEnumerator PlayReturnAnimation()
+    {
+   
+        var player = PlayerController_RB.Instance;
+
+  
+        var mainCam = Camera.main;
+
+        var followScript = FindFirstObjectByType<CameraFollow>();
+
+
+        if (player == null) { Debug.LogError("Facility: Player not found"); yield break; }
+        if (mainCam == null) { Debug.LogError("Facility: MainCamera not found! Check the MainCamera tag."); yield break; }
+        if (followScript == null) { Debug.LogError("Facility: CameraFollow script not found on the scene!"); yield break; }
+
+        player.enabled = false;
+        followScript.enabled = false;
+
+
+        mainCam.transform.position = zoomInPoint.position;
+        mainCam.transform.rotation = zoomInPoint.rotation;
+
+
+        yield return new WaitForSeconds(1.0f);
+
+
+        yield return StartCoroutine(LerpCamera(mainCam.transform, zoomInPoint.position, zoomInPoint.rotation, zoomOutPoint.position, zoomOutPoint.rotation, 2.5f));
+
+        yield return new WaitForSeconds(1.5f);
+
+  
+        float elapsed = 0;
+        Vector3 startPos = mainCam.transform.position;
+        Quaternion startRot = mainCam.transform.rotation;
+
+        while (elapsed < 1.0f)
+        {
+            elapsed += Time.deltaTime * transitionSpeed;
+
+      
+            Vector3 targetPos = followScript.transform.position;
+            Quaternion targetRot = followScript.transform.rotation;
+
+            mainCam.transform.position = Vector3.Lerp(startPos, targetPos, elapsed);
+            mainCam.transform.rotation = Quaternion.Slerp(startRot, targetRot, elapsed);
+
+            yield return null;
+        }
+
+        
+        player.enabled = true;
+        followScript.enabled = true;
+    }
+
+    IEnumerator LerpCamera(Transform cam, Vector3 fromPos, Quaternion fromRot, Vector3 toPos, Quaternion toRot, float duration)
+    {
+        float time = 0;
+        while (time < 1.0f)
+        {
+            time += Time.deltaTime / duration;
+            cam.position = Vector3.Lerp(fromPos, toPos, time);
+            cam.rotation = Quaternion.Slerp(fromRot, toRot, time);
+            yield return null;
+        }
+        cam.position = toPos;
+        cam.rotation = toRot;
     }
 
     public void ChangeScene()
@@ -180,7 +254,6 @@ public class Facility : MonoBehaviour
             SceneManager.LoadScene(puzzleScene);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Vector3.Distance(PlayerController_RB.Instance.transform.position, transform.position) < 6)
