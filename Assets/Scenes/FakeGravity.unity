@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 224339877}
   m_Layer: 0
   m_Name: CameraRotation
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,6 +303,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 39.498, y: 0, z: 0}
+--- !u!1 &246435467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 246435468}
+  m_Layer: 0
+  m_Name: ZoomIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &246435468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246435467}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7462877, y: 0.061306395, z: 0.017030014, w: -0.6625754}
+  m_LocalPosition: {x: 0.677, y: 6.845, z: 1.045}
+  m_LocalScale: {x: 5.769449, y: 5.7382474, z: 4.14268}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1210527670}
+  m_LocalEulerAnglesHint: {x: 80.7, y: 941.3, z: 584.9}
+--- !u!1 &255605633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255605634}
+  m_Layer: 0
+  m_Name: ZoomOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &255605634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255605633}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.911051, y: -0.15038735, z: -0.1476229, w: 0.35436898}
+  m_LocalPosition: {x: 5.1857414, y: 14.243101, z: 7.2833853}
+  m_LocalScale: {x: 5.7700005, y: 5.4639783, z: 4.4164}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1210527670}
+  m_LocalEulerAnglesHint: {x: 115.43, y: 0, z: 0}
 --- !u!1001 &269653902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -891,6 +953,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8399969025412584765, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1260827937}
+    - targetCorrespondingSourceObject: {fileID: 8399969025412584765, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 246435468}
+    - targetCorrespondingSourceObject: {fileID: 8399969025412584765, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 255605634}
     - targetCorrespondingSourceObject: {fileID: 4479243100911269660, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 269653903}
@@ -2182,6 +2250,14 @@ PrefabInstance:
       propertyPath: puzzleScene
       value: PuzzleTextQuest
       objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomInPoint
+      value: 
+      objectReference: {fileID: 246435468}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomOutPoint
+      value: 
+      objectReference: {fileID: 255605634}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
