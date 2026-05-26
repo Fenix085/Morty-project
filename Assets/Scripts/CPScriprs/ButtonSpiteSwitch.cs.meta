@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 1db6e982c1db9d64997940b61457c648
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - defaultButton: {instanceID: 0}
+  - activeButton: {instanceID: 0}
+  - pressSound: {fileID: 8300000, guid: b465d117d516964468ccf3a4d7bb8afe, type: 3}
+  - releaseSound: {fileID: 8300000, guid: 9938245b12330da4cae3fcdd99b9ad6c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

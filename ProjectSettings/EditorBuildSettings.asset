@@ -33,13 +33,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Power_Puzzle 2.unity
     guid: fb7b8f8c417cf514081697b6b4d6efc6
   - enabled: 1
-    path: Assets/Scenes/CP1Done.unity
+    path: Assets/Scenes/CreativePuzzle1.unity
     guid: c18663440a6266d419670f8fbf59e3c6
   - enabled: 1
-    path: Assets/Scenes/CP3Done.unity
+    path: Assets/Scenes/CreativePuzzle3.unity
     guid: d73f7952ec5ca8a4288d007e1e0af667
   - enabled: 1
-    path: Assets/Scenes/CP2Done.unity
+    path: Assets/Scenes/CreativePuzzle2.unity
     guid: 72244d36745d2bd458c39ee11fca0d2d
   - enabled: 1
     path: Assets/Scenes/PuzzleTextQuest.unity

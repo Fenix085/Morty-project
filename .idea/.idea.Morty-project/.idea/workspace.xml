@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="" />
+    <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CreativePuzzle3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CreativePuzzle3.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/ButtonSpiteSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/ButtonSpiteSwitch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/LeverSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/LeverSwitch.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,7 +39,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;creativity&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Trash+levelupdated&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -112,6 +117,8 @@
       <workItem from="1778267104052" duration="6994000" />
       <workItem from="1778274643176" duration="1500000" />
       <workItem from="1778428834210" duration="1972000" />
+      <workItem from="1779556325264" duration="520000" />
+      <workItem from="1779640543958" duration="1004000" />
     </task>
     <servers />
   </component>
