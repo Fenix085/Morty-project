@@ -63,17 +63,6 @@ public class LeverSwitch : MonoBehaviour
 
     private void Activate()
     {
-        StartCoroutine(DisableAfterSound());
-    }
-
-    private IEnumerator DisableAfterSound()
-    {
-        if (activationSound != null)
-        {
-            _audioSource.PlayOneShot(activationSound);
-            yield return new WaitForSeconds(activationSound.length);
-        }
-
         if (newLever != null)
         {
             newLever.transform.position = transform.position;
@@ -84,6 +73,12 @@ public class LeverSwitch : MonoBehaviour
         if (glowObject != null)
             glowObject.SetActive(true);
 
+        // играем звук через отдельный объект который не выключается
+        if (activationSound != null)
+            AudioSource.PlayClipAtPoint(activationSound, transform.position);
+
         gameObject.SetActive(false);
     }
+
+
 }
