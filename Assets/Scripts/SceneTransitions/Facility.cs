@@ -116,6 +116,12 @@ public class Facility : MonoBehaviour
                     {
                         treeGrowth.TriggerShrink();
                     }
+
+                    DebrisFlyAnimation debrisFly = target.GetComponent<DebrisFlyAnimation>();
+                    if (debrisFly != null)
+                    {
+                        debrisFly.FlyTo(transform.position);
+                    }
                 }
             }
         }
