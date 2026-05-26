@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="cd88325e-33cf-4f3a-9121-c4db48fe6e68" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Morty-project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CreativePuzzle3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CreativePuzzle3.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/ButtonSpiteSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/ButtonSpiteSwitch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/FakeGravity.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FakeGravity.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/LeverSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CPScriprs/LeverSwitch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +23,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/dc764b59c049482b93bebc78a7e33a04212600/ba/8927ed6c/Transform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CPScriprs/ControllerForLevel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CPScriprs/LeverSwitch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/News.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TrashLevel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@37e0d4fc2503/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -119,6 +121,7 @@
       <workItem from="1778428834210" duration="1972000" />
       <workItem from="1779556325264" duration="520000" />
       <workItem from="1779640543958" duration="1004000" />
+      <workItem from="1779735425779" duration="2490000" />
     </task>
     <servers />
   </component>

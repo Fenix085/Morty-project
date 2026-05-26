@@ -875,6 +875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
+  pushDistance: 2
+  moveSpeed: 6
 --- !u!1 &204528622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,7 +2065,7 @@ MonoBehaviour:
   newLever: {fileID: 2075743104}
   interactRange: 4.5
   glowObject: {fileID: 1058978762}
-  activationSound: {fileID: 8300000, guid: c60e32694fa228f45a23cf44bda57c10, type: 3}
+  activationSound: {fileID: 8300000, guid: 507bbaf31142a2446a2d02cec38ad1b9, type: 3}
 --- !u!65 &407498736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5784,6 +5786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
+  pushDistance: 2
+  moveSpeed: 6
 --- !u!1 &957602840
 GameObject:
   m_ObjectHideFlags: 0

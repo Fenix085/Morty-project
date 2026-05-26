@@ -2973,7 +2973,7 @@ MonoBehaviour:
   newLever: {fileID: 2075743104}
   interactRange: 2.5
   glowObject: {fileID: 1058978762}
-  activationSound: {fileID: 8300000, guid: c60e32694fa228f45a23cf44bda57c10, type: 3}
+  activationSound: {fileID: 8300000, guid: 507bbaf31142a2446a2d02cec38ad1b9, type: 3}
 --- !u!65 &407498736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10267,7 +10267,7 @@ MonoBehaviour:
   newLever: {fileID: 1819840164}
   interactRange: 2.5
   glowObject: {fileID: 864145528}
-  activationSound: {fileID: 8300000, guid: c60e32694fa228f45a23cf44bda57c10, type: 3}
+  activationSound: {fileID: 8300000, guid: 507bbaf31142a2446a2d02cec38ad1b9, type: 3}
 --- !u!114 &1472023116
 MonoBehaviour:
   m_ObjectHideFlags: 0
