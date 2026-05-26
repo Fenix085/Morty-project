@@ -1,11 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PuzzlePlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     public GameObject mesh;
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
+
+    [Header("References")]
+    public GameObject currentLevelGenerator;
+
+    [Header("Animation")]
+    public Animator animator;
 
     private bool isMoving = false;
     private Vector3 targetPosition;
@@ -14,15 +22,12 @@ public class PuzzlePlayerMovement : MonoBehaviour
     private Vector3 boxTargetPosition;
     private bool isBoxMoving = false;
 
-    public GameObject currentLevelGenerator;
-
-    
-
     void Start()
     {
         if (currentLevelGenerator == null)
         {
             LevelGeneratorBase generator = FindObjectOfType<LevelGeneratorBase>();
+
             if (generator != null)
             {
                 currentLevelGenerator = generator.gameObject;
@@ -33,6 +38,15 @@ public class PuzzlePlayerMovement : MonoBehaviour
                 Debug.LogError("НЕ НАЙДЕН ГЕНЕРАТОР УРОВНЯ!");
             }
         }
+
+        StartCoroutine(StartIdle());
+    }
+
+    IEnumerator StartIdle()
+    {
+        yield return null;
+        if (animator != null)
+            animator.CrossFade("Idle", 0.1f);
     }
 
     void Update()
@@ -48,13 +62,13 @@ public class PuzzlePlayerMovement : MonoBehaviour
             return;
         }
 
-        if (isBoxMoving) return;
+        if (isBoxMoving)
+            return;
 
         Keyboard keyboard = Keyboard.current;
+
         if (keyboard == null)
-        {
             return;
-        }
 
         if (keyboard.wKey.wasPressedThisFrame)
             MoveUp();
@@ -134,7 +148,8 @@ public class PuzzlePlayerMovement : MonoBehaviour
         targetPosition = newPos;
         isMoving = true;
 
-        
+        if (animator != null)
+            animator.CrossFade("Walk", 0.1f);
     }
 
     void MovePlayer()
@@ -150,16 +165,24 @@ public class PuzzlePlayerMovement : MonoBehaviour
             transform.position = targetPosition;
             isMoving = false;
 
+            if (animator != null)
+                animator.CrossFade("Idle", 0.1f);
+
             if (currentLevelGenerator != null)
             {
-                currentLevelGenerator.SendMessage("CheckTeleport", transform.position, SendMessageOptions.DontRequireReceiver);
+                currentLevelGenerator.SendMessage(
+                    "CheckTeleport",
+                    transform.position,
+                    SendMessageOptions.DontRequireReceiver
+                );
             }
         }
     }
 
     void MoveBox()
     {
-        if (movingBox == null) return;
+        if (movingBox == null)
+            return;
 
         movingBox.position = Vector3.MoveTowards(
             movingBox.position,
