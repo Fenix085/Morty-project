@@ -299,6 +299,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2941908651732443517, guid: 8ab0355248c64f048a80c147c82937c5, type: 3}
+      propertyPath: nextSceneName
+      value: Power_Puzzle 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5583975415207640239, guid: 8ab0355248c64f048a80c147c82937c5, type: 3}
       propertyPath: m_Pivot.x
       value: 0

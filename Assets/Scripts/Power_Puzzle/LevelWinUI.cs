@@ -31,7 +31,10 @@ public class LevelWinUI : MonoBehaviour
     
     public void OnDoneButtonClick()
     {
-        SceneSessionState.MarkCurrentFacilityCompleted();
+        if (nextSceneName == "FakeGravity")
+        {
+            SceneSessionState.MarkCurrentFacilityCompleted();
+        }
 
         if (!string.IsNullOrEmpty(nextSceneName))
         {

@@ -7546,6 +7546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
+  pushDistance: 2
+  moveSpeed: 6
 --- !u!1 &953456226
 GameObject:
   m_ObjectHideFlags: 0
@@ -8363,7 +8365,7 @@ CapsuleCollider:
   m_Radius: 0.3453885
   m_Height: 1.0385542
   m_Direction: 1
-  m_Center: {x: -0.0029250148, y: -0.3447, z: 0.0027413848}
+  m_Center: {x: -0.0029250148, y: 0, z: 0.0027413848}
 --- !u!54 &1040215297
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10226,6 +10228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613624d72701a97469f1103f137cf941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushableBox
+  pushDistance: 2
+  moveSpeed: 6
 --- !u!1 &1289894885
 GameObject:
   m_ObjectHideFlags: 0

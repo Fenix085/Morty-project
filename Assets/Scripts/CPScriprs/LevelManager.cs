@@ -42,6 +42,8 @@ public class LevelManager : MonoBehaviour
         // отключаем Update чтобы корутина не запускалась повторно
         enabled = false;
         yield return new WaitForSeconds(delay);
+        if (nextLevel == "FakeGravity")
+            SceneSessionState.MarkCurrentFacilityCompleted();
         SceneManager.LoadScene(nextLevel);
     }
 }

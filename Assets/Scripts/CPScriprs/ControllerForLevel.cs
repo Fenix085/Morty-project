@@ -54,6 +54,8 @@ public class ControllerForLevel : MonoBehaviour {
         _playerMesh = transform.GetChild(0).transform;
         _worldGravity = GetComponent<FakeGravityBody>();
 
+        _playerRB.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+
         if (_worldGravity == null)
         {
             Debug.LogError("ControllerForLevel: Missing FakeGravityBody on player.", gameObject);
