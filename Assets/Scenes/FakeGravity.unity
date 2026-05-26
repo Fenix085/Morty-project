@@ -462,6 +462,14 @@ PrefabInstance:
       value: puzzle4-6
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomInPoint
+      value: 
+      objectReference: {fileID: 1426917287}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomOutPoint
+      value: 
+      objectReference: {fileID: 383877624}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
       objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -519,7 +527,13 @@ PrefabInstance:
       objectReference: {fileID: 224339880}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1426917287}
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 383877624}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
 --- !u!4 &269653903 stripped
@@ -527,6 +541,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
   m_PrefabInstance: {fileID: 269653902}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &311483621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 311483622}
+  m_Layer: 0
+  m_Name: ZoomOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &311483622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311483621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.023220029, y: 0.78529847, z: 0.6186075, w: 0.009591788}
+  m_LocalPosition: {x: -0.07, y: -2.176, z: 0.375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1314237898}
+  m_LocalEulerAnglesHint: {x: 256.201, y: -10.580017, z: -168.308}
 --- !u!1 &337712634 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4534896966284596477, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
@@ -575,6 +620,37 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8946391873912417405, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &383877623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383877624}
+  m_Layer: 0
+  m_Name: ZoomOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &383877624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383877623}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.6934839, y: -0.41815585, z: 0.54412055, w: 0.21945089}
+  m_LocalPosition: {x: -0.588, y: 2.75, z: 1.098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 269653903}
+  m_LocalEulerAnglesHint: {x: 130.586, y: -61.389008, z: 31.626007}
 --- !u!1001 &395103560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -976,6 +1052,68 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 416496051}
   m_SourcePrefab: {fileID: 100100000, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+--- !u!1 &694999429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 694999430}
+  m_Layer: 0
+  m_Name: ZoomIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &694999430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694999429}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.47942063, y: 0.22298677, z: -0.36603442, w: 0.76580125}
+  m_LocalPosition: {x: -0.642, y: -0.797, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1927808108}
+  m_LocalEulerAnglesHint: {x: -34.823, y: 57.518, z: -70.624}
+--- !u!1 &710072631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710072632}
+  m_Layer: 0
+  m_Name: ZoomIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &710072632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710072631}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.12728338, y: 0.8992132, z: -0.41825745, w: -0.016594227}
+  m_LocalPosition: {x: -0.0155, y: 0.056, z: 1.0581}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1656775987}
+  m_LocalEulerAnglesHint: {x: 49.15, y: 173.272, z: -19.193}
 --- !u!1 &837240331 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7231648745786310985, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
@@ -1852,6 +1990,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3884892222345756715, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1106152982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1106152983}
+  m_Layer: 0
+  m_Name: ZoomOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1106152983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106152982}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.47942063, y: 0.22298677, z: -0.36603442, w: 0.76580125}
+  m_LocalPosition: {x: -2.059, y: -2.437, z: -0.602}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1927808108}
+  m_LocalEulerAnglesHint: {x: -34.823, y: 57.518, z: -70.624}
 --- !u!1001 &1113986168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2001,6 +2170,10 @@ PrefabInstance:
       value: CP1Done
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomInPoint
+      value: 
+      objectReference: {fileID: 1535540620}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: fadeDuration
       value: 0.5
       objectReference: {fileID: 0}
@@ -2012,6 +2185,10 @@ PrefabInstance:
       propertyPath: planetRadius
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomOutPoint
+      value: 
+      objectReference: {fileID: 311483622}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
@@ -2118,7 +2295,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1535540620}
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 311483622}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
 --- !u!4 &1160418821 stripped
@@ -2610,6 +2793,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1426917286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426917287}
+  m_Layer: 0
+  m_Name: ZoomIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1426917287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426917286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5752042, y: -0.6077274, z: 0.399886, w: 0.3740304}
+  m_LocalPosition: {x: 0.38699284, y: 1.3991247, z: 0.6879758}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 269653903}
+  m_LocalEulerAnglesHint: {x: 113.60501, y: -0.7749939, z: 92.643}
 --- !u!1 &1454340051 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3584572190108296201, guid: 53d81399fb496574f8ff9c8f1086bf6c, type: 3}
@@ -2631,6 +2845,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3584572190108296201, guid: 53d81399fb496574f8ff9c8f1086bf6c, type: 3}
   m_PrefabInstance: {fileID: 2128257705}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1535540619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1535540620}
+  m_Layer: 0
+  m_Name: ZoomIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1535540620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535540619}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.077438675, y: 0.6574499, z: 0.74763745, w: 0.0529259}
+  m_LocalPosition: {x: -0.054, y: -0.39, z: -0.053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1314237898}
+  m_LocalEulerAnglesHint: {x: 257.128, y: -123.675995, z: -54.325012}
 --- !u!1 &1551326790 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
@@ -2853,6 +3098,14 @@ PrefabInstance:
       value: Power_Puzzle
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomInPoint
+      value: 
+      objectReference: {fileID: 710072632}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomOutPoint
+      value: 
+      objectReference: {fileID: 1790123224}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
       objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -2914,7 +3167,13 @@ PrefabInstance:
       objectReference: {fileID: 224339880}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 710072632}
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1790123224}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
 --- !u!4 &1656775987 stripped
@@ -2990,6 +3249,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -1434976076542029792, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
   m_PrefabInstance: {fileID: 1054837407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1790123223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1790123224}
+  m_Layer: 0
+  m_Name: ZoomOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1790123224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790123223}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.09861773, y: 0.4361736, z: -0.879991, w: 0.16013432}
+  m_LocalPosition: {x: -0.211, y: 1.751, z: 0.596}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1656775987}
+  m_LocalEulerAnglesHint: {x: 47.398, y: 27.567, z: 212.919}
 --- !u!1 &1816652515
 GameObject:
   m_ObjectHideFlags: 0
@@ -3273,6 +3563,14 @@ PrefabInstance:
       value: puzzle1-3
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomInPoint
+      value: 
+      objectReference: {fileID: 694999430}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: zoomOutPoint
+      value: 
+      objectReference: {fileID: 1106152983}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
       objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -3330,7 +3628,13 @@ PrefabInstance:
       objectReference: {fileID: 224339880}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 694999430}
+    - targetCorrespondingSourceObject: {fileID: 753083506652456324, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1106152983}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
 --- !u!4 &1927808108 stripped
