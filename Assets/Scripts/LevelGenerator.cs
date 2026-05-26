@@ -477,6 +477,7 @@ public class LevelGenerator : MonoBehaviour
                     LoadNextLevel();
                 else
                     SceneManager.LoadScene("FakeGravity");
+                    SceneSessionState.MarkCurrentFacilityCompleted();
             }
         }
     }
