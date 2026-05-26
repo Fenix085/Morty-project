@@ -22,7 +22,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -55,7 +55,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
-    optimizeBones: 1
+    optimizeBones: 0
     generateMeshLods: 0
     meshLodGenerationFlags: 0
     maximumMeshLod: -1
@@ -83,7 +83,112 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: robot(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: robot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Bone.002
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0.0022483973}
+      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: torso
+      parentName: Bone.002
+      position: {x: -0, y: -0.0022483973, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone
+      parentName: Bone.002
+      position: {x: 0.0012452664, y: 0.0007651886, z: 0}
+      rotation: {x: 0.7035025, y: 0.07130409, z: 0.7035025, w: -0.07130406}
+      scale: {x: 1, y: 1, z: 1}
+    - name: leg-right
+      parentName: Bone
+      position: {x: 9.4015e-11, y: 0.003013586, z: -0.0012452664}
+      rotation: {x: 0.5, y: -0.49999997, z: 0.5, w: 0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_end
+      parentName: Bone
+      position: {x: -0, y: 0.0029791575, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.001
+      parentName: Bone.002
+      position: {x: -0.0012442175, y: 0.0007651886, z: 0}
+      rotation: {x: 0.7035136, y: -0.07119394, z: 0.70351356, w: 0.07119403}
+      scale: {x: 1, y: 1, z: 1}
+    - name: leg-left
+      parentName: Bone.001
+      position: {x: -9.393581e-11, y: 0.003013586, z: 0.0012442175}
+      rotation: {x: 0.5, y: -0.49999997, z: 0.5, w: 0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.001_end
+      parentName: Bone.001
+      position: {x: -0, y: 0.0029791575, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.003
+      parentName: Bone.002
+      position: {x: -0, y: 0.0053930096, z: 0}
+      rotation: {x: 0, y: -0.00000011920929, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: antenna
+      parentName: Bone.003
+      position: {x: -0, y: -0.007641407, z: 0}
+      rotation: {x: -0.7071068, y: 0.0000000842937, z: 0.00000008429372, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.003_end
+      parentName: Bone.003
+      position: {x: -0, y: 0.003129022, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.004
+      parentName: Bone.002
+      position: {x: 0.002452797, y: 0.0023741818, z: 0}
+      rotation: {x: -0.00000001903142, y: -0.000000007390671, z: 0.93217725, w: -0.36200213}
+      scale: {x: 0.9999999, y: 1, z: 1}
+    - name: arm-right
+      parentName: Bone.004
+      position: {x: 0.0049297214, y: 0.0017556481, z: 2.012913e-10}
+      rotation: {x: 0.25597423, y: 0.659149, z: -0.6591488, w: -0.25597414}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: Bone.004_end
+      parentName: Bone.004
+      position: {x: -0, y: 0.004240028, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.005
+      parentName: Bone.002
+      position: {x: -0.0020911673, y: 0.00246852, z: -2.1604456e-10}
+      rotation: {x: -0.00000015173886, y: 0.00000011358714, z: 0.9321773, w: 0.36200202}
+      scale: {x: 1.0000004, y: 1, z: 1}
+    - name: arm-left
+      parentName: Bone.005
+      position: {x: -0.004726539, y: 0.0020693264, z: -0.0000000017206495}
+      rotation: {x: -0.25597402, y: 0.6591489, z: -0.6591489, w: 0.2559743}
+      scale: {x: 0.9999997, y: 1, z: 1}
+    - name: Bone.005_end
+      parentName: Bone.005
+      position: {x: -0, y: 0.0042400286, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: character
+      parentName: robot(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: root
+      parentName: character
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -94,13 +199,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
