@@ -8227,63 +8227,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037332545}
   m_Mesh: {fileID: -2477511411847689622, guid: 60d589a48e6e3b648b772f696172fe35, type: 3}
---- !u!1001 &1038260358
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1605525554699515303, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_Name
-      value: Sphere-Space
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071079
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071057
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3150096593236310485, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2f7e207aafb06c649b22a34de6f2d9e3, type: 3}
 --- !u!1 &1040215272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8536834170437801515, guid: 80308aa112ed8964ba0e785180b67aef, type: 3}
@@ -8886,7 +8829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5854647492228009525, guid: fa4088d1760d01a4bb2a0dbe64b18f69, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: TryInteract
+      value: fiftyfivetosixtyone
       objectReference: {fileID: 0}
     - target: {fileID: 6934138415490471649, guid: fa4088d1760d01a4bb2a0dbe64b18f69, type: 3}
       propertyPath: m_Name
@@ -15549,7 +15492,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5879662404317570795, guid: f02af27828cab004a99a1f36dfa1882c, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 2b05a065ac3c0f04b8e81224001a63bd, type: 3}
+  m_Resource: {fileID: 8300000, guid: 0bdd8f0dd97adb54ba813f4c7199720b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
@@ -17224,7 +17167,6 @@ SceneRoots:
   - {fileID: 1890559565}
   - {fileID: 960600916}
   - {fileID: 412657707}
-  - {fileID: 1038260358}
   - {fileID: 1627457856}
   - {fileID: 1119764169}
   - {fileID: 795153545}

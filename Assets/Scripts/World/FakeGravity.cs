@@ -24,6 +24,7 @@ public class FakeGravity : MonoBehaviour {
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        Resources.UnloadUnusedAssets();
         gameObject.tag = _worldObjectTag;
         EnsureCollisionSurface();
     }

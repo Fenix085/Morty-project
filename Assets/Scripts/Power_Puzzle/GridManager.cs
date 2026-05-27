@@ -184,6 +184,7 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
+        Resources.UnloadUnusedAssets();
         GenerateGrid();
     }
 

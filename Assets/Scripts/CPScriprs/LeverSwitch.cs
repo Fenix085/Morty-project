@@ -51,14 +51,6 @@ public class LeverSwitch : MonoBehaviour
             Debug.LogError("LeverSwitch: Player not found!");
             return;
         }
-
-        Vector3 leverPos = _leverCollider != null ? _leverCollider.bounds.center : transform.position;
-        Vector3 playerPos = _playerCollider != null ? _playerCollider.bounds.center : _player.position;
-        float dist = Vector3.Distance(leverPos, playerPos);
-
-        if (dist > interactRange) return;
-
-        Activate();
     }
 
     private void Activate()
@@ -78,6 +70,17 @@ public class LeverSwitch : MonoBehaviour
             AudioSource.PlayClipAtPoint(activationSound, transform.position);
 
         gameObject.SetActive(false);
+    }
+
+    public void fiftyfivetosixtyone()
+    {
+        Vector3 leverPos = _leverCollider != null ? _leverCollider.bounds.center : transform.position;
+        Vector3 playerPos = _playerCollider != null ? _playerCollider.bounds.center : _player.position;
+        float dist = Vector3.Distance(leverPos, playerPos);
+
+        if (dist > interactRange) return;
+
+        Activate();
     }
 
 
