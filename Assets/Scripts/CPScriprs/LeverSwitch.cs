@@ -44,7 +44,7 @@ public class LeverSwitch : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.F)) return;
+        if (!Input.GetKeyDown(KeyCode.E)) return;
 
         if (_player == null)
         {
