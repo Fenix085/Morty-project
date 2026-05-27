@@ -124,11 +124,53 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 567931307086627546, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &29950583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29950581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273707147ef9e084284e393aa9ab00e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebrisFlyAnimation
+  flyDuration: 2
+  arcHeight: 5
+  shrinkWhileFlying: 1
+  animateChildrenIndividually: 1
+  maxRandomDelay: 1
+  randomizeSpeed: 1
+  isPlanet: 1
+  planetCenter: {x: 0, y: 0, z: 0}
+  targetOffsetHeight: 1
 --- !u!1 &61832949 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3835356575001336985, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &61832951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61832949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273707147ef9e084284e393aa9ab00e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebrisFlyAnimation
+  flyDuration: 2
+  arcHeight: 5
+  shrinkWhileFlying: 1
+  animateChildrenIndividually: 1
+  maxRandomDelay: 1
+  randomizeSpeed: 1
+  isPlanet: 1
+  planetCenter: {x: 0, y: 0, z: 0}
+  targetOffsetHeight: 0
 --- !u!1 &137900814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7310525121093744691, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -609,7 +651,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[1]'
       value: 
-      objectReference: {fileID: 1889624428}
+      objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[2]'
       value: 
@@ -872,11 +914,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -4534896966284596477, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &341856856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4087039501238608647, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
-  m_PrefabInstance: {fileID: 1054837407}
+--- !u!114 &337712636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337712634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273707147ef9e084284e393aa9ab00e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebrisFlyAnimation
+  flyDuration: 2
+  arcHeight: 5
+  shrinkWhileFlying: 1
+  animateChildrenIndividually: 1
+  maxRandomDelay: 1
+  randomizeSpeed: 1
+  isPlanet: 1
+  planetCenter: {x: 0, y: 0, z: 0}
+  targetOffsetHeight: 1
 --- !u!1 &369953444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2822477677757180451, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -1659,9 +1717,24 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1551326792}
+    - targetCorrespondingSourceObject: {fileID: -3835356575001336985, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 61832951}
+    - targetCorrespondingSourceObject: {fileID: 567931307086627546, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 29950583}
     - targetCorrespondingSourceObject: {fileID: 6951974288137953505, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 910191319}
+    - targetCorrespondingSourceObject: {fileID: -4534896966284596477, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 337712636}
+    - targetCorrespondingSourceObject: {fileID: 6736096304893488631, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 987735812}
+    - targetCorrespondingSourceObject: {fileID: 3884892222345756715, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1097036080}
     - targetCorrespondingSourceObject: {fileID: -6443886568426979757, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 416496051}
@@ -1899,11 +1972,6 @@ Transform:
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 507101309790832310, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &901624666 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 567931307086627546, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
-  m_PrefabInstance: {fileID: 1054837407}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &910191317 stripped
 GameObject:
@@ -2345,6 +2413,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6736096304893488631, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &987735812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987735810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273707147ef9e084284e393aa9ab00e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebrisFlyAnimation
+  flyDuration: 2
+  arcHeight: 5
+  shrinkWhileFlying: 1
+  animateChildrenIndividually: 1
+  maxRandomDelay: 1
+  randomizeSpeed: 1
+  isPlanet: 1
+  planetCenter: {x: 0, y: 0, z: 0}
+  targetOffsetHeight: 1
 --- !u!1 &1003395361 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e118b31d6b8c43649b9e9ac8803312f1, type: 3}
@@ -3045,6 +3134,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3884892222345756715, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1097036080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097036079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273707147ef9e084284e393aa9ab00e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebrisFlyAnimation
+  flyDuration: 2
+  arcHeight: 5
+  shrinkWhileFlying: 1
+  animateChildrenIndividually: 1
+  maxRandomDelay: 1
+  randomizeSpeed: 1
+  isPlanet: 1
+  planetCenter: {x: 0, y: 0, z: 0}
+  targetOffsetHeight: 1
 --- !u!1 &1106152982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3270,7 +3380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: setActiveOnReturn.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: setInactiveOnReturn.Array.size
@@ -3283,7 +3393,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[1]'
       value: 
-      objectReference: {fileID: 2000076883}
+      objectReference: {fileID: 1650689799}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[2]'
       value: 
@@ -4388,7 +4498,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[1]'
       value: 
-      objectReference: {fileID: 901624666}
+      objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[2]'
       value: 
@@ -4825,11 +4935,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FakeGravity
   gravity: -10
   size: 10
---- !u!1 &1889624428 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6736096304893488631, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
-  m_PrefabInstance: {fileID: 1054837407}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1917831809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2688698076763500582, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
@@ -4962,7 +5067,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[0]'
       value: 
-      objectReference: {fileID: 341856856}
+      objectReference: {fileID: 0}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: 'setActiveOnReturn.Array.data[1]'
       value: 
@@ -5015,11 +5120,6 @@ Transform:
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -2662314973220195171, guid: 72592ff8c7fd2f84785b410bcc17db85, type: 3}
   m_PrefabInstance: {fileID: 665947151}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2000076883 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3884892222345756715, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
-  m_PrefabInstance: {fileID: 1054837407}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2029465130
 PrefabInstance:
