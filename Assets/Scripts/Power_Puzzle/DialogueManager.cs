@@ -13,6 +13,10 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI textDisplay;
     public Image characterImage;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip typingSound;
+
     [Header("Settings")]
     [TextArea(3, 10)]
     public string[] lines; 
@@ -65,6 +69,14 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in lines[index].ToCharArray())
         {
             textDisplay.text += c;
+
+            if (audioSource != null && typingSound != null && c != ' ')
+            {
+                
+                audioSource.PlayOneShot(typingSound);
+            }
+            
+
             yield return new WaitForSeconds(typingSpeed);
         }
     }
