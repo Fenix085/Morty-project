@@ -627,7 +627,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
-      objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      objectReference: {fileID: 2100000, guid: 409de4788d9a8444a9aab5446709c7ae, type: 2}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: barrenMaterial
       value: 
@@ -2920,6 +2920,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2929,7 +2941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2946,6 +2958,10 @@ PrefabInstance:
     - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500145282787691702, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3605149914314503347, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
       propertyPath: m_IsActive
@@ -3357,7 +3373,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
-      objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      objectReference: {fileID: 2100000, guid: 409de4788d9a8444a9aab5446709c7ae, type: 2}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: pollutedEarth
       value: 
@@ -3371,6 +3387,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 837240332}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: useTargetColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: scaleCenterCutoff
       value: 0.1
       objectReference: {fileID: 0}
@@ -3378,6 +3398,14 @@ PrefabInstance:
       propertyPath: transitionDuration
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: greenGroundRenderer
+      value: 
+      objectReference: {fileID: 1777113051}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: barrenGroundRenderer
+      value: 
+      objectReference: {fileID: 837240332}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: setActiveOnReturn.Array.size
       value: 2
@@ -3791,7 +3819,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
-      objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      objectReference: {fileID: 2100000, guid: 409de4788d9a8444a9aab5446709c7ae, type: 2}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: barrenMaterial
       value: 
@@ -4252,6 +4280,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8031269941669211881, guid: 36a7447f0c8e3954a89cc94bbb513926, type: 3}
   m_PrefabInstance: {fileID: 3857913543668735199}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &1587281699 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8283435135891981333, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+  m_PrefabInstance: {fileID: 1054837407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1588488052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6749424490973562877, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
@@ -4474,13 +4507,25 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
-      objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      objectReference: {fileID: 2100000, guid: 409de4788d9a8444a9aab5446709c7ae, type: 2}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: barrenMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 98c323021ca67ac47a0521d242529284, type: 2}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: groundRenderer
+      value: 
+      objectReference: {fileID: 887804160}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: useTargetColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: greenGroundRenderer
+      value: 
+      objectReference: {fileID: 1587281699}
+    - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
+      propertyPath: barrenGroundRenderer
       value: 
       objectReference: {fileID: 887804160}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
@@ -4726,6 +4771,11 @@ GameObject:
 --- !u!4 &1777113050 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1434976076542029792, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+  m_PrefabInstance: {fileID: 1054837407}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1777113051 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6329904655808622176, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
   m_PrefabInstance: {fileID: 1054837407}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1790123223
@@ -5047,7 +5097,7 @@ PrefabInstance:
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: greenMaterial
       value: 
-      objectReference: {fileID: 382552327226662369, guid: 6d2ad23be9ece75448fc31539c4bf98a, type: 3}
+      objectReference: {fileID: 2100000, guid: 409de4788d9a8444a9aab5446709c7ae, type: 2}
     - target: {fileID: 2785680679112230229, guid: c7ab61fe352e968478e34c1397b1c571, type: 3}
       propertyPath: barrenMaterial
       value: 
