@@ -18,6 +18,8 @@ public class Facility : MonoBehaviour
     public float transitionDuration = 3f;
     public Material barrenMaterial;
     public Material greenMaterial;
+    public bool useTargetColor = true;
+    public Color targetGroundColor = new Color32(0x4A, 0x60, 0x25, 0xFF);
     private Material groundMat;
     private bool hasAnimated = false;
 
@@ -69,9 +71,21 @@ public class Facility : MonoBehaviour
             if (groundRenderer != null)
             {
                 if (IsCompleted)
-                    groundRenderer.material = greenMaterial;
+                {
+                    if (greenMaterial != null) groundRenderer.material = greenMaterial;
+                    
+                    if (useTargetColor)
+                    {
+                        if (groundRenderer.material.HasProperty("_BaseColor"))
+                            groundRenderer.material.SetColor("_BaseColor", targetGroundColor);
+                        else if (groundRenderer.material.HasProperty("_Color"))
+                            groundRenderer.material.color = targetGroundColor;
+                    }
+                }
                 else
+                {
                     groundRenderer.material = barrenMaterial;
+                }
             }
 
             if (IsCompleted)
@@ -128,19 +142,26 @@ public class Facility : MonoBehaviour
             grassObject.localScale = startScale;
         }
 
-        if (groundRenderer != null && barrenMaterial != null && greenMaterial != null && transitionDuration > 0f)
+        if (groundRenderer != null && transitionDuration > 0f)
         {
-            Material tempMaterial = new Material(barrenMaterial);
+            Material tempMaterial = new Material(groundRenderer.material);
             groundRenderer.material = tempMaterial;
 
             // Safely get colors to prevent URP exceptions
             Color startColor = Color.white;
-            if (barrenMaterial.HasProperty("_BaseColor")) startColor = barrenMaterial.GetColor("_BaseColor");
-            else if (barrenMaterial.HasProperty("_Color")) startColor = barrenMaterial.color;
+            if (tempMaterial.HasProperty("_BaseColor")) startColor = tempMaterial.GetColor("_BaseColor");
+            else if (tempMaterial.HasProperty("_Color")) startColor = tempMaterial.color;
 
             Color endColor = Color.white;
-            if (greenMaterial.HasProperty("_BaseColor")) endColor = greenMaterial.GetColor("_BaseColor");
-            else if (greenMaterial.HasProperty("_Color")) endColor = greenMaterial.color;
+            if (useTargetColor)
+            {
+                endColor = targetGroundColor;
+            }
+            else if (greenMaterial != null)
+            {
+                if (greenMaterial.HasProperty("_BaseColor")) endColor = greenMaterial.GetColor("_BaseColor");
+                else if (greenMaterial.HasProperty("_Color")) endColor = greenMaterial.color;
+            }
 
             float elapsedTime = 0f;
 
@@ -165,8 +186,19 @@ public class Facility : MonoBehaviour
                 yield return null;
             }
 
-            // Snap to the actual green material at the end
-            groundRenderer.material = greenMaterial;
+            // Ensure the final color is set precisely
+            if (tempMaterial.HasProperty("_BaseColor"))
+                tempMaterial.SetColor("_BaseColor", endColor);
+            else if (tempMaterial.HasProperty("_Color"))
+                tempMaterial.color = endColor;
+
+            if (!useTargetColor && greenMaterial != null)
+            {
+                groundRenderer.material = greenMaterial;
+            }
+
+            // Optional: you can assign greenMaterial here if you still want to switch shaders,
+            // but preserving tempMaterial keeps our smoothly transitioned color
         }
         else
         {
@@ -183,9 +215,19 @@ public class Facility : MonoBehaviour
                 yield return null;
             }
 
-            if (groundRenderer != null && greenMaterial != null)
+            if (groundRenderer != null && groundRenderer.material != null)
             {
-                groundRenderer.material = greenMaterial;
+                if (!useTargetColor && greenMaterial != null)
+                {
+                    groundRenderer.material = greenMaterial;
+                }
+                else if (useTargetColor)
+                {
+                    if (groundRenderer.material.HasProperty("_BaseColor"))
+                        groundRenderer.material.SetColor("_BaseColor", targetGroundColor);
+                    else if (groundRenderer.material.HasProperty("_Color"))
+                        groundRenderer.material.color = targetGroundColor;
+                }
             }
         }
 
