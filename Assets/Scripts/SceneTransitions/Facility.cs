@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 public class Facility : MonoBehaviour
 {
@@ -340,22 +343,23 @@ public class Facility : MonoBehaviour
     #if UNITY_EDITOR
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (PlayerController_RB.Instance == null) return;
-            if (Vector3.Distance(PlayerController_RB.Instance.transform.position, transform.position) > 6f) return;
+        #if ENABLE_INPUT_SYSTEM
+        if (Keyboard.current == null || !Keyboard.current.tKey.wasPressedThisFrame)
+            return;
+        if (PlayerController_RB.Instance == null) return;
+        if (Vector3.Distance(PlayerController_RB.Instance.transform.position, transform.position) > 6f) return;
 
-            // Reset
-            if (groundRenderer != null)
-                groundRenderer.material = barrenMaterial;
-            SetActiveForArray(setInactiveOnReturn, true);
-            SetActiveForArray(setActiveOnReturn, false);
-            StopAllCoroutines();
+        // Reset
+        if (groundRenderer != null)
+            groundRenderer.material = barrenMaterial;
+        SetActiveForArray(setInactiveOnReturn, true);
+        SetActiveForArray(setActiveOnReturn, false);
+        StopAllCoroutines();
 
-            IsCompleted = true;
-            SaveCompletionState();
-            StartCoroutine(AnimateGroundTransition());
-        }
+        IsCompleted = true;
+        SaveCompletionState();
+        StartCoroutine(AnimateGroundTransition());
+        #endif
     }
     #endif
 

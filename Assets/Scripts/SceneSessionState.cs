@@ -10,6 +10,7 @@ public static class SceneSessionState
     }
 
     private static readonly Dictionary<string, PlayerState> PlayerStatesByScene = new Dictionary<string, PlayerState>();
+    private static readonly HashSet<string> IntroPlayedScenes = new HashSet<string>();
 
     public static string JustCompletedFacilityId = "";
     public static string CurrentFacilityId = "";
@@ -17,6 +18,36 @@ public static class SceneSessionState
     public static void MarkCurrentFacilityCompleted()
     {
         JustCompletedFacilityId = CurrentFacilityId;
+    }
+
+    public static bool HasPlayedIntro(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            return false;
+        }
+
+        return IntroPlayedScenes.Contains(sceneName);
+    }
+
+    public static void MarkIntroPlayed(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            return;
+        }
+
+        IntroPlayedScenes.Add(sceneName);
+    }
+
+    public static void ClearIntroPlayed(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            return;
+        }
+
+        IntroPlayedScenes.Remove(sceneName);
     }
 
     public static void SavePlayerState(string sceneName, Vector3 position, Quaternion rotation)

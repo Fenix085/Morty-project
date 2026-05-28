@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class DraggableItem : MonoBehaviour
+using UnityEngine.EventSystems;
+
+public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IPointerClickHandler
 {
     private Vector3 offset;
     private bool dragging;
+    private float dragPlaneDistance;
     public ChannelType type;
     public int rotation;
     public bool isPowered;
@@ -17,6 +20,7 @@ public class DraggableItem : MonoBehaviour
     public AudioClip snapSound;
     public AudioClip rotateSound;
     public AudioClip powerUpSound;
+
     void Start()
     {
         startPosition = transform.position;
@@ -26,6 +30,7 @@ public class DraggableItem : MonoBehaviour
             SnapToGrid();
         }
     }
+
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -50,7 +55,7 @@ public class DraggableItem : MonoBehaviour
         if (sr == null) return;
 
         sr.sprite = isPowered ? poweredSprite : unpoweredSprite;
-        
+
         sr.color = Color.white;
 
         transform.rotation = Quaternion.Euler(0, 0, -90f * rotation);
@@ -81,7 +86,6 @@ public class DraggableItem : MonoBehaviour
                 break;
         }
 
-        
         for (int i = 0; i < dirs.Count; i++)
         {
             dirs[i] = RotateDirection(dirs[i], rotation);
@@ -95,62 +99,81 @@ public class DraggableItem : MonoBehaviour
         return (Direction)(((int)dir + rotationCount) % 4);
     }
 
-    void OnMouseDown()
+    private bool IsInteractionBlocked()
     {
         if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
-            return;
+            return true;
         if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
+            return true;
+        return false;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (IsInteractionBlocked())
             return;
-        if (isLocked) return;
-        offset = transform.position - GetMouseWorldPos();
+        if (isLocked)
+            return;
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+        if (Camera.main == null)
+            return;
+
+        dragPlaneDistance = Mathf.Abs(Camera.main.transform.position.z - transform.position.z);
+        offset = transform.position - GetPointerWorldPos(eventData.position);
         dragging = true;
     }
 
-    void OnMouseUp()
+    public void OnDrag(PointerEventData eventData)
     {
-        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+        if (!dragging || Camera.main == null)
             return;
-        if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
+
+        transform.position = GetPointerWorldPos(eventData.position) + offset;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (IsInteractionBlocked())
             return;
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+        if (!dragging)
+            return;
+
         dragging = false;
         SnapToGrid();
     }
-    void OnMouseOver()
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+        if (IsInteractionBlocked())
             return;
-        if (LevelWinUI.Instance != null && LevelWinUI.Instance.winPanel.activeSelf)
+        if (eventData.button != PointerEventData.InputButton.Right)
             return;
-        if (Input.GetMouseButtonDown(1))
+
+        rotation = (rotation + 1) % 4;
+        UpdateVisuals();
+
+        GridManager gm = FindObjectOfType<GridManager>();
+        if (gm != null)
         {
-            rotation = (rotation + 1) % 4;
-            UpdateVisuals();
-
-            GridManager gm = FindObjectOfType<GridManager>();
-            if (gm != null)
-            {
-                gm.UpdatePower(gm.sourcePosition);
-            }
-
-            if (SoundEffectsManager.Instance != null && rotateSound != null)
-            {
-                SoundEffectsManager.Instance.Play(rotateSound);
-            }
+            gm.UpdatePower(gm.sourcePosition);
         }
-    }
-    void Update()
-    {
-        if (dragging)
+
+        if (SoundEffectsManager.Instance != null && rotateSound != null)
         {
-            transform.position = GetMouseWorldPos() + offset;
+            SoundEffectsManager.Instance.Play(rotateSound);
         }
     }
 
-    Vector3 GetMouseWorldPos()
+    private Vector3 GetPointerWorldPos(Vector2 screenPos)
     {
-        Vector3 mouse = Input.mousePosition;
-        mouse.z = 10f;
-        return Camera.main.ScreenToWorldPoint(mouse);
+        if (Camera.main == null)
+            return transform.position;
+
+        Vector3 screenPoint = new Vector3(screenPos.x, screenPos.y, dragPlaneDistance);
+        return Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
     void ClearOldPosition()
@@ -174,14 +197,12 @@ public class DraggableItem : MonoBehaviour
 
         if (x >= 0 && x < gm.width && y >= 0 && y < gm.height)
         {
-            
             if (new Vector2Int(x, y) == gm.sourcePosition)
             {
                 BackToTray();
                 return;
             }
 
-            
             if (gm.placedItems[x, y] != null && gm.placedItems[x, y] != this)
             {
                 BackToTray();
@@ -193,15 +214,14 @@ public class DraggableItem : MonoBehaviour
         }
         else
         {
-            
             BackToTray();
         }
-        
+
         if (SoundEffectsManager.Instance != null && snapSound != null)
         {
             SoundEffectsManager.Instance.Play(snapSound);
         }
-        
+
         gm.UpdatePower(gm.sourcePosition);
         UpdateVisuals();
     }
@@ -212,6 +232,7 @@ public class DraggableItem : MonoBehaviour
         transform.position = startPosition;
         SetPowered(false);
     }
+
     void RegisterToGrid(int x, int y)
     {
         GridManager gm = FindObjectOfType<GridManager>();

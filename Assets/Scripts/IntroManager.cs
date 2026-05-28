@@ -30,8 +30,8 @@ public class IntroManager : MonoBehaviour
     private Vector3 startPos;
     private Quaternion startRot;
 
-    // Key to save the state
-    private const string IntroWatchedKey = "IntroWatched";
+    private string introSceneName;
+    private bool introDidRun;
 
     [Header("Debug")]
     public bool resetIntroOnStart = false; 
@@ -39,29 +39,31 @@ public class IntroManager : MonoBehaviour
 
     void Start()
     {
-        
         if (resetIntroOnStart)
         {
-            PlayerPrefs.DeleteKey(IntroWatchedKey);
+            SceneSessionState.ClearIntroPlayed(introSceneName);
         }
 
         faceCamera.enabled = false;
 
-        
-        if (!forceShowIntro && PlayerPrefs.GetInt(IntroWatchedKey, 0) == 1)
+        if (!forceShowIntro && SceneSessionState.HasPlayedIntro(introSceneName))
         {
-            startPos = mainCamera.transform.position;
-            startRot = mainCamera.transform.rotation;
-            EndIntro();
+            if (dialoguePanel != null)
+                dialoguePanel.SetActive(false);
+            if (skipButton != null)
+                skipButton.gameObject.SetActive(false);
+            return;
         }
         else
         {
+            introDidRun = true;
             introCoroutine = StartCoroutine(PlayIntroSequence());
         }
     }
 
     void Awake()
     {
+        introSceneName = gameObject.scene.name;
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -84,7 +86,7 @@ public class IntroManager : MonoBehaviour
         startPos = mainCamera.transform.position;
         startRot = mainCamera.transform.rotation;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         yield return StartCoroutine(LerpCamera(startPos, startRot, faceCamera.transform.position, faceCamera.transform.rotation));
 
@@ -115,8 +117,7 @@ public class IntroManager : MonoBehaviour
 
     private void MarkIntroAsWatched()
     {
-        PlayerPrefs.SetInt(IntroWatchedKey, 1);
-        PlayerPrefs.Save();
+        SceneSessionState.MarkIntroPlayed(introSceneName);
     }
 
     private void EndIntro()
@@ -129,8 +130,11 @@ public class IntroManager : MonoBehaviour
         if (skipButton != null)
             skipButton.gameObject.SetActive(false);
 
-        playerScript.enabled = true;
-        cameraFollowScript.enabled = true;
+        if (introDidRun)
+        {
+            playerScript.enabled = true;
+            cameraFollowScript.enabled = true;
+        }
     }
 
     // Coroutines for TypeText and LerpCamera remain the same...

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(FakeGravityBody))]
@@ -121,8 +124,30 @@ public class PlayerController_RB : MonoBehaviour {
         bool canMove = (_robotEnergy == null || _robotEnergy.HasEnergy);
 
         Vector2 mobileInput = MobileJoystick.Instance != null ? MobileJoystick.Instance.Value : Vector2.zero;
-        Vector2 keyboardInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        Vector2 moveInput = mobileInput.sqrMagnitude > keyboardInput.sqrMagnitude ? mobileInput : keyboardInput;
+        Vector2 keyboardInput = Vector2.zero;
+        Vector2 gamepadInput = Vector2.zero;
+        #if ENABLE_INPUT_SYSTEM
+        if (Keyboard.current != null)
+        {
+            float x = 0f;
+            float y = 0f;
+            if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) x -= 1f;
+            if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) x += 1f;
+            if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) y -= 1f;
+            if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) y += 1f;
+            keyboardInput = new Vector2(x, y);
+        }
+
+        if (Gamepad.current != null)
+        {
+            gamepadInput = Gamepad.current.leftStick.ReadValue();
+        }
+        #endif
+        Vector2 deviceInput = keyboardInput;
+        if (gamepadInput.sqrMagnitude > deviceInput.sqrMagnitude)
+            deviceInput = gamepadInput;
+
+        Vector2 moveInput = mobileInput.sqrMagnitude > deviceInput.sqrMagnitude ? mobileInput : deviceInput;
 
         
         if (!canMove) moveInput = Vector2.zero;

@@ -1,4 +1,7 @@
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 public class CameraFollow : MonoBehaviour
 {
@@ -43,7 +46,13 @@ public class CameraFollow : MonoBehaviour
         referenceForward = Vector3.ProjectOnPlane(referenceForward, localUp).normalized;
 
         // apply mouse rotation around the local up
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseX = 0f;
+        #if ENABLE_INPUT_SYSTEM
+        if (Mouse.current != null)
+        {
+            mouseX = Mouse.current.delta.ReadValue().x * mouseSensitivity * Time.deltaTime;
+        }
+        #endif
         yRotation += mouseX;
 
         Quaternion rotation = Quaternion.AngleAxis(yRotation, localUp);

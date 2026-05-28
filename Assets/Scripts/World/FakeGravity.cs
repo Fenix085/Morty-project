@@ -26,7 +26,7 @@ public class FakeGravity : MonoBehaviour {
     {
         Resources.UnloadUnusedAssets();
         gameObject.tag = _worldObjectTag;
-        EnsureCollisionSurface();
+        //EnsureCollisionSurface();
     }
 
     /// <summary>

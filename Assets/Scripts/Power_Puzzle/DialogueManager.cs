@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro; 
 using UnityEngine.UI;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 public class DialogueManager : MonoBehaviour
 {
@@ -47,7 +50,15 @@ public class DialogueManager : MonoBehaviour
     void Update()
     {
         
-        if (isDialogueActive && Input.GetMouseButtonDown(0))
+        bool clickPressed = false;
+        #if ENABLE_INPUT_SYSTEM
+        if (Mouse.current != null)
+        {
+            clickPressed = Mouse.current.leftButton.wasPressedThisFrame;
+        }
+        #endif
+
+        if (isDialogueActive && clickPressed)
         {
             
             if (textDisplay.text == lines[index])
