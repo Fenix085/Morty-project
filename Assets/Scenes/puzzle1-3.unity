@@ -3883,6 +3883,54 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 653232982}
+    - target: {fileID: 1073426985437247871, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073426985437247871, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1549752246383574090, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1549752246383574090, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -250
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878360477279209535, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878360477279209535, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878360477279209535, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -585.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878360477279209535, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956560868397664780, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -250
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956560868397664780, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -125
+      objectReference: {fileID: 0}
+    - target: {fileID: 3150443645882891394, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3150443645882891394, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -125
+      objectReference: {fileID: 0}
     - target: {fileID: 5330332270997364319, guid: eab6698e1d8dbb24c9995e2b474fa0d1, type: 3}
       propertyPath: m_Name
       value: UIArrows
